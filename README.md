@@ -1,8 +1,12 @@
 OmniShip
 ========
 
+WARNING: This library is Super Duper Alpha. You've been warned.
+
 Everyone likes to ship stuff around the world. And as coders, we like to
-interact with our favorite shipper via their API. 
+interact with our favorite shipper via their API.
+
+OmniShip uses Semantic Versioning and TomDoc. Look 'em up.
 
 
 Currently Supported Calls
@@ -32,26 +36,11 @@ Track a package by tracking number:
 
 The result:
 
-    {
-      :response => {
-        :response_status => {
-          :code => "1",
-          :description => "Success"
-        }
-      },
-      :shipment => {
-        :inquiry_number => {
-          :value => "1z3050790327433970"
-        },
-        :shipper => {
-          :shipper_number => "790097",
-          :address => {
-            :address_line =>
-            :city =>
-            :state_province_code =>
-            :postal_code =>
-            :
-          }
-        }
-      }
-    }
+    trk.class
+    # => OmniShip::UPS::TrackResponse
+
+    trk.shipment.class
+    # => OmniShip::UPS::Track::Shipment
+
+    trk.shipment.scheduled_delivery
+    # => Mon Nov 29 12:00:00 UTC 2010

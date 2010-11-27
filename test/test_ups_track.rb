@@ -8,7 +8,7 @@ class TestUPSTrack < Test::Unit::TestCase
 
     should "work" do
       tr = OmniShip::UPS.track('1z7900970327439305')
-      p tr.to_json
+      p tr.shipment.scheduled_delivery
     end
   end
 end
