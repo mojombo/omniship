@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = %w[LICENSE README.md]
 
   s.add_dependency('handsoap', [">= 1.1.7", "< 2.0.0"])
+  s.add_dependency('json', [">= 1.4.6", "< 2.0.0"])
 
   s.add_development_dependency('shoulda', [">= 2.11.3", "< 3.0.0"])
 
