@@ -3,10 +3,10 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.rubygems_version = '1.3.6'
 
-  s.name              = ''
-  s.version           = ''
-  s.date              = ''
-  s.rubyforge_project = ''
+  s.name              = 'omniship'
+  s.version           = '0.0.1'
+  s.date              = '2010-11-27'
+  s.rubyforge_project = 'omniship'
 
   s.summary     = "OmniShip is a unified API for various shipping APIs."
   s.description = "OmniShip is a unified API for various shipping APIs such as UPS, FedEx, and DHL."
@@ -26,6 +26,18 @@ Gem::Specification.new do |s|
 
   # = MANIFEST =
   s.files = %w[
+    README.md
+    Rakefile
+    lib/omniship.rb
+    lib/omniship/ups.rb
+    lib/omniship/ups/track.rb
+    lib/omniship/ups/track/shipment.rb
+    lib/omniship/ups/track_request.rb
+    lib/omniship/ups/track_response.rb
+    omniship.gemspec
+    test/config.yml.example
+    test/helper.rb
+    test/test_ups_track.rb
   ]
   # = MANIFEST =
 
