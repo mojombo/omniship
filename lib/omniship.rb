@@ -2,6 +2,7 @@ $:.unshift File.dirname(__FILE__)
 
 # stdlib
 require 'yaml'
+require 'cgi'
 
 # 3rd Party
 require 'handsoap'

@@ -40,7 +40,7 @@ module OmniShip
             activity.select do |act|
               act.location.address.city
             end.map do |act|
-              act.location.address.to_s
+              CGI::escape(act.location.address.to_s)
             end.uniq.reverse
 
           path_parts = []
