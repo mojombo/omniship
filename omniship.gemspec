@@ -1,7 +1,4 @@
 Gem::Specification.new do |s|
-  s.specification_version = 2 if s.respond_to? :specification_version=
-  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.rubygems_version = '1.3.6'
 
   s.name              = 'omniship'
   s.version           = '0.0.1'
@@ -20,8 +17,9 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.extra_rdoc_files = %w[LICENSE README.md]
 
-  s.add_dependency('handsoap', [">= 1.1.7", "< 2.0.0"])
-  s.add_dependency('json', [">= 1.4.6", "< 2.0.0"])
+  s.add_dependency('handsoap')
+  s.add_dependency('json')
+  s.add_dependency('curb')
 
   s.add_development_dependency('shoulda', [">= 2.11.3", "< 3.0.0"])
 
