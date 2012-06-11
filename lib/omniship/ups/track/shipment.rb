@@ -65,11 +65,6 @@ module OmniShip
             "Packages" => packages.map { |x| x.to_hash }
           }
         end
-
-        # Returns the String details of this object.
-        def inspect
-          "#<OmniShip::UPS::Track::Shipment packages=#{packages.size}>"
-        end
       end
     end
   end

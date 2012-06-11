@@ -69,11 +69,6 @@ module OmniShip
             "ActivityMapURL" => activity_map_url
           }
         end
-
-        # Returns the String details of this object.
-        def inspect
-          "#<OmniShip::UPS::Track::Package tracking_number=#{tracking_number}>"
-        end
       end
     end
   end

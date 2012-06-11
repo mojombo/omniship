@@ -29,10 +29,6 @@ module OmniShip
           }
         end
 
-        # Returns the String details of this object.
-        def inspect
-          "#<OmniShip::UPS::Track::ActivityLocation address=#{address.city}>"
-        end
       end
     end
   end

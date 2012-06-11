@@ -48,11 +48,6 @@ module OmniShip
             "CountryCode" => country_code
           }
         end
-
-        # Returns the String details of this object.
-        def inspect
-          "#<OmniShip::UPS::Track::Address #{to_s}>"
-        end
       end
     end
   end
