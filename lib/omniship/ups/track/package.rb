@@ -29,6 +29,17 @@ module OmniShip
           end
         end
 
+
+        def has_left?
+          self.activity.each {|activity|
+            puts activity.status
+            if activity.status == "ORIGIN SCAN" || activity.status == "THE SHIPMENT HAS BEEN DROPPED OFF AND IS NOW AT THE UPS STORE(R)"
+              return true
+            end
+          }
+          return false
+        end
+
         # Generate a URL to a Google map showing the package's activity.
         #
         # Returns the String URL.
