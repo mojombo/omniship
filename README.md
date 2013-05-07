@@ -71,7 +71,7 @@ The result:
 
     trk.shipment.packages.first.has_left?
     # => true / false
-    
+
     trk.shipment.packages.first.tracking_number
     # => "1z3050790327433970" 
 
@@ -106,7 +106,8 @@ The result:
     trk.shipment.packages
 
 You can also track it if you don't know what provider it is (currently supports UPS and Landmark)
-  trk = OmniShip.track('LTN64365934N1')
+
+    trk = OmniShip.track('LTN64365934N1')
 
 The result:
 
