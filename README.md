@@ -94,8 +94,8 @@ The result:
     trk.shipment.class
     # => OmniShip::Landmark::Track::Shipment
 
-    trk.shipment.scheduled_delivery - NOT AVAILABLE VIA THEIR API
-    # => nil
+    trk.shipment.scheduled_delivery
+    # => Mon Nov 29 12:00:00 UTC 2010
 
     trk.shipment.packages.first.has_left?
     # => true / false

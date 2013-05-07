@@ -40,6 +40,18 @@ module OmniShip
           return false
         end
 
+        def scheduled_delivery_date
+         d = @root.xpath("ExpectedDelivery")
+        end
+
+        def scheduled_delivery
+          if date = scheduled_delivery_date
+            fmt = "%m/%d/%Y %Z"
+            start_date = DateTime.strptime(date + " UTC", fmt)
+          end
+        end
+
+
         # Generate a URL to a Google map showing the package's activity.
         #
         # Returns the String URL.
