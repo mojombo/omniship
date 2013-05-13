@@ -45,6 +45,7 @@ Set authentication details; you only need the details for services you'll be usi
     Landmark:
       username: johndoe
       password: xk793Ab4G
+      client_id: 123
 
     and then set it up in an intializer like: 
 
@@ -72,6 +73,9 @@ The result:
     trk.shipment.packages.first.has_left?
     # => true / false
 
+    trk.shipment.packages.first.has_arrived?
+    # => true / false
+
     trk.shipment.packages.first.tracking_number
     # => "1z3050790327433970" 
 
@@ -84,7 +88,7 @@ Landmark
 
 also equivalent to 
 
-    trk = OmniShip::Landmark.track_with_reference('REFID', 'CLIENT_ID')
+    trk = OmniShip::Landmark.track_with_reference('REFID')
 
 The result:
 
@@ -98,6 +102,9 @@ The result:
     # => Mon Nov 29 12:00:00 UTC 2010
 
     trk.shipment.packages.first.has_left?
+    # => true / false
+    
+    trk.shipment.packages.first.has_arrived?
     # => true / false
 
     trk.shipment.packages.first.tracking_number

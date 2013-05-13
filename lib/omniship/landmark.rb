@@ -13,8 +13,8 @@ module OmniShip
     end
 
 
-    def self.track_with_reference(reference, client_id)
-      TrackRequest.track_with_reference(reference, client_id)
+    def self.track_with_reference(reference)
+      TrackRequest.track_with_reference(reference)
     end
   end
 end

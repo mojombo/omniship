@@ -30,10 +30,19 @@ module OmniShip
           end
         end
 
+        # this is actually an indicator that the landmark shipping facility has received the package
         def has_left?
           self.activity.each {|activity|
-            puts activity.status
-            if activity.status == "ORIGIN SCAN" || activity.status == "THE SHIPMENT HAS BEEN DROPPED OFF AND IS NOW AT THE UPS STORE(R)"
+            if activity.code == "75"
+              return true
+            end
+          }
+          return false
+        end
+
+        def has_arrived?
+          self.activity.each {|activity|
+            if activity.code == "500"
               return true
             end
           }
@@ -41,13 +50,13 @@ module OmniShip
         end
 
         def scheduled_delivery_date
-         d = @root.xpath("ExpectedDelivery")
+         @root.xpath("ExpectedDelivery/text()").to_s
         end
 
         def scheduled_delivery
-          if date = scheduled_delivery_date
+          if date = scheduled_delivery_date and !date.empty?
             fmt = "%m/%d/%Y %Z"
-            start_date = DateTime.strptime(date + " UTC", fmt)
+            start_date = DateTime.strptime(date + " CST", fmt)
           end
         end
 

@@ -34,16 +34,14 @@ module OmniShip
          packages.first.scheduled_delivery
         end
 
-        # The scheduled delivery date as a String in YYYYMMDD format.
         #
         # Returns the String delivery date or nil if none is available.
         def scheduled_delivery_date
          packages.first.scheduled_delivery_date
         end
 
-        # The scheduled delivery time as a String in HHMMSS format.
         #
-        # Returns the String delivery time or nil if none is available.
+        # There is no delivery time for landmark
         def scheduled_delivery_time
           nil
         end

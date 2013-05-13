@@ -11,8 +11,8 @@ module OmniShip
         OmniShip::Landmark::TrackResponse.new(Nokogiri::XML::Document.parse(response))
       end
 
-      def self.track_with_reference(reference_number, client_id)
-        request = create_document_with_reference(reference_number, client_id)
+      def self.track_with_reference(reference_number)
+        request = create_document_with_reference(reference_number)
         response = get_response(request)
         OmniShip::Landmark::TrackResponse.new(Nokogiri::XML::Document.parse(response))
       end
@@ -33,15 +33,16 @@ module OmniShip
           builder
         end
 
-        def self.create_document_with_reference(reference_number, client_id)
+        def self.create_document_with_reference(reference_number)
           builder = Nokogiri::XML::Builder.new do |xml|
             xml.TrackRequest {
               xml.Login {
                 xml.Username Landmark.username
                 xml.Password Landmark.password
               }
-              xml.Test "true"
-              xml.ClientID client_id
+              #debug xml.Test "true"
+              xml.RetrievalType "HISTORICAL" # required for all event data
+              xml.ClientID Landmark.client_id
               xml.Reference reference_number
 
             }
@@ -51,7 +52,10 @@ module OmniShip
         end
 
         def self.get_response(request)
+           #debug puts request.to_xml
           response = RestClient.post endpoint, request.to_xml, :content_type => "text/xml", :accept => "text/xml"
+           #debug puts response
+          response
         end
 
     end

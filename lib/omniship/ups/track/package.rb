@@ -2,6 +2,7 @@ module OmniShip
   module UPS
     module Track
       class Package
+
         # The Handsoap XML element representing the root response node.
         attr_accessor :root
 
@@ -32,8 +33,16 @@ module OmniShip
 
         def has_left?
           self.activity.each {|activity|
-            puts activity.status
             if activity.status == "ORIGIN SCAN" || activity.status == "THE SHIPMENT HAS BEEN DROPPED OFF AND IS NOW AT THE UPS STORE(R)"
+              return true
+            end
+          }
+          return false
+        end
+
+        def has_arrived?
+          self.activity.each {|activity|
+            if activity.status == "DELIVERED"
               return true
             end
           }

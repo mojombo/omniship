@@ -12,7 +12,7 @@ require 'json'
 require 'omniship/ups'
 require 'omniship/landmark'
 
-Handsoap::Service.logger = STDOUT
+#debug Handsoap::Service.logger = STDOUT
 
 module OmniShip
   VERSION = '0.0.1'
