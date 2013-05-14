@@ -91,14 +91,6 @@ module OmniShip
           url += parts.join('&')
           url
         end
-
-        # Returns a Hash representation of this object.
-        def to_hash
-          {
-            "Activity" => activity.map { |x| x.to_hash },
-            "ActivityMapURL" => activity_map_url
-          }
-        end
       end
     end
   end

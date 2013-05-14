@@ -33,6 +33,10 @@ Set authentication details; you only need the details for services you'll be usi
 
     OmniShip::Landmark.username = 'johndoe'
     OmniShip::Landmark.password = 'xk793Ab4G'
+    OmniShip::Landmark.client_id = '123'
+    OmniShip::Landmark.test_mode = true # this turns Landmark's test mode on
+
+    OmniShip.debug = true # with this enabled all xml request's and responses will be outputed to the log
 
     You can also do this in a config file
     config/settings.yaml
@@ -46,6 +50,10 @@ Set authentication details; you only need the details for services you'll be usi
       username: johndoe
       password: xk793Ab4G
       client_id: 123
+      debug: true
+
+    OmniShip:
+      debug: true
 
     and then set it up in an intializer like: 
 

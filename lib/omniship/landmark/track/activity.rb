@@ -63,13 +63,6 @@ module OmniShip
           node
 
         end
-
-        # Returns a Hash representation of this object.
-        def to_hash
-          {
-            "Location" => location.to_hash
-          }
-        end
       end
     end
   end

@@ -6,6 +6,7 @@ module OmniShip
       attr_accessor :username
       attr_accessor :password
       attr_accessor :client_id
+      attr_accessor :test_mode
     end
 
     def self.track(id)

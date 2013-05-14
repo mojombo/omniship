@@ -12,10 +12,13 @@ require 'json'
 require 'omniship/ups'
 require 'omniship/landmark'
 
-#debug Handsoap::Service.logger = STDOUT
 
 module OmniShip
   VERSION = '0.0.1'
+
+  class << self
+    attr_accessor :debug
+  end
 
   # Load configuration information from a YAML file.
   #
@@ -34,9 +37,21 @@ module OmniShip
       Landmark.username = landmark['username']
       Landmark.password = landmark['password']
       Landmark.client_id = landmark['client_id']
+      Landmark.test_mode = landmark['test_mode']
     end
+
+    if omniship = data['OmniShip']
+      OmniShip.debug = omniship['debug']
+    end
+
+    if OmniShip.debug
+      Handsoap::Service.logger = STDOUT
+    end
+    nil
   end
 
+  # Track a package based on a tracking number
+  # supports Landmark Global, UPS
   def self.track(number)
     ups = /\b(1Z ?[0-9A-Z]{3} ?[0-9A-Z]{3} ?[0-9A-Z]{2} ?[0-9A-Z]{4} ?[0-9A-Z]{3} ?[0-9A-Z]|[\dT]\d\d\d ?\d\d\d\d ?\d\d\d)\b/i
     landmark = /\b(LTN\d+N\d+)\b/i
@@ -51,6 +66,8 @@ module OmniShip
     end
   end
 
+  # Generate a tracking URL based on a tracking number
+  # supports Landmark Global, USP, Fedex, USPS
   def self.tracking_url(number)
     ups = /\b(1Z ?[0-9A-Z]{3} ?[0-9A-Z]{3} ?[0-9A-Z]{2} ?[0-9A-Z]{4} ?[0-9A-Z]{3} ?[0-9A-Z]|[\dT]\d\d\d ?\d\d\d\d ?\d\d\d)\b/i
     usps = /\b(91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d|91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d)\b/i

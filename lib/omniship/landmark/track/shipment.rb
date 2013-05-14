@@ -45,14 +45,6 @@ module OmniShip
         def scheduled_delivery_time
           nil
         end
-
-        # Returns a Hash representation of this object.
-        def to_hash
-          {
-            "ScheduledDelivery" => scheduled_delivery.to_i,
-            "Packages" => packages.map { |x| x.to_hash }
-          }
-        end
       end
     end
   end

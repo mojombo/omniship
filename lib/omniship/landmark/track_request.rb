@@ -25,8 +25,14 @@ module OmniShip
                 xml.Username Landmark.username
                 xml.Password Landmark.password
               }
-              xml.TrackingNumber tracking_number
 
+              if Landmark.test_mode
+                puts "TEST MODE ENABLED"
+                xml.Test "true"
+              end
+
+              xml.RetrievalType "HISTORICAL" # required for all event data
+              xml.TrackingNumber tracking_number
             }
           end
 
@@ -40,7 +46,11 @@ module OmniShip
                 xml.Username Landmark.username
                 xml.Password Landmark.password
               }
-              #debug xml.Test "true"
+
+              if Landmark.test_mode
+                puts "TEST MODE ENABLED"
+                xml.Test "true"
+              end
               xml.RetrievalType "HISTORICAL" # required for all event data
               xml.ClientID Landmark.client_id
               xml.Reference reference_number
@@ -52,9 +62,15 @@ module OmniShip
         end
 
         def self.get_response(request)
-           #debug puts request.to_xml
+          
+          if OmniShip.debug
+            puts request.to_xml
+          end
           response = RestClient.post endpoint, request.to_xml, :content_type => "text/xml", :accept => "text/xml"
-           #debug puts response
+          
+          if OmniShip.debug
+            puts response
+          end
           response
         end
 

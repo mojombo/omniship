@@ -21,14 +21,6 @@ module OmniShip
           node = @root.xpath('./ns:Address')
           Address.new(node)
         end
-
-        # Returns a Hash representation of this object.
-        def to_hash
-          {
-            "Address" => address.to_hash
-          }
-        end
-
       end
     end
   end

@@ -24,13 +24,6 @@ module OmniShip
         def to_s
          location
         end
-
-        # Returns a Hash representation of this object.
-        def to_hash
-          {
-            "Location" => self.to_s
-          }
-        end
       end
     end
   end
