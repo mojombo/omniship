@@ -57,19 +57,6 @@ module OmniShip
         def scheduled_delivery_time
           @root.xpath('./ns:Shipment/ns:ScheduledDelivery/ns:Time/text()').to_s
         end
-
-        # Returns a Hash representation of this object.
-        def to_hash
-          {
-            "ScheduledDelivery" => scheduled_delivery.to_i,
-            "Packages" => packages.map { |x| x.to_hash }
-          }
-        end
-
-        # Returns the String details of this object.
-        def inspect
-          "#<OmniShip::UPS::Track::Shipment packages=#{packages.size}>"
-        end
       end
     end
   end

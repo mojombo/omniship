@@ -39,20 +39,6 @@ module OmniShip
           parts << country_code if country_code
           parts.join(', ')
         end
-
-        # Returns a Hash representation of this object.
-        def to_hash
-          {
-            "City" => city,
-            "StateProvinceCode" => state_province_code,
-            "CountryCode" => country_code
-          }
-        end
-
-        # Returns the String details of this object.
-        def inspect
-          "#<OmniShip::UPS::Track::Address #{to_s}>"
-        end
       end
     end
   end

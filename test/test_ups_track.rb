@@ -15,7 +15,6 @@ class TestUPSTrack < Test::Unit::TestCase
 
       puts tr.shipment.packages.first.activity_map_url
 
-      p tr.to_json
     end
   end
 end

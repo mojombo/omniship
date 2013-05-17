@@ -22,16 +22,10 @@ module OmniShip
           ActivityLocation.new(node)
         end
 
-        # Returns a Hash representation of this object.
-        def to_hash
-          {
-            "Location" => location.to_hash
-          }
-        end
+        def status
+          node = @root.xpath('./ns:Status/ns:Description').to_s
 
-        # Returns the String details of this object.
-        def inspect
-          "#<OmniShip::UPS::Track::Activity location=#{location.address}>"
+          node
         end
       end
     end

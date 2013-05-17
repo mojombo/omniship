@@ -1,39 +1,39 @@
 module OmniShip
-  module UPS
+  module Landmark
     module Track
       class Package
 
-        # The Handsoap XML element representing the root response node.
-        attr_accessor :root
-
         # Initialize a new Package.
         #
-        # root - The root Package XML node.
         #
         # Returns the newly initialized Package.
         def initialize(root)
           @root = root
         end
 
+        def root
+          @root
+        end
+
         # Returns the String tracking number.
         def tracking_number
-          @root.xpath('./ns:TrackingNumber/text()').to_s
+          @root.xpath("LandmarkTrackingNumber/text()").to_s
         end
 
         # The activity of the package in reverse chronological order. Each
         # element represents a stop on the package's journey.
         #
-        # Returns an array of OmniShip::UPS::Track::Activity objects.
+        # Returns an array of OmniShip::Landmark::Track::Activity objects.
         def activity
-          @root.xpath('./ns:Activity').map do |act|
+          @root.xpath('Events/Event').map do |act|
             Activity.new(act)
           end
         end
 
-
+        # this is actually an indicator that the landmark shipping facility has received the package
         def has_left?
           self.activity.each {|activity|
-            if activity.status == "ORIGIN SCAN" || activity.status == "THE SHIPMENT HAS BEEN DROPPED OFF AND IS NOW AT THE UPS STORE(R)"
+            if activity.code == "75"
               return true
             end
           }
@@ -42,12 +42,24 @@ module OmniShip
 
         def has_arrived?
           self.activity.each {|activity|
-            if activity.status == "DELIVERED"
+            if activity.code == "500"
               return true
             end
           }
           return false
         end
+
+        def scheduled_delivery_date
+         @root.xpath("ExpectedDelivery/text()").to_s
+        end
+
+        def scheduled_delivery
+          if date = scheduled_delivery_date and !date.empty?
+            fmt = "%m/%d/%Y %Z"
+            start_date = DateTime.strptime(date + " CST", fmt)
+          end
+        end
+
 
         # Generate a URL to a Google map showing the package's activity.
         #
@@ -57,9 +69,7 @@ module OmniShip
           parts = []
 
           stops =
-            activity.select do |act|
-              act.location.address.city
-            end.map do |act|
+            activity.map do |act|
               CGI::escape(act.location.address.to_s)
             end.uniq.reverse
 

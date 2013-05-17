@@ -1,9 +1,7 @@
 module OmniShip
-  module UPS
+  module Landmark
     module Track
       class ActivityLocation
-        # The Handsoap XML element representing the root response node.
-        attr_accessor :root
 
         # Initialize a new ActivityLocation.
         #
@@ -13,14 +11,18 @@ module OmniShip
         def initialize(root)
           @root = root
         end
+        def root
+          @root
+        end
 
         # The address of this activity location.
         #
         # Returns the OmniShip::UPS::Track::Address.
         def address
-          node = @root.xpath('./ns:Address')
+          node = @root
           Address.new(node)
         end
+
       end
     end
   end
