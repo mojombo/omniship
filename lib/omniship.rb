@@ -93,9 +93,12 @@ module OmniShip
   # Generate a tracking URL based on a tracking number
   # supports Landmark Global, USP, Fedex, USPS
   def self.tracking_url(number)
-    ups = /\b(1Z ?[0-9A-Z]{3} ?[0-9A-Z]{3} ?[0-9A-Z]{2} ?[0-9A-Z]{4} ?[0-9A-Z]{3} ?[0-9A-Z]|[\dT]\d\d\d ?\d\d\d\d ?\d\d\d)\b/i
+    
     usps = /\b(91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d|91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d)\b/i
-    usps2 = /^\d+$/ # USPS RMS tracking is just an integer....
+    usps2 = /^E\D{1}\d{9}\D{2}$|^9\d{15,21}$/
+    usps3 = /^91[0-9]+$/
+    usps4 = /^[A-Za-z]{2}[0-9]+US$/
+
     fedex = /\b((96\d\d\d\d\d ?\d\d\d\d|96\d\d) ?\d\d\d\d ?d\d\d\d( ?\d\d\d)?)\b/i
     landmark = /\b(LTN\d+N\d+)\b/i
 
@@ -103,11 +106,9 @@ module OmniShip
       "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
     elsif !(number =~ landmark).nil?
       "https://mercury.landmarkglobal.com/tracking/track.php?trck=#{number}"
-    elsif !(number =~ usps).nil?
-      "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=#{number}"
     elsif !(number =~ fedex).nil?
       "http://www.fedex.com/Tracking?action=track&tracknumbers=#{number}"
-    elsif !(number =~ usps2).nil?
+    elsif !(number =~ usps).nil? or !(number =~ usps2).nil? or !(number =~ usps3).nil? or !(number =~ usps4).nil?
       "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=#{number}"
     else 
       nil
