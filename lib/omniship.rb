@@ -93,7 +93,7 @@ module OmniShip
   # Generate a tracking URL based on a tracking number
   # supports Landmark Global, USP, Fedex, USPS
   def self.tracking_url(number)
-    
+    ups = /\b(1Z ?[0-9A-Z]{3} ?[0-9A-Z]{3} ?[0-9A-Z]{2} ?[0-9A-Z]{4} ?[0-9A-Z]{3} ?[0-9A-Z]|[\dT]\d\d\d ?\d\d\d\d ?\d\d\d)\b/i
     usps = /\b(91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d|91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d)\b/i
     usps2 = /^E\D{1}\d{9}\D{2}$|^9\d{15,21}$/
     usps3 = /^91[0-9]+$/
