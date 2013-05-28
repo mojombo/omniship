@@ -1,4 +1,5 @@
 require 'omniship/usps/return_label'
+require 'omniship/usps/track'
 
 module OmniShip
   module USPS
@@ -15,6 +16,8 @@ module OmniShip
       attr_accessor :pdu_city
       attr_accessor :pdu_state
       attr_accessor :pdu_zip5
+      attr_accessor :client_ip
+      attr_accessor :source_id
     end
 
     def self.return_label(customer, options = nil)
@@ -36,6 +39,10 @@ module OmniShip
 		}
       request = ReturnLabelRequest.new(ReturnLabel::Customer.new(customer), ReturnLabel::Retailer.new(retailer), ReturnLabel::Permit.new(permit), ReturnLabel::PDU.new(pdu), options)
       request.get_response
+    end
+
+    def self.track(id)
+      TrackRequest.track(id)
     end
   end
 end

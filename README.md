@@ -17,6 +17,7 @@ Currently Supported Calls
     * Track with reference
 
 * USPS 
+  * Track
   * Return label
 
 Usage
@@ -53,6 +54,8 @@ Set authentication details; you only need the details for services you'll be usi
       USPS:
         userid: johndoe
         password: 1234567890
+        client_ip: 127.0.0.1
+        source_id: Wantable, Inc. 
 
         retailer:
           name: Wantable 
@@ -116,6 +119,33 @@ The result:
 
 USPS
 ---
+
+Track a package by tracking number:
+
+    trk = OmniShip::USPS.track('9400111201080302430600')
+
+The result:
+
+    trk.class
+    # => OmniShip::USPS::TrackResponse
+
+    trk.shipment.class
+    # => OmniShip::USPS::Track::Shipment
+
+    trk.shipment.scheduled_delivery
+    # => Mon Nov 29 12:00:00 UTC 2010
+
+    trk.shipment.packages.first.has_left?
+    # => true / false
+
+    trk.shipment.packages.first.has_arrived?
+    # => true / false
+
+    trk.shipment.packages.first.tracking_number
+    # => "1z3050790327433970" 
+
+    trk.shipment.packages
+
 
 Make a return shipping label
 
@@ -183,7 +213,7 @@ The result:
 
     trk.shipment.packages
 
-You can also track it if you don't know what provider it is (currently supports UPS and Landmark)
+You can also track it if you don't know what provider it is (currently supports UPS, USPS, and Landmark)
 
     trk = OmniShip.track('LTN64365934N1')
 

@@ -35,6 +35,8 @@ module OmniShip
       if usps = omniship['USPS']
         USPS.userid = usps['userid']
         USPS.password = usps['password']
+        USPS.client_ip = usps['client_ip']
+        USPS.source_id = usps['source_id']
 
         if retailer = usps['retailer']
           USPS.retailer_name = retailer['name']
@@ -78,6 +80,11 @@ module OmniShip
   # supports Landmark Global, UPS
   def self.track(number)
     ups = /\b(1Z ?[0-9A-Z]{3} ?[0-9A-Z]{3} ?[0-9A-Z]{2} ?[0-9A-Z]{4} ?[0-9A-Z]{3} ?[0-9A-Z]|[\dT]\d\d\d ?\d\d\d\d ?\d\d\d)\b/i
+    usps = /\b(91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d|91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d)\b/i
+    usps2 = /^E\D{1}\d{9}\D{2}$|^9\d{15,21}$/
+    usps3 = /^91[0-9]+$/
+    usps4 = /^[A-Za-z]{2}[0-9]+US$/
+    fedex = /\b((96\d\d\d\d\d ?\d\d\d\d|96\d\d) ?\d\d\d\d ?d\d\d\d( ?\d\d\d)?)\b/i
     landmark = /\b(LTN\d+N\d+)\b/i
 
    
@@ -85,6 +92,8 @@ module OmniShip
       OmniShip::UPS.track(number)
     elsif !(number =~ landmark).nil?
       OmniShip::Landmark.track(number)
+    elsif !(number =~ usps).nil? or !(number =~ usps2).nil? or !(number =~ usps3).nil? or !(number =~ usps4).nil?
+      OmniShip::USPS.track(number)
     else 
       nil
     end
@@ -98,7 +107,6 @@ module OmniShip
     usps2 = /^E\D{1}\d{9}\D{2}$|^9\d{15,21}$/
     usps3 = /^91[0-9]+$/
     usps4 = /^[A-Za-z]{2}[0-9]+US$/
-
     fedex = /\b((96\d\d\d\d\d ?\d\d\d\d|96\d\d) ?\d\d\d\d ?d\d\d\d( ?\d\d\d)?)\b/i
     landmark = /\b(LTN\d+N\d+)\b/i
 
