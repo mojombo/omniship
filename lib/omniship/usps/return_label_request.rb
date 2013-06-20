@@ -3,6 +3,7 @@ module OmniShip
     class ReturnLabelRequest
       attr_accessor :window, :service_type, :delivery_confirmation, :insurance_value, :weight, :image_type, :rma, :rma_barcode, :customer, :retailer, :permit, :pdu
 
+      # documentation here: https://www.usps.com/business/web-tools-apis/merchandise-return-service-labels-v10-2a.htm
 
       def initialize(customer, retailer, permit, pdu, options = {})
         @window = options[:window]||"RIGHTWINDOW"
