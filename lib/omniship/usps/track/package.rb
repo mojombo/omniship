@@ -27,7 +27,7 @@ module OmniShip
         def activity
           @root.xpath('TrackSummary').map do |act|
             Activity.new(act)
-          end
+          end +
           @root.xpath('TrackDetail').map do |act|
             Activity.new(act)
           end
