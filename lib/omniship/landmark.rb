@@ -1,5 +1,6 @@
 require 'omniship/landmark/track'
 
+# https://mercury.landmarkglobal.com/clients/KnowledgeBase/index.php?topic_name=API+Specifications&hash=bf8229696f7a3bb4700cfddef19fa23f#track
 module OmniShip
   module Landmark
     class << self

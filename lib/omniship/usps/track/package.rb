@@ -44,8 +44,24 @@ module OmniShip
         end
 
         def has_arrived?
+          # http://about.usps.com/publications/pub97/pub97_i.htm
           self.activity.each {|activity|
-            if activity.code == "01" or activity.code == "03" or activity.code == "16" or activity.code == "14" # deliverred or ready for pickup at post office
+            # deliverred or ready for pickup at post office, or Notice Left 
+            if ["01", # Delivered*
+              "DX", # Delivery Status Not Updated
+              "02", # Attempted / Notice Left*
+              "52", # Notice Left
+              "53", # Notice Left - Receptacle Blocked
+              "54", # Notice Left - Receptacle Full / Item Oversized
+              "55", # Notice Left - No Secure Location Available
+              "56", # Notice Left - No Authorized Recipient Available
+              "16", # Available for Pickup
+              "14", # Arrival at Pickup Point*
+              "03", # Accept or Pickup (by carrier)
+              "16", # Available for Pickup
+              "17" # Picked Up By Agent
+            ].include?(activity.code)
+            
               return true
             end
           }
