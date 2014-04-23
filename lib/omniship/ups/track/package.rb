@@ -11,8 +11,9 @@ module OmniShip
         # root - The root Package XML node.
         #
         # Returns the newly initialized Package.
-        def initialize(root)
+        def initialize(root, parent)
           @root = root
+          @parent = parent
         end
 
         # Returns the String tracking number.
@@ -28,6 +29,22 @@ module OmniShip
           @root.xpath('./ns:Activity').map do |act|
             Activity.new(act)
           end
+        end
+
+        # The scheduled delivery date. If a specific time of day is available
+        # then it will be set, otherwise the time will be set to noon. If no
+        # delivery date is available, the result will be nil.
+        #
+        # Returns the Time of the delivery, or nil if none is available.
+        def scheduled_delivery
+          @parent.scheduled_delivery
+        end
+
+        # The scheduled delivery date as a String in YYYYMMDD format.
+        #
+        # Returns the String delivery date or nil if none is available.
+        def scheduled_delivery_date
+          @parent.scheduled_delivery_date
         end
 
 

@@ -19,7 +19,7 @@ module OmniShip
         # Returns an array of Package objects.
         def packages
           @root.xpath('./ns:Shipment/ns:Package').map do |package|
-            Package.new(package)
+            Package.new(package, self)
           end
         end
 
