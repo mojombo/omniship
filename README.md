@@ -6,6 +6,7 @@ Currently Supported Calls
 -------------------------
 
 * Tracking Url     -> auto detects the provider based on the format of the tracking number
+    works with UPS, USPS, DHL, DHL Global Mail, FedEx, Landmark Global 
 * Track            -> auto detects the provider based on the format of the tracking number
 
 * UPS
@@ -20,6 +21,8 @@ Currently Supported Calls
   * Track
   * Return label
 
+* DHL Global Mail
+    * Track
 Usage
 -----
 
@@ -41,6 +44,9 @@ Set authentication details; you only need the details for services you'll be usi
     OmniShip::Landmark.password = '1234567890'
     OmniShip::Landmark.client_id = '123'
     OmniShip::Landmark.test_mode = true # this turns Landmark's test mode on
+
+    OmniShip::DHLGM.username = 'johndoe'
+    OmniShip::DHLGM.password = '1234567890'
 
     OmniShip.debug = true # with this enabled all xml request's and responses will be outputed to the log
 
@@ -82,6 +88,11 @@ Set authentication details; you only need the details for services you'll be usi
         debug: true
 
 
+      DHLGM:
+        username: johndoe
+        password: 1234567890
+
+
     and then set it up in an intializer like: 
 
         OmniShip.config('config/settings.yml')
@@ -114,8 +125,6 @@ The result:
     trk.shipment.packages.first.tracking_number
     # => "1z3050790327433970" 
 
-    trk.shipment.packages
-
 
 USPS
 ---
@@ -143,9 +152,6 @@ The result:
 
     trk.shipment.packages.first.tracking_number
     # => "1z3050790327433970" 
-
-    trk.shipment.packages
-
 
 Make a return shipping label
 
@@ -211,9 +217,31 @@ The result:
     trk.shipment.packages.first.tracking_number
     # => "LTN62075201N1" 
 
-    trk.shipment.packages
 
-You can also track it if you don't know what provider it is (currently supports UPS, USPS, and Landmark)
+DHLGM
+---------------
+
+    trk = OmniShip::DHLGM.track('12345')
+
+The result:
+
+    trk.class
+    # => OmniShip::DHLGM::TrackResponse
+
+    trk.shipment.class
+    # => OmniShip::DHLGM::Track::Shipment
+
+    trk.shipment.scheduled_delivery - not supported by DHL Global Mail
+    # => nil
+
+    trk.shipment.packages.first.has_left?
+    # => true / false
+    
+    trk.shipment.packages.first.has_arrived?
+    # => true / false
+
+
+You can also track it if you don't know what provider it is (currently supports UPS, USPS, Landmark, and DHL Global Mail)
 
     trk = OmniShip.track('LTN64365934N1')
 
@@ -224,7 +252,7 @@ The result:
 
     ....
 
-Build the url to view tracking information from the tracking number (currently supports UPS, Landmark, FEDEX, USPS)
+Build the url to view tracking information from the tracking number (currently supports UPS, USPS, DHL, DHL Global Mail, FedEx, Landmark Global)
 
     OmniShip.tracking_url('1z3050790327433970')
     # => "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=1z3050790327433970"
