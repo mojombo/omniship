@@ -73,6 +73,7 @@ module OmniShip
       if dhlgm = omniship['DHLGM']
         DHLGM.username = dhlgm['username']
         DHLGM.password = dhlgm['password']
+        DHLGM.mailer_id = dhlgm['mailer_id']
       end
     end
 
@@ -137,7 +138,8 @@ module OmniShip
       "Landmark"
     elsif !(number =~ fedex).nil?
       "FedEx"
-    elsif !(number =~ dhlgm).nil?
+    elsif number.length == 22 and number.include?(OmniShip::DHLGM.mailer_id) 
+      # have to use the mailer_id here because otherwise its indistinguisable from a USPS number. that sucks but its all we got.
       "DHL Global Mail"
     elsif !(number =~ dhl).nil?
       "DHL"

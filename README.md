@@ -47,6 +47,7 @@ Set authentication details; you only need the details for services you'll be usi
 
     OmniShip::DHLGM.username = 'johndoe'
     OmniShip::DHLGM.password = '1234567890'
+    OmniShip::DHLGM.mailer_id = '1234567890' # this is required to detect the shipper type, since USPS and DHL are otherwise indistinguisiblle
 
     OmniShip.debug = true # with this enabled all xml request's and responses will be outputed to the log
 
@@ -241,7 +242,7 @@ The result:
     # => true / false
 
 
-You can also track it if you don't know what provider it is (currently supports UPS, USPS, Landmark, and DHL Global Mail)
+You can also track it if you don't know what provider it is (currently supports UPS, USPS, Landmark, and DHL Global Mail[only if mailer_id configured and matches])
 
     trk = OmniShip.track('LTN64365934N1')
 
