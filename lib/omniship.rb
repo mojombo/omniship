@@ -73,7 +73,7 @@ module OmniShip
       if dhlgm = omniship['DHLGM']
         DHLGM.username = dhlgm['username']
         DHLGM.password = dhlgm['password']
-        DHLGM.mailer_id = dhlgm['mailer_id']
+        DHLGM.mailer_id = dhlgm['mailer_id'].to_s # this could be implied an integer by the yaml parser
       end
     end
 
