@@ -123,6 +123,8 @@ module OmniShip
 
   def self.shipper_label(number)
     ups = /\b(1Z ?[0-9A-Z]{3} ?[0-9A-Z]{3} ?[0-9A-Z]{2} ?[0-9A-Z]{4} ?[0-9A-Z]{3} ?[0-9A-Z]|[\dT]\d\d\d ?\d\d\d\d ?\d\d\d)\b/i
+    ups_mi = /^\d{18}$/
+    ups_mi2 = /MI.*/
     usps = /\b(91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d|91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d)\b/i
     usps2 = /^E\D{1}\d{9}\D{2}$|^9\d{15,21}$/
     usps3 = /^91[0-9]+$/
@@ -132,7 +134,7 @@ module OmniShip
     dhl = /^\d{10,11}$/
     dhlgm = /^\d{22}$/
 
-    if !(number =~ ups).nil?
+    if !(number =~ ups).nil? or !(number =~ ups_mi).nil?
       "UPS"
     elsif !(number =~ landmark).nil?
       "Landmark"
