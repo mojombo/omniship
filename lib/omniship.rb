@@ -87,6 +87,8 @@ module OmniShip
   # supports Landmark Global, UPS, DHL Global Mail, USPS
   def self.track(number)
     case self.shipper_label(number)
+    when "UPS MI"
+      OmniShip::UPS.track(number, true)
     when "UPS"
       OmniShip::UPS.track(number)
     when "Landmark"
@@ -104,6 +106,8 @@ module OmniShip
   # supports UPS, USPS, DHL, DHL Global Mail, FedEx, Landmark Global
   def self.tracking_url(number)
     case self.shipper_label(number)
+    when "UPS MI"
+      "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
     when "UPS"
       "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
     when "Landmark"
@@ -135,7 +139,7 @@ module OmniShip
     dhlgm = /^\d{22}$/
 
     if !(number =~ ups).nil? or !(number =~ ups_mi).nil?
-      "UPS"
+      "UPS MI"
     elsif !(number =~ landmark).nil?
       "Landmark"
     elsif !(number =~ fedex).nil?
