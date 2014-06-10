@@ -138,8 +138,10 @@ module OmniShip
     dhl = /^\d{10,11}$/
     dhlgm = /^\d{22}$/
 
-    if !(number =~ ups).nil? or !(number =~ ups_mi).nil?
+    if !(number =~ ups_mi).nil? or !(number =~ ups_mi2).nil?
       "UPS MI"
+    elsif !(number =~ ups).nil?
+      "UPS"
     elsif !(number =~ landmark).nil?
       "Landmark"
     elsif !(number =~ fedex).nil?

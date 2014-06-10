@@ -9,7 +9,7 @@ Currently Supported Calls
     works with UPS, USPS, DHL, DHL Global Mail, FedEx, Landmark Global 
 * Track            -> auto detects the provider based on the format of the tracking number
 
-* UPS
+* UPS and UPS Mail Innovations
   * Track
 
 * Landmark Global

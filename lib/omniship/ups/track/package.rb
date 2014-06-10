@@ -49,8 +49,9 @@ module OmniShip
 
 
         def has_left?
+          return true if self.has_arrived?
           self.activity.each {|activity|
-            if activity.status == "ORIGIN SCAN" || activity.status == "THE SHIPMENT HAS BEEN DROPPED OFF AND IS NOW AT THE UPS STORE(R)"
+            if activity.status == "ORIGIN SCAN" || activity.status == "THE SHIPMENT HAS BEEN DROPPED OFF AND IS NOW AT THE UPS STORE(R)" || activity.status == "Package received for processing by UPS Mail Innovations"
               return true
             end
           }
@@ -59,7 +60,7 @@ module OmniShip
 
         def has_arrived?
           self.activity.each {|activity|
-            if activity.status == "DELIVERED"
+            if activity.status == "DELIVERED" || activity.status == "Package delivered by local post office." || activity.status == "Package delivered by local post office"
               return true
             end
           }

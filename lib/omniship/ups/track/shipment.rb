@@ -33,14 +33,7 @@ module OmniShip
             year = date[0..3].to_i
             month = date[4..5].to_i
             day = date[6..7].to_i
-            if time = scheduled_delivery_time
-              hour = time[0..1].to_i
-              minute = time[2..3].to_i
-              second = time[4..5].to_i
-              Time.utc(year, month, day, hour, minute, second)
-            else
-              Time.utc(year, month, day, 12, 0, 0)
-            end
+            Time.utc(year, month, day, 12, 0, 0)
           end
         end
 
@@ -48,15 +41,13 @@ module OmniShip
         #
         # Returns the String delivery date or nil if none is available.
         def scheduled_delivery_date
-          @root.xpath('./ns:Shipment/ns:ScheduledDelivery/ns:Date/text()').to_s
+          @root.xpath('./ns:Shipment/ns:DeliveryDetail').each do |detail|
+            if ["02", "03"].include?(detail.xpath('./ns:Type/ns:Code/text()').to_s)
+              return detail.xpath('./ns:Date/text()').to_s
+            end
+          end
         end
 
-        # The scheduled delivery time as a String in HHMMSS format.
-        #
-        # Returns the String delivery time or nil if none is available.
-        def scheduled_delivery_time
-          @root.xpath('./ns:Shipment/ns:ScheduledDelivery/ns:Time/text()').to_s
-        end
       end
     end
   end
