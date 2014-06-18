@@ -27,6 +27,15 @@ module OmniShip
 
           node
         end
+
+        def type_ 
+          @root.xpath('./ns:Status/ns:Type').to_s
+        end
+
+
+        def code 
+          @root.xpath('./ns:Status/ns:Code').to_s
+        end
       end
     end
   end

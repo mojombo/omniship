@@ -49,22 +49,21 @@ module OmniShip
 
 
         def has_left?
-          return true if self.has_arrived?
           self.activity.each {|activity|
-            if activity.status == "ORIGIN SCAN" || activity.status == "THE SHIPMENT HAS BEEN DROPPED OFF AND IS NOW AT THE UPS STORE(R)" || activity.status == "Package received for processing by UPS Mail Innovations"
+            if activity.type_ == "I"
               return true
             end
           }
-          return false
+          false
         end
 
         def has_arrived?
           self.activity.each {|activity|
-            if activity.status == "DELIVERED" || activity.status == "Package delivered by local post office." || activity.status == "Package delivered by local post office"
+            if activity.type_ == "D"
               return true
             end
           }
-          return false
+          false
         end
 
         # Generate a URL to a Google map showing the package's activity.
