@@ -33,7 +33,7 @@ module OmniShip
             year = date[0..3].to_i
             month = date[4..5].to_i
             day = date[6..7].to_i
-            Time.utc(year, month, day, 12, 0, 0)
+            Time.utc(year, month, day, 12, 0, 0) rescue nil
           end
         end
 
@@ -46,6 +46,7 @@ module OmniShip
               return detail.xpath('./ns:Date/text()').to_s
             end
           end
+          nil
         end
 
       end
