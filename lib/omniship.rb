@@ -16,7 +16,7 @@ require 'omniship/dhlgm'
 
 
 module OmniShip
-  VERSION = '0.1.9'
+  VERSION = '0.1.10'
 
   class << self
     attr_accessor :debug

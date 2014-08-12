@@ -57,7 +57,6 @@ module OmniShip
               "56", # Notice Left - No Authorized Recipient Available
               "16", # Available for Pickup
               "14", # Arrival at Pickup Point*
-              "03", # Accept or Pickup (by carrier)
               "16", # Available for Pickup
               "17" # Picked Up By Agent
             ].include?(activity.code)
