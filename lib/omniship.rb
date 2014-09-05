@@ -28,7 +28,7 @@ module OmniShip
   #
   # Returns nothing.
   def self.config(file)
-    data = YAML.load(ERB.new(File.read(file)).result)[Rails.env]
+    data = YAML.load(ERB.new(File.read(file)).result)
 
     if omniship = data['OmniShip']
       OmniShip.debug = omniship['debug']
