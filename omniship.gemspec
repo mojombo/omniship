@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
 
   s.name              = 'omniship'
-  s.version           = '0.1.10'
+  s.version           = '0.1.11'
   s.date              = '2010-11-27'
   s.rubyforge_project = 'omniship'
 
@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency('handsoap')
   s.add_dependency('json')
   s.add_dependency('curb')
+  s.add_dependency('rest-client')
 
   s.add_development_dependency('shoulda', [">= 2.11.3", "< 3.0.0"])
 
