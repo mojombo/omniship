@@ -51,7 +51,7 @@ module OmniShip
         # this is actually an indicator that the DHLGM shipping facility has received the package
         def has_left?
           self.activity.each {|activity|
-            if ['100', '110', '115', '120', '125', '130'].include? activity.code
+            if activity.code.to_i >= 100
               return true
             end
           }
