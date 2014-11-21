@@ -34,9 +34,14 @@ module OmniShip
         end
 
         # this is actually an indicator that the the package has been scanned by USPS ANYWHERE
+        # https://about.usps.com/publications/pub97/pub97_i.htm
         def has_left?
           self.activity.each {|activity|
-            if activity.code == "10"
+            if ["10", #Processed
+              "80", # Picked Up by Shipping Partner
+              "81", # Arrived Shipping Partner Facility
+              "82"] # Departed Shipping Partner Facility
+
               return true
             end
           }
