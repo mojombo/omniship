@@ -13,10 +13,12 @@ require 'omniship/ups'
 require 'omniship/landmark'
 require 'omniship/usps'
 require 'omniship/dhlgm'
+require 'omniship/dhl'
+require 'omniship/fed_ex'
 
 
 module OmniShip
-  VERSION = '0.1.12'
+  VERSION = '0.1.13'
 
   class << self
     attr_accessor :debug
@@ -106,19 +108,19 @@ module OmniShip
   # supports UPS, USPS, DHL, DHL Global Mail, FedEx, Landmark Global
   def self.tracking_url(number)
     case self.shipper_label(number)
-    when "UPS MI"
+    when UPS::MI_LABEL
       "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
-    when "UPS"
+    when UPS::LABEL
       "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
-    when "Landmark"
+    when Landmark::LABEL
       "https://mercury.landmarkglobal.com/tracking/track.php?trck=#{number}"
-    when "FedEx"
+    when FedEx::LABEL
       "http://www.fedex.com/Tracking?action=track&tracknumbers=#{number}"
-    when "DHL Global Mail"
+    when DHLGM::LABEL
       "http://webtrack.dhlglobalmail.com/?trackingnumber=#{number}"
-    when "DHL"
+    when DHL::LABEL
       "http://www.dhl.com/content/g0/en/express/tracking.shtml?brand=DHL&AWB=#{number}"
-    when "USPS"
+    when USPS::LABEL
       "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=#{number}"
     else 
       nil
@@ -139,20 +141,20 @@ module OmniShip
     dhlgm = /^\d{22}$/
 
     if !(number =~ ups_mi).nil? or !(number =~ ups_mi2).nil?
-      "UPS MI"
+      UPS::MI_LABEL
     elsif !(number =~ ups).nil?
-      "UPS"
+      UPS::LABEL
     elsif !(number =~ landmark).nil?
-      "Landmark"
+      Landmark::LABEL
     elsif !(number =~ fedex).nil?
-      "FedEx"
+      FedEx::LABEL
     elsif number.length == 22 and number.include?(OmniShip::DHLGM.mailer_id) 
       # have to use the mailer_id here because otherwise its indistinguisable from a USPS number. that sucks but its all we got.
-      "DHL Global Mail"
+      DHLGM::LABEL
     elsif !(number =~ dhl).nil?
-      "DHL"
+      DHL::LABEL
     elsif !(number =~ usps).nil? or !(number =~ usps2).nil? or !(number =~ usps3).nil? or !(number =~ usps4).nil?
-      "USPS"
+      USPS::LABEL
     else 
       nil
     end

@@ -2,6 +2,8 @@ require 'omniship/ups/track'
 
 module OmniShip
   module UPS
+    LABEL = "UPS"
+    MI_LABEL = "UPS MI"
     class << self
       attr_accessor :username
       attr_accessor :password

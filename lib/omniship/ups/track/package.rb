@@ -47,6 +47,12 @@ module OmniShip
           @parent.scheduled_delivery_date
         end
 
+        def alternate_tracking
+          @root.xpath('./ns:AlternateTrackingInfo').map do |alt|
+            AlternateTracking.new(alt)
+          end
+        end
+
 
         def has_left?
           self.activity.each {|activity|

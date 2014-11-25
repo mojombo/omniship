@@ -3,6 +3,7 @@ require 'omniship/usps/track'
 
 module OmniShip
   module USPS
+    LABEL = "USPS"
     class << self
       attr_accessor :userid
       attr_accessor :password
