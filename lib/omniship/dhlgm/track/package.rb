@@ -58,10 +58,19 @@ module OmniShip
           return false
         end
 
+        # 570 : AVAILABLE FOR PICKUP
+        # 580 : ACCEPT OR PICKUP
+        # 590 : PICKED UP BY AGENT
+        # 600 : DELIVERED
+        # 699 : DELIVERY STATUS NOT UPDATED
         def has_arrived?
           self.activity.each {|activity|
-            if ['570', '580', '590', '600'].include? activity.code
+            if activity.code == '699' and self.has_arrived_at_usps?
               return true
+            else
+              if ['570', '580', '590', '600'].include? activity.code
+                return true
+              end
             end
           }
           return false
@@ -97,6 +106,20 @@ module OmniShip
           url += parts.join('&')
           url
         end
+
+        private
+
+        # 510 : SHIPMENT ACCEPTED BY USPS
+        # 520 : ARRIVAL AT POST OFFICE
+        # 538 : DEPART USPS SORT FACILITY
+        # has been accepted by the post office or has been accepted any of these should be good
+        def has_arrived_at_usps?
+          self.activity.any? do |activity|  
+            activity.code == '510' || activity.code == '520' or activity.code == '538'
+          end
+        end
+
+
       end
     end
   end
