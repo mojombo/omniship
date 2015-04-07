@@ -58,16 +58,6 @@ module OmniShip
           return false
         end
 
-        # 510 : SHIPMENT ACCEPTED BY USPS
-        # 520 : ARRIVAL AT POST OFFICE
-        # 538 : DEPART USPS SORT FACILITY
-        # has been accepted by the post office or has been accepted any of these should be good
-        def has_arrived_at_usps?
-          self.activity.any? do |activity|  
-            activity.code == '510' || activity.code == '520' or activity.code == '538'
-          end
-        end
-
         # 570 : AVAILABLE FOR PICKUP
         # 580 : ACCEPT OR PICKUP
         # 590 : PICKED UP BY AGENT
@@ -116,6 +106,20 @@ module OmniShip
           url += parts.join('&')
           url
         end
+
+        private
+
+        # 510 : SHIPMENT ACCEPTED BY USPS
+        # 520 : ARRIVAL AT POST OFFICE
+        # 538 : DEPART USPS SORT FACILITY
+        # has been accepted by the post office or has been accepted any of these should be good
+        def has_arrived_at_usps?
+          self.activity.any? do |activity|  
+            activity.code == '510' || activity.code == '520' or activity.code == '538'
+          end
+        end
+
+
       end
     end
   end
