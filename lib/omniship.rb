@@ -63,6 +63,7 @@ module OmniShip
         UPS.username = ups['username']
         UPS.password = ups['password']
         UPS.token = ups['token']
+        UPS.test = ups['test']
       end
 
       if landmark = omniship['Landmark']
