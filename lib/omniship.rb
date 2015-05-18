@@ -18,7 +18,7 @@ require 'omniship/fed_ex'
 
 
 module OmniShip
-  VERSION = '0.1.15'
+  VERSION = '0.1.16'
 
   class << self
     attr_accessor :debug
@@ -40,6 +40,7 @@ module OmniShip
         USPS.password = usps['password']
         USPS.client_ip = usps['client_ip']
         USPS.source_id = usps['source_id']
+        USPS.test = usps['test']
 
         if retailer = usps['retailer']
           USPS.retailer_name = retailer['name']

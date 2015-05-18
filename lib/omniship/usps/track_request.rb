@@ -2,7 +2,11 @@ module OmniShip
   module USPS
     class TrackRequest
       def self.endpoint
-        'http://production.shippingapis.com/ShippingAPI.dll?API=TrackV2&XML='
+        if USPS.test == true 
+          'http://testing.shippingapis.com/ShippingAPITest.dll?API=TrackV2&XML='
+        else
+          'http://production.shippingapis.com/ShippingAPI.dll?API=TrackV2&XML='
+        end
       end
 
       def self.track(tracking_number)

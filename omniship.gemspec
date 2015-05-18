@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
 
   s.name              = 'omniship'
-  s.version           = '0.1.15'
+  s.version           = '0.1.16'
   s.date              = '2010-11-27'
   s.rubyforge_project = 'omniship'
 

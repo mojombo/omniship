@@ -19,6 +19,7 @@ module OmniShip
       attr_accessor :pdu_zip5
       attr_accessor :client_ip
       attr_accessor :source_id
+      attr_accessor :test
     end
 
     def self.return_label(customer, options = nil)
