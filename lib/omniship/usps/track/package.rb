@@ -55,7 +55,6 @@ module OmniShip
             if ["01", # Delivered*
               "DX", # Delivery Status Not Updated
               "02", # Attempted / Notice Left*
-              "07", # Arrived at Unit
               "52", # Notice Left
               "53", # Notice Left - Receptacle Blocked
               "54", # Notice Left - Receptacle Full / Item Oversized
