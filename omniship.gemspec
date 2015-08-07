@@ -1,7 +1,10 @@
+$:.push File.expand_path("../lib", __FILE__)
+require 'omniship/version'
+
 Gem::Specification.new do |s|
 
   s.name              = 'omniship'
-  s.version           = '0.1.17'
+  s.version           = OmniShip::VERSION
   s.date              = '2010-11-27'
   s.rubyforge_project = 'omniship'
 

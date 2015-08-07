@@ -9,6 +9,7 @@ require 'handsoap'
 require 'json'
 
 # Internal
+require 'omniship/version'
 require 'omniship/ups'
 require 'omniship/landmark'
 require 'omniship/usps'
@@ -18,7 +19,6 @@ require 'omniship/fed_ex'
 
 
 module OmniShip
-  VERSION = '0.1.17'
 
   class << self
     attr_accessor :debug
