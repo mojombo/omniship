@@ -36,23 +36,19 @@ module OmniShip
         # this is actually an indicator that the the package has been scanned by USPS ANYWHERE
         # https://about.usps.com/publications/pub97/pub97_i.htm
         def has_left?
-          self.activity.each {|activity|
-            if ["10", #Processed
-              "80", # Picked Up by Shipping Partner
-              "81", # Arrived Shipping Partner Facility
-              "82"] # Departed Shipping Partner Facility
-
-              return true
-            end
+          self.activity.any? {|activity|
+            ["10", #Processed
+            "80", # Picked Up by Shipping Partner
+            "81", # Arrived Shipping Partner Facility
+            "82"].include?(activity.code) # Departed Shipping Partner Facility
           }
-          return false
         end
 
         def has_arrived?
           # http://about.usps.com/publications/pub97/pub97_i.htm
-          self.activity.each {|activity|
+          self.activity.any? {|activity|
             # deliverred or ready for pickup at post office, or Notice Left 
-            if ["01", # Delivered*
+            ["01", # Delivered*
               "DX", # Delivery Status Not Updated
               "02", # Attempted / Notice Left*
               "52", # Notice Left
@@ -64,11 +60,7 @@ module OmniShip
               "14", # Arrival at Pickup Point*
               "17" # Picked Up By Agent
             ].include?(activity.code)
-            
-              return true
-            end
           }
-          return false
         end
 
         def scheduled_delivery_date
