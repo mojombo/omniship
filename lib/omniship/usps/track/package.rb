@@ -49,15 +49,6 @@ module OmniShip
           self.activity.any? {|activity|
             # deliverred or ready for pickup at post office, or Notice Left 
             ["01", # Delivered*
-              "DX", # Delivery Status Not Updated
-              "02", # Attempted / Notice Left*
-              "52", # Notice Left
-              "53", # Notice Left - Receptacle Blocked
-              "54", # Notice Left - Receptacle Full / Item Oversized
-              "55", # Notice Left - No Secure Location Available
-              "56", # Notice Left - No Authorized Recipient Available
-              "16", # Available for Pickup
-              "14", # Arrival at Pickup Point*
               "17" # Picked Up By Agent
             ].include?(activity.code)
           }
