@@ -54,7 +54,7 @@ module OmniShip
         if OmniShip.debug
           puts request
         end
-        response = RestClient.post URI.encode(endpoint), request, content_type: "text/xml", accept: "text/xml", ssl_version: 'TLSv1.2'
+        response = RestClient.post URI.encode(endpoint), request, content_type: "text/xml", accept: "text/xml", ssl_version: 'TLSv1_2'
         
         if OmniShip.debug
           puts response
