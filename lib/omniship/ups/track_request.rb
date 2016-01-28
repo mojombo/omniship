@@ -38,7 +38,7 @@ module OmniShip
                 xml.XpciVersion '1.0'
               }
               xml.RequestAction 'Track'
-              xml.RequestOption 'activity'       # request all activity
+              xml.RequestOption '1'       # request all activity
             }
             if mail_innovations
               xml.TrackingOption '03' # mail innovations tracking requires this
