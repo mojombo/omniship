@@ -34,7 +34,7 @@ module OmniShip
           xml.TrackRequest {
             xml.Request {
               xml.TransactionReference{
-                xml.CustomerContext 'nothing'
+                xml.CustomerContext SecureRandom.uuid
                 xml.XpciVersion '1.0'
               }
               xml.RequestAction 'Track'
