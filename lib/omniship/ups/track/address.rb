@@ -15,17 +15,17 @@ module OmniShip
 
         # Returns the String city or nil if none was set.
         def city
-          @root.xpath('./ns:City/text()').to_s
+          @root.xpath('City/text()').to_s
         end
 
         # Returns the String state or province code or nil if none was set.
         def state_province_code
-          @root.xpath('./ns:StateProvinceCode/text()').to_s
+          @root.xpath('StateProvinceCode/text()').to_s
         end
 
         # Returns the String country code or nil if none was set.
         def country_code
-          @root.xpath('./ns:CountryCode/text()').to_s
+          @root.xpath('CountryCode/text()').to_s
         end
 
         # This address as a single line comma delimited string.

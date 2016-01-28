@@ -20,12 +20,12 @@ module OmniShip
         end
 
         def type
-          @root.xpath('./ns:Type').to_s
+          @root.xpath('Type').text
         end
 
 
         def value
-          @root.xpath('./ns:Value').to_s
+          @root.xpath('Value').text
         end
       end
     end

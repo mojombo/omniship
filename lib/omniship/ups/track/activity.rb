@@ -17,23 +17,18 @@ module OmniShip
         #
         # Returns the OmniShip::UPS::Track::ActivityLocation.
         def location
-          node = @root.xpath('./ns:ActivityLocation')
+          node = @root.xpath('ActivityLocation')
           ActivityLocation.new(node)
         end
 
         def status
-          node = @root.xpath('./ns:Status/ns:Description').to_s
+          node = @root.xpath('Status/StatusType/Description').text
 
           node
         end
 
-        def type_ 
-          @root.xpath('./ns:Status/ns:Type').to_s
-        end
-
-
         def code 
-          @root.xpath('./ns:Status/ns:Code').to_s
+          @root.xpath('Status/StatusType/Code').text
         end
       end
     end

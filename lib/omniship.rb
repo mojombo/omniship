@@ -3,6 +3,7 @@ $:.unshift File.dirname(__FILE__)
 # stdlib
 require 'yaml'
 require 'cgi'
+require 'securerandom'
 
 # 3rd Party
 require 'json'

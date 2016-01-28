@@ -16,7 +16,7 @@ module OmniShip
         #
         # Returns an array of Package objects.
         def packages
-          @root.xpath('./ns:Shipment/ns:Package').map do |package|
+          @root.xpath('Package').map do |package|
             Package.new(package, self)
           end
         end
@@ -39,12 +39,9 @@ module OmniShip
         #
         # Returns the String delivery date or nil if none is available.
         def scheduled_delivery_date
-          @root.xpath('./ns:Shipment/ns:DeliveryDetail').each do |detail|
-            if ["02", "03"].include?(detail.xpath('./ns:Type/ns:Code/text()').to_s)
-              return detail.xpath('./ns:Date/text()').to_s
-            end
-          end
-          nil
+          date = @root.xpath('ScheduledDeliveryDate').text
+          
+          date.blank? ? nil : date
         end
 
       end

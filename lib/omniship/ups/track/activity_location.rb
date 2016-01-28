@@ -17,7 +17,7 @@ module OmniShip
         #
         # Returns the OmniShip::UPS::Track::Address.
         def address
-          node = @root.xpath('./ns:Address')
+          node = @root.xpath('Address')
           Address.new(node)
         end
       end

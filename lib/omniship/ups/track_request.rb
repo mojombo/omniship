@@ -26,20 +26,24 @@ module OmniShip
           
           xml.AccessRequest {
             xml.AccessLicenseNumber UPS.token
-            xml.Username UPS.username
+            xml.UserId UPS.username
             xml.Password UPS.password
           }
         end
         tracking_request = Nokogiri::XML::Builder.new do |xml|
           xml.TrackRequest {
             xml.Request {
+              xml.TransactionReference{
+                xml.CustomerContext 'nothing'
+                xml.XpciVersion '1.0'
+              }
               xml.RequestAction 'Track'
-              xml.RequestOption 1       # request all activity
-              if mail_innovations
-                xml.TrackingOption '03' # mail innovations tracking requires this
-              end
-              xml.TrackingNumber tracking_number
+              xml.RequestOption 'activity'       # request all activity
             }
+            if mail_innovations
+              xml.TrackingOption '03' # mail innovations tracking requires this
+            end
+            xml.TrackingNumber tracking_number
           }
         end
         access_request.to_xml + tracking_request.to_xml

@@ -8,7 +8,7 @@ module OmniShip
       end
 
       def shipment
-        Track::Shipment.new(@root)
+        Track::Shipment.new(@root.xpath("TrackResponse/Shipment"))
       end
 
       def has_left?

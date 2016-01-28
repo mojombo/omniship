@@ -17,7 +17,7 @@ module OmniShip
 
         # Returns the String tracking number.
         def tracking_number
-          @root.xpath('./ns:TrackingNumber/text()').to_s
+          @root.xpath('TrackingNumber/text()').to_s
         end
 
         # The activity of the package in reverse chronological order. Each
@@ -25,7 +25,7 @@ module OmniShip
         #
         # Returns an array of OmniShip::UPS::Track::Activity objects.
         def activity
-          @root.xpath('./ns:Activity').map do |act|
+          @root.xpath('Activity').map do |act|
             Activity.new(act)
           end
         end
@@ -47,7 +47,7 @@ module OmniShip
         end
 
         def alternate_tracking
-          @root.xpath('./ns:AlternateTrackingInfo').map do |alt|
+          @root.xpath('AlternateTrackingInfo').map do |alt|
             AlternateTracking.new(alt)
           end
         end
@@ -55,7 +55,7 @@ module OmniShip
 
         def has_left?
           self.activity.each {|activity|
-            if activity.type_ == "I"
+            if activity.code == "I"
               return true
             end
           }
@@ -64,7 +64,7 @@ module OmniShip
 
         def has_arrived?
           self.activity.each {|activity|
-            if activity.type_ == "D"
+            if activity.code == "D"
               return true
             end
           }
