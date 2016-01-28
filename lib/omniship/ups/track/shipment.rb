@@ -2,12 +2,10 @@ module OmniShip
   module UPS
     module Track
       class Shipment
-        # The Handsoap XML element representing the root response node.
         attr_accessor :root
 
         # Initialize a new Shipment.
         #
-        # root - The root Handsoap XML node.
         #
         # Returns the newly initialized Shipment.
         def initialize(root)

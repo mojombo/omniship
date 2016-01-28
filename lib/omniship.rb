@@ -5,7 +5,6 @@ require 'yaml'
 require 'cgi'
 
 # 3rd Party
-require 'handsoap'
 require 'json'
 
 # Internal
@@ -79,10 +78,6 @@ module OmniShip
         DHLGM.password = dhlgm['password']
         DHLGM.mailer_id = dhlgm['mailer_id'].to_s # this could be implied an integer by the yaml parser
       end
-    end
-
-    if OmniShip.debug
-      Handsoap::Service.logger = STDOUT
     end
     nil
   end

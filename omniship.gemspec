@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.extra_rdoc_files = %w[LICENSE README.md]
 
-  s.add_dependency('handsoap')
   s.add_dependency('json')
   s.add_dependency('curb')
   s.add_dependency('rest-client')

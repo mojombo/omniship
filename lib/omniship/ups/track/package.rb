@@ -3,7 +3,6 @@ module OmniShip
     module Track
       class Package
 
-        # The Handsoap XML element representing the root response node.
         attr_accessor :root
 
         # Initialize a new Package.

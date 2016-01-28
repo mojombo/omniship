@@ -2,7 +2,6 @@ module OmniShip
   module UPS
     module Track
       class Address
-        # The Handsoap XML element representing the root response node.
         attr_accessor :root
 
         # Initialize a new Address.
