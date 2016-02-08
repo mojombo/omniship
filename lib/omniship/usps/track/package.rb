@@ -37,10 +37,14 @@ module OmniShip
         # https://about.usps.com/publications/pub97/pub97_i.htm
         def has_left?
           self.activity.any? {|activity|
-            ["10", #Processed
-            "80", # Picked Up by Shipping Partner
-            "81", # Arrived Shipping Partner Facility
-            "82"].include?(activity.code) # Departed Shipping Partner Facility
+            [
+              "SF", # UNDOCUMENTED but seems to be "Acceptance"
+              "03", # Accept or Pickup (by carrier)
+              "10", # Processed
+              "80", # Picked Up by Shipping Partner
+              "81", # Arrived Shipping Partner Facility
+              "82"
+            ].include?(activity.code) # Departed Shipping Partner Facility
           }
         end
 
