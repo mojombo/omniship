@@ -104,24 +104,25 @@ module OmniShip
 
   # Generate a tracking URL based on a tracking number
   # supports UPS, USPS, DHL, DHL Global Mail, FedEx, Landmark Global
-  def self.tracking_url(number)
-    case self.shipper_label(number)
-    when UPS::MI_LABEL
-      "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
-    when UPS::LABEL
-      "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
-    when Landmark::LABEL
-      "https://mercury.landmarkglobal.com/tracking/track.php?trck=#{number}"
-    when FedEx::LABEL
-      "http://www.fedex.com/Tracking?action=track&tracknumbers=#{number}"
-    when DHLGM::LABEL
-      "http://webtrack.dhlglobalmail.com/?trackingnumber=#{number}"
-    when DHL::LABEL
-      "http://www.dhl.com/content/g0/en/express/tracking.shtml?brand=DHL&AWB=#{number}"
-    when USPS::LABEL
-      "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=#{number}"
+  def self.tracking_url(number, provider=nil)
+    puts "number = #{number}, provider = #{provider}"
+    label = self.shipper_label(number)
+    if label == UPS::MI_LABEL or provider == UPS::MI_LABEL
+      return "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
+    elsif label == UPS::LABEL or provider == UPS::LABEL
+      return "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
+    elsif label == Landmark::LABEL or provider == Landmark::LABEL
+      return "https://mercury.landmarkglobal.com/tracking/track.php?trck=#{number}"
+    elsif label == FedEx::LABEL or provider == FedEx::LABEL
+      return "http://www.fedex.com/Tracking?action=track&tracknumbers=#{number}"
+    elsif label == DHLGM::LABEL or provider == DHLGM::LABEL
+      return "http://webtrack.dhlglobalmail.com/?trackingnumber=#{number}"
+    elsif label == DHL::LABEL or provider == DHL::LABEL
+      return "http://www.dhl.com/content/g0/en/express/tracking.shtml?brand=DHL&AWB=#{number}"
+    elsif label == USPS::LABEL or provider == USPS::LABEL
+      return "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=#{number}"
     else 
-      nil
+      return nil
     end
   end
 
