@@ -107,21 +107,21 @@ module OmniShip
   def self.tracking_url(number, provider=nil)
     label = self.shipper_label(number)
     if label == UPS::MI_LABEL or provider == UPS::MI_LABEL
-      return "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
+      "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
     elsif label == UPS::LABEL or provider == UPS::LABEL
-      return "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
+      "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
     elsif label == Landmark::LABEL or provider == Landmark::LABEL
-      return "https://mercury.landmarkglobal.com/tracking/track.php?trck=#{number}"
+      "https://mercury.landmarkglobal.com/tracking/track.php?trck=#{number}"
     elsif label == FedEx::LABEL or provider == FedEx::LABEL
-      return "http://www.fedex.com/Tracking?action=track&tracknumbers=#{number}"
+      "http://www.fedex.com/Tracking?action=track&tracknumbers=#{number}"
     elsif label == DHLGM::LABEL or provider == DHLGM::LABEL
-      return "http://webtrack.dhlglobalmail.com/?trackingnumber=#{number}"
+      "http://webtrack.dhlglobalmail.com/?trackingnumber=#{number}"
     elsif label == DHL::LABEL or provider == DHL::LABEL
-      return "http://www.dhl.com/content/g0/en/express/tracking.shtml?brand=DHL&AWB=#{number}"
+      "http://www.dhl.com/content/g0/en/express/tracking.shtml?brand=DHL&AWB=#{number}"
     elsif label == USPS::LABEL or provider == USPS::LABEL
-      return "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=#{number}"
+      "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=#{number}"
     else 
-      return nil
+      nil
     end
   end
 
