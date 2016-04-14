@@ -105,7 +105,6 @@ module OmniShip
   # Generate a tracking URL based on a tracking number
   # supports UPS, USPS, DHL, DHL Global Mail, FedEx, Landmark Global
   def self.tracking_url(number, provider=nil)
-    puts "number = #{number}, provider = #{provider}"
     label = self.shipper_label(number)
     if label == UPS::MI_LABEL or provider == UPS::MI_LABEL
       return "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
