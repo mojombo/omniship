@@ -1,7 +1,6 @@
 module OmniShip
   module UPS
     class TrackResponse
-      attr_accessor :root
 
       def initialize(root)
         @root = root

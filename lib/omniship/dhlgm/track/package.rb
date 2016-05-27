@@ -107,8 +107,6 @@ module OmniShip
           url
         end
 
-        private
-
         # 510 : SHIPMENT ACCEPTED BY USPS
         # 520 : ARRIVAL AT POST OFFICE
         # 538 : DEPART USPS SORT FACILITY
@@ -118,8 +116,6 @@ module OmniShip
             activity.code == '510' || activity.code == '520' or activity.code == '538'
           end
         end
-
-
       end
     end
   end

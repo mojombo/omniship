@@ -3,7 +3,7 @@ module OmniShip
     module Track
       class Package
 
-        attr_accessor :root
+         
 
         # Initialize a new Package.
         #

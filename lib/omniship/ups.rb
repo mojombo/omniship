@@ -3,7 +3,6 @@ require 'omniship/ups/track'
 module OmniShip
   module UPS
     LABEL = "UPS"
-    MI_LABEL = "UPS MI"
     class << self
       attr_accessor :username
       attr_accessor :password
@@ -11,8 +10,8 @@ module OmniShip
       attr_accessor :test
     end
 
-    def self.track(id, mail_innovations=false)
-      TrackRequest.track(id, mail_innovations)
+    def self.track(id)
+      TrackRequest.track(id)
     end
   end
 end

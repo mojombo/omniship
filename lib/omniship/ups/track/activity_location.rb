@@ -2,7 +2,7 @@ module OmniShip
   module UPS
     module Track
       class ActivityLocation
-        attr_accessor :root
+         
 
         # Initialize a new ActivityLocation.
         #

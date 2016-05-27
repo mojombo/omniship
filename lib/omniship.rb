@@ -7,10 +7,13 @@ require 'securerandom'
 
 # 3rd Party
 require 'json'
+require 'nokogiri'
+require 'rest-client'
 
 # Internal
 require 'omniship/version'
 require 'omniship/ups'
+require 'omniship/upsmi'
 require 'omniship/landmark'
 require 'omniship/usps'
 require 'omniship/dhlgm'
@@ -87,15 +90,15 @@ module OmniShip
   # supports Landmark Global, UPS, DHL Global Mail, USPS
   def self.track(number)
     case self.shipper_label(number)
-    when "UPS MI"
-      OmniShip::UPS.track(number, true)
-    when "UPS"
+    when UPSMI::LABEL
+      OmniShip::UPSMI.track(number, true)
+    when UPS::LABEL
       OmniShip::UPS.track(number)
-    when "Landmark"
+    when Landmark::LABEL
       OmniShip::Landmark.track(number)
-    when "DHL Global Mail"
+    when DHLGM::LABEL
       OmniShip::DHLGM.track(number)
-    when "USPS"
+    when USPS::LABEL
       OmniShip::USPS.track(number)
     else 
       nil
@@ -139,7 +142,7 @@ module OmniShip
     dhlgm = /^\d{22}$/
 
     if !(number =~ ups_mi).nil? or !(number =~ ups_mi2).nil?
-      UPS::MI_LABEL
+      UPSMI::LABEL
     elsif !(number =~ ups).nil?
       UPS::LABEL
     elsif !(number =~ landmark).nil?

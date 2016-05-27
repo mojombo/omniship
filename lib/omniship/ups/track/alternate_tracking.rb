@@ -8,7 +8,7 @@ module OmniShip
         MMS_NUMBER = 'T'
         POSTAL_SERVICE_TRACKING_ID = 'Q'
         
-        attr_accessor :root
+         
 
         # Initialize a new ActivityLocation.
         #

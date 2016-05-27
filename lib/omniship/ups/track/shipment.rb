@@ -2,7 +2,7 @@ module OmniShip
   module UPS
     module Track
       class Shipment
-        attr_accessor :root
+         
 
         # Initialize a new Shipment.
         #

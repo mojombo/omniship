@@ -3,7 +3,6 @@ module OmniShip
     class TrackResponse
 
       def initialize(root)
-        @root = root
         result = root.xpath("track")
         if !result.xpath("error").empty?
           errors = result.xpath("error").map{|err|

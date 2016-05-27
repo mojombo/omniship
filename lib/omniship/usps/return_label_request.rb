@@ -26,7 +26,6 @@ module OmniShip
       end
 
       def get_response
-
         request = create_document
 
         if OmniShip.debug
@@ -42,43 +41,43 @@ module OmniShip
         ReturnLabelResponse.new(Nokogiri::XML::Document.parse(response), {:image_type => @image_type})
       end
 
-
       private 
-        def create_document
-          builder = Nokogiri::XML::Builder.new do |xml|
-            xml.send(:"EMRSV4.0Request", :USERID=>USPS.userid, :PASSWORD=>USPS.password){
-              xml.Option @window
-              @customer.to_xml(xml)
-              @retailer.to_xml(xml)
-              @permit.to_xml(xml)
-              @pdu.to_xml(xml)
 
-              xml.ServiceType @service_type
-              if @delivery_confirmation
-                xml.DeliveryConfirmation "True"
-              else
-                xml.DeliveryConfirmation "False"
-              end
-              xml.InsuranceValue @insurance_value
-              xml.MailingAckPackageID ""
-              xml.WeightInPounds 0
-              xml.WeightInOunces @weight
-              xml.RMA @rma
-              xml.RMAPICFlag "False"
-              xml.ImageType @image_type
-              if @rma_barcode
-                xml.RMABarcode "True"
-              else
-                xml.RMABarcode "False"
-              end
-              xml.AllowNonCleansedDestAddr "False"
-              xml.AllowNonCleansedCustAddr "True"
+      def create_document
+        builder = Nokogiri::XML::Builder.new do |xml|
+          xml.send(:"EMRSV4.0Request", :USERID=>USPS.userid, :PASSWORD=>USPS.password){
+            xml.Option @window
+            @customer.to_xml(xml)
+            @retailer.to_xml(xml)
+            @permit.to_xml(xml)
+            @pdu.to_xml(xml)
 
-            }
-          end
+            xml.ServiceType @service_type
+            if @delivery_confirmation
+              xml.DeliveryConfirmation "True"
+            else
+              xml.DeliveryConfirmation "False"
+            end
+            xml.InsuranceValue @insurance_value
+            xml.MailingAckPackageID ""
+            xml.WeightInPounds 0
+            xml.WeightInOunces @weight
+            xml.RMA @rma
+            xml.RMAPICFlag "False"
+            xml.ImageType @image_type
+            if @rma_barcode
+              xml.RMABarcode "True"
+            else
+              xml.RMABarcode "False"
+            end
+            xml.AllowNonCleansedDestAddr "False"
+            xml.AllowNonCleansedCustAddr "True"
 
-          builder
+          }
         end
+
+        builder
+      end
     end
   end
 end

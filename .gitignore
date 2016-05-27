@@ -1,4 +1,5 @@
 /experiments
-/test/config.yml
 
 .DS_Store
+
+.bundle/config

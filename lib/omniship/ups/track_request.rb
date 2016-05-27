@@ -1,6 +1,7 @@
 module OmniShip
   module UPS
     class TrackRequest
+      ERROR_RESPONSE = 0 
       TEST_URL = 'https://wwwcie.ups.com/ups.app/xml/Track'
       LIVE_URL = 'https://onlinetools.ups.com/ups.app/xml/Track'
 
@@ -12,11 +13,17 @@ module OmniShip
         end
       end
 
-
       def self.track(tracking_number, mail_innovations=false)
         request = create_document(tracking_number, mail_innovations)
         response = get_response(request)
-        OmniShip::UPS::TrackResponse.new(Nokogiri::XML::Document.parse(response))
+        
+        parsed_response = Nokogiri::XML::Document.parse(response)
+
+        if parsed_response.xpath("TrackResponse/Response/ResponseStatusCode/text()").to_s == "0"
+          raise OmniShip::UPS::Track::Error.new(parsed_response)
+        else
+          OmniShip::UPS::TrackResponse.new(parsed_response)
+        end
       end
 
       private 
@@ -25,9 +32,9 @@ module OmniShip
         access_request = Nokogiri::XML::Builder.new do |xml|
           
           xml.AccessRequest {
-            xml.AccessLicenseNumber UPS.token
-            xml.UserId UPS.username
-            xml.Password UPS.password
+            xml.AccessLicenseNumber UPS.token || ENV["UPS_TOKEN"]
+            xml.UserId UPS.username || ENV["UPS_USERNAME"]
+            xml.Password UPS.password || ENV["UPS_PASSWORD"]
           }
         end
         tracking_request = Nokogiri::XML::Builder.new do |xml|
@@ -50,8 +57,8 @@ module OmniShip
       end
 
       def self.get_response(request)
-        
         if OmniShip.debug
+          puts endpoint
           puts request
         end
         response = RestClient.post URI.encode(endpoint), request, content_type: "text/xml", accept: "text/xml", ssl_version: :TLSv1_2
