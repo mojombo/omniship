@@ -1,4 +1,4 @@
-module OmniShip
+module Omniship
   module USPS
     module Track
       class Address

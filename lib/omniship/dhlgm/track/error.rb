@@ -1,7 +1,7 @@
-module OmniShip
+module Omniship
   module DHLGM
     module Track
-      class Error < StandardError
+      class Error < TrackError
         def initialize(root)
           @root = root
           @message = root.xpath("track/error/description/text()").to_s

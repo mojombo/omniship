@@ -1,4 +1,4 @@
-module OmniShip
+module Omniship
   module DHLGM
     module Track
       class Address

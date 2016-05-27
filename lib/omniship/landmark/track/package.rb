@@ -1,4 +1,4 @@
-module OmniShip
+module Omniship
   module Landmark
     module Track
       class Package
@@ -23,7 +23,7 @@ module OmniShip
         # The activity of the package in reverse chronological order. Each
         # element represents a stop on the package's journey.
         #
-        # Returns an array of OmniShip::Landmark::Track::Activity objects.
+        # Returns an array of Omniship::Landmark::Track::Activity objects.
         def activity
           @root.xpath('Events/Event').map do |act|
             Activity.new(act)

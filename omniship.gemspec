@@ -4,12 +4,12 @@ require 'omniship/version'
 Gem::Specification.new do |s|
 
   s.name              = 'omniship'
-  s.version           = OmniShip::VERSION
+  s.version           = Omniship::VERSION
   s.date              = '2010-11-27'
   s.rubyforge_project = 'omniship'
 
-  s.summary     = "OmniShip is a unified API for various shipping APIs."
-  s.description = "OmniShip is a unified API for various shipping APIs such as UPS, USPS, FedEx, and DHL."
+  s.summary     = "Omniship is a unified API for various shipping APIs."
+  s.description = "Omniship is a unified API for various shipping APIs such as UPS, USPS, FedEx, and DHL."
 
   s.authors  = ["Tom Preston-Werner", "Casey Juan Lopez", "Kevin Solkowski"]
   s.email    = 'casey@wantable.com'

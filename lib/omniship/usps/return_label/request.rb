@@ -1,4 +1,4 @@
-module OmniShip
+module Omniship
   module USPS
     class ReturnLabelRequest
       attr_accessor :window, :service_type, :delivery_confirmation, :insurance_value, :weight, :image_type, :rma, :rma_barcode, :customer, :retailer, :permit, :pdu
@@ -28,13 +28,13 @@ module OmniShip
       def get_response
         request = create_document
 
-        if OmniShip.debug
+        if Omniship.debug
           puts request.to_xml
         end
 
         response = RestClient.get URI.encode(self.class.endpoint+request.to_xml.gsub("<?xml version=\"1.0\"?>","")), :content_type => "text/xml", :accept => "text/xml"
         
-        if OmniShip.debug
+        if Omniship.debug
           puts response
         end
 

@@ -1,4 +1,4 @@
-module OmniShip
+module Omniship
   module Landmark
     module Track
       class Activity
@@ -45,7 +45,7 @@ module OmniShip
 
         # The location of this activity event.
         #
-        # Returns the OmniShip::Landmark::Track::ActivityLocation.
+        # Returns the Omniship::Landmark::Track::ActivityLocation.
         def location
           node = @root.xpath('Location')
           ActivityLocation.new(node)

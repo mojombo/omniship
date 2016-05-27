@@ -1,4 +1,4 @@
-module OmniShip
+module Omniship
   module UPS
     module Track
       class Address

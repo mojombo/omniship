@@ -1,9 +1,8 @@
-module OmniShip
+module Omniship
   module USPS
     module Track
       class Shipment
-         
-
+        
         # Initialize a new Shipment.
         #
         #

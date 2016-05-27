@@ -1,9 +1,8 @@
-module OmniShip
+module Omniship
   module Landmark
     module Track
       class Shipment
          
-
         # Initialize a new Shipment.
         #
         #

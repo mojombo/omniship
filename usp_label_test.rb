@@ -27,11 +27,11 @@ shipping_confirm_request = "
    </Request>
    <LabelSpecification>
       <LabelPrintMethod>
-		<Code>GIF</Code>
-	  </LabelPrintMethod>
-	  <LabelImageFormat>
-		<Code>GIF</Code> 
-	  </LabelImageFormat>
+    <Code>GIF</Code>
+    </LabelPrintMethod>
+    <LabelImageFormat>
+    <Code>GIF</Code> 
+    </LabelImageFormat>
       <LabelStockSize>
          <Height>4</Height>
          <Width>6</Width>

@@ -1,4 +1,4 @@
-module OmniShip
+module Omniship
   module DHLGM
     module Track
       class Package
@@ -23,7 +23,7 @@ module OmniShip
         # The activity of the package in reverse chronological order. Each
         # element represents a stop on the package's journey.
         #
-        # Returns an array of OmniShip::DHLGM::Track::Activity objects.
+        # Returns an array of Omniship::DHLGM::Track::Activity objects.
         def activity
           @root.xpath('event').map do |act|
             Activity.new(act)

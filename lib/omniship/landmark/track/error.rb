@@ -1,7 +1,7 @@
-module OmniShip
+module Omniship
   module Landmark
     module Track
-      class Error < StandardError
+      class Error < TrackError
         def initialize(root)
           @root = root
           @message = root.xpath("TrackResponse").xpath("Errors").children.map do |err|

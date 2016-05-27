@@ -1,4 +1,4 @@
-OmniShip
+Omniship
 ========
 
 
@@ -7,11 +7,11 @@ Currently Supported Calls
 
 * [Tracking Url](#tracking-url)
   * auto detects the provider based on the format of the tracking number
-  * works with UPS, USPS, DHL Global Mail (if OmniShip::DHLGM.mailer_id is set and matches), FedEx, Landmark Global, UPS Mail Innovations 
+  * works with UPS, USPS, DHL Global Mail (if Omniship::DHLGM.mailer_id is set and matches), FedEx, Landmark Global, UPS Mail Innovations 
 
 * [Track](#track)
   * auto detects the provider based on the format of the tracking number
-  * works with UPS, USPS, DHL Global Mail (if OmniShip::DHLGM.mailer_id is set and matches), FedEx, Landmark Global, UPS Mail Innovations 
+  * works with UPS, USPS, DHL Global Mail (if Omniship::DHLGM.mailer_id is set and matches), FedEx, Landmark Global, UPS Mail Innovations 
 
 * [UPS and UPS Mail Innovations](#ups-and-ups-mail-innovations)
   * Track
@@ -40,30 +40,30 @@ gem 'omniship', git: 'git://github.com/wantable/omniship.git'
 Set authentication details; you only need the details for services you'll be using; tracking url stuff doesn't need any authentications
 
 ```ruby
-OmniShip::UPS.username = 'johndoe'
-OmniShip::UPS.password = '1234567890'
-OmniShip::UPS.token = 'QWERTYUIOP'
+Omniship::UPS.username = 'johndoe'
+Omniship::UPS.password = '1234567890'
+Omniship::UPS.token = 'QWERTYUIOP'
 
-OmniShip::USPS.userid = 'johndoe'
-OmniShip::USPS.password = '1234567890'
+Omniship::USPS.userid = 'johndoe'
+Omniship::USPS.password = '1234567890'
 
-OmniShip::Landmark.username = 'johndoe'
-OmniShip::Landmark.password = '1234567890'
-OmniShip::Landmark.client_id = '123'
-OmniShip::Landmark.test_mode = true # this turns Landmark's test mode on
+Omniship::Landmark.username = 'johndoe'
+Omniship::Landmark.password = '1234567890'
+Omniship::Landmark.client_id = '123'
+Omniship::Landmark.test_mode = true # this turns Landmark's test mode on
 
-OmniShip::DHLGM.username = 'johndoe'
-OmniShip::DHLGM.password = '1234567890'
-OmniShip::DHLGM.mailer_id = '1234567890' # this is required to detect the shipper type, since USPS and DHL are otherwise indistinguisiblle
+Omniship::DHLGM.username = 'johndoe'
+Omniship::DHLGM.password = '1234567890'
+Omniship::DHLGM.mailer_id = '1234567890' # this is required to detect the shipper type, since USPS and DHL are otherwise indistinguisiblle
 
-OmniShip.debug = true # with this enabled all xml request's and responses will be outputed to the log
+Omniship.debug = true # with this enabled all xml request's and responses will be outputed to the log
 ```
 
 You can also do this in a config file
 config/settings.yaml
 
 ```yml
-OmniShip:
+Omniship:
   debug: true
   
   USPS:
@@ -106,7 +106,7 @@ OmniShip:
 and then set it up in an intializer like: 
 
 ```ruby 
-OmniShip.config('config/settings.yml')
+Omniship.config('config/settings.yml')
 ```
 
 
@@ -116,18 +116,18 @@ UPS and UPS Mail Innovations
 Track
 
 ```ruby
-trk = OmniShip::UPS.track('1z3050790327433970')
+trk = Omniship::UPS.track('1z3050790327433970')
 ```
 
 or if its a mail innovations package
 
 ```ruby
-trk = OmniShip::UPS.track('123456790', true)
+trk = Omniship::UPS.track('123456790', true)
 trk.class
-# => OmniShip::UPS::TrackResponse
+# => Omniship::UPS::Track::Response
 
 trk.shipment.class
-# => OmniShip::UPS::Track::Shipment
+# => Omniship::UPS::Track::Shipment
 
 trk.shipment.scheduled_delivery
 # => Mon Nov 29 12:00:00 UTC 2010
@@ -148,12 +148,12 @@ USPS
 Track
 
 ```ruby
-trk = OmniShip::USPS.track('9400111201080302430600')
+trk = Omniship::USPS.track('9400111201080302430600')
 trk.class
-# => OmniShip::USPS::TrackResponse
+# => Omniship::USPS::Track::Response
 
 trk.shipment.class
-# => OmniShip::USPS::Track::Shipment
+# => Omniship::USPS::Track::Shipment
 
 trk.shipment.scheduled_delivery
 # => Mon Nov 29 12:00:00 UTC 2010
@@ -198,7 +198,7 @@ options = {
 ```
 
 ```ruby
-label = OmniShip::USPS.return_label(customer, options)
+label = Omniship::USPS.return_label(customer, options)
 label.tracking_number
 # => "420532029311769932000000144614" 
 
@@ -213,18 +213,18 @@ Landmark Global
 
 Track
 ```ruby
-trk = OmniShip::Landmark.track('LTN64365934N1')
+trk = Omniship::Landmark.track('LTN64365934N1')
 ```
 
 Track with reference
 
 ```ruby
-trk = OmniShip::Landmark.track_with_reference('REFID')
+trk = Omniship::Landmark.track_with_reference('REFID')
 trk.class
-# => OmniShip::Landmark::TrackResponse
+# => Omniship::Landmark::Track::Response
 
 trk.shipment.class
-# => OmniShip::Landmark::Track::Shipment
+# => Omniship::Landmark::Track::Shipment
 
 trk.shipment.scheduled_delivery
 # => Mon Nov 29 12:00:00 UTC 2010
@@ -245,12 +245,12 @@ DHL Global Mail
 Track
 
 ```ruby
-trk = OmniShip::DHLGM.track('12345')
+trk = Omniship::DHLGM.track('12345')
 trk.class
-# => OmniShip::DHLGM::TrackResponse
+# => Omniship::DHLGM::Track::Response
 
 trk.shipment.class
-# => OmniShip::DHLGM::Track::Shipment
+# => Omniship::DHLGM::Track::Shipment
 
 trk.shipment.scheduled_delivery - not supported by DHL Global Mail
 # => nil
@@ -265,21 +265,21 @@ trk.shipment.packages.first.has_arrived?
 Track
 -----
 
-You can also track it if you don't know what provider it is (currently supports UPS, USPS, Landmark, and DHL Global Mail [only if OmniShip::DHLGM.mailer_id configured and matches])
+You can also track it if you don't know what provider it is (currently supports UPS, USPS, Landmark, and DHL Global Mail [only if Omniship::DHLGM.mailer_id configured and matches])
 
 ```ruby
-trk = OmniShip.track('LTN64365934N1')
+trk = Omniship.track('LTN64365934N1')
 trk.class
-# => OmniShip::Landmark::TrackResponse
+# => Omniship::Landmark::Track::Response
 ```
 
 Tracking Url
 ------------
 
-Build the url to view tracking information from the tracking number (currently supports UPS, UPS Mail Innovations, USPS, DHL, DHL Global Mail [only if OmniShip::DHLGM.mailer_id configured and matches], FedEx, Landmark Global)
+Build the url to view tracking information from the tracking number (currently supports UPS, UPS Mail Innovations, USPS, DHL, DHL Global Mail [only if Omniship::DHLGM.mailer_id configured and matches], FedEx, Landmark Global)
 
 ```
-OmniShip.tracking_url('1z3050790327433970')
+Omniship.tracking_url('1z3050790327433970')
 # => "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=1z3050790327433970"
 ```
 

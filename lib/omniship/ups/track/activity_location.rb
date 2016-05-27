@@ -1,4 +1,4 @@
-module OmniShip
+module Omniship
   module UPS
     module Track
       class ActivityLocation
@@ -15,7 +15,7 @@ module OmniShip
 
         # The address of this activity location.
         #
-        # Returns the OmniShip::UPS::Track::Address.
+        # Returns the Omniship::UPS::Track::Address.
         def address
           node = @root.xpath('Address')
           Address.new(node)

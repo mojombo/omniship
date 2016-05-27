@@ -12,6 +12,7 @@ require 'rest-client'
 
 # Internal
 require 'omniship/version'
+require 'omniship/errors'
 require 'omniship/ups'
 require 'omniship/upsmi'
 require 'omniship/landmark'
@@ -21,11 +22,12 @@ require 'omniship/dhl'
 require 'omniship/fed_ex'
 
 
-module OmniShip
-
+module Omniship
+  PROVIDERS = [UPSMI, UPS, Landmark, FedEx, DHLGM, DHL, USPS]
   class << self
     attr_accessor :debug
   end
+
 
   # Load configuration information from a YAML file.
   #
@@ -35,8 +37,8 @@ module OmniShip
   def self.config(file)
     data = YAML.load(ERB.new(File.read(file)).result)
 
-    if omniship = data['OmniShip']
-      OmniShip.debug = omniship['debug']
+    if omniship = data['Omniship']
+      Omniship.debug = omniship['debug']
 
       if usps = omniship['USPS']
         USPS.userid = usps['userid']
@@ -89,75 +91,41 @@ module OmniShip
   # Track a package based on a tracking number
   # supports Landmark Global, UPS, DHL Global Mail, USPS
   def self.track(number)
-    case self.shipper_label(number)
-    when UPSMI::LABEL
-      OmniShip::UPSMI.track(number, true)
-    when UPS::LABEL
-      OmniShip::UPS.track(number)
-    when Landmark::LABEL
-      OmniShip::Landmark.track(number)
-    when DHLGM::LABEL
-      OmniShip::DHLGM.track(number)
-    when USPS::LABEL
-      OmniShip::USPS.track(number)
-    else 
-      nil
-    end
-  end
-
-  # Generate a tracking URL based on a tracking number
-  # supports UPS, USPS, DHL, DHL Global Mail, FedEx, Landmark Global
-  def self.tracking_url(number, provider=nil)
-    label = self.shipper_label(number)
-    if label == UPS::MI_LABEL or provider == UPS::MI_LABEL
-      "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
-    elsif label == UPS::LABEL or provider == UPS::LABEL
-      "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=#{number}"
-    elsif label == Landmark::LABEL or provider == Landmark::LABEL
-      "https://mercury.landmarkglobal.com/tracking/track.php?trck=#{number}"
-    elsif label == FedEx::LABEL or provider == FedEx::LABEL
-      "http://www.fedex.com/Tracking?action=track&tracknumbers=#{number}"
-    elsif label == DHLGM::LABEL or provider == DHLGM::LABEL
-      "http://webtrack.dhlglobalmail.com/?trackingnumber=#{number}"
-    elsif label == DHL::LABEL or provider == DHL::LABEL
-      "http://www.dhl.com/content/g0/en/express/tracking.shtml?brand=DHL&AWB=#{number}"
-    elsif label == USPS::LABEL or provider == USPS::LABEL
-      "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1=#{number}"
-    else 
-      nil
+    provider = self.provider_from_number(number)
+    if provider
+      if provider.respond_to?(:track)
+        provider.send(:track, number)
+      else
+        raise TrackError.new("#{provider.const_get(:LABEL)} does not support tracking.")
+      end
+    else
+      raise ProviderError.new("No provider found for #{number}")
     end
   end
 
   def self.shipper_label(number)
-    ups = /\b(1Z ?[0-9A-Z]{3} ?[0-9A-Z]{3} ?[0-9A-Z]{2} ?[0-9A-Z]{4} ?[0-9A-Z]{3} ?[0-9A-Z]|[\dT]\d\d\d ?\d\d\d\d ?\d\d\d)\b/i
-    ups_mi = /^\d{18}$/
-    ups_mi2 = /MI.*/
-    usps = /\b(91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d|91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d)\b/i
-    usps2 = /^E\D{1}\d{9}\D{2}$|^9\d{15,21}$/
-    usps3 = /^91[0-9]+$/
-    usps4 = /^[A-Za-z]{2}[0-9]+US$/
-    fedex = /\b((96\d\d\d\d\d ?\d\d\d\d|96\d\d) ?\d\d\d\d ?d\d\d\d( ?\d\d\d)?)\b/i
-    landmark = /\b(LTN\d+N\d+)\b/i
-    dhl = /^\d{10,11}$/
-    dhlgm = /^\d{22}$/
+    provider = self.provider_from_number(number)
+    if provider
+      provider.const_get(:LABEL)
+    else
+      raise ProviderError.new("No provider found for #{number}")
+    end
+  end
 
-    if !(number =~ ups_mi).nil? or !(number =~ ups_mi2).nil?
-      UPSMI::LABEL
-    elsif !(number =~ ups).nil?
-      UPS::LABEL
-    elsif !(number =~ landmark).nil?
-      Landmark::LABEL
-    elsif !(number =~ fedex).nil?
-      FedEx::LABEL
-    elsif number.length == 22 and number.include?(OmniShip::DHLGM.mailer_id) 
-      # have to use the mailer_id here because otherwise its indistinguisable from a USPS number. that sucks but its all we got.
-      DHLGM::LABEL
-    elsif !(number =~ dhl).nil?
-      DHL::LABEL
-    elsif !(number =~ usps).nil? or !(number =~ usps2).nil? or !(number =~ usps3).nil? or !(number =~ usps4).nil?
-      USPS::LABEL
-    else 
-      nil
+  def self.tracking_url(number)
+    provider = self.provider_from_number(number)
+    if provider
+      provider.send(:tracking_url, number)
+    else
+      raise ProviderError.new("No provider found for #{number}")
+    end
+  end
+
+  private 
+  
+  def self.provider_from_number(number)
+    PROVIDERS.detect do |provider|
+      provider.send(:tracking_test?, number)
     end
   end
 end
