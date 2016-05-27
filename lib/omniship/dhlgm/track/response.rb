@@ -3,13 +3,7 @@ module Omniship
     module Track
       class Response
         def initialize(root)
-          result = root.xpath("track")
-          if !result.xpath("error").empty?
-            errors = result.xpath("error").map{|err|
-              "#{err.xpath("code").text} - #{err.xpath("description").text}"
-            }.join(", ")
-            raise StandardError, errors
-          end
+          @root = root
         end
 
         def shipment
