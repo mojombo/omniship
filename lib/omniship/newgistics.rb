@@ -4,7 +4,7 @@ module Omniship
   module Newgistics
     LABEL = "Newgistics"
     TRACKING_REGEX = /TODO/
-    TRACKING_URL = "TODO"
+    TRACKING_URL = "http://tracking.smartlabel.com/Default.aspx?TrackingValue="
 
     class << self
       attr_accessor :merchant_id

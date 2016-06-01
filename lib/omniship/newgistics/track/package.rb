@@ -30,10 +30,9 @@ module Omniship
           end
         end
 
-        # this is actually an indicator that the newgistics shipping facility has received the package
         def has_left?
           self.activity.each {|activity|
-            if activity.code == "TODO"
+            if activity.code == "InTransit"
               return true
             end
           }
@@ -42,7 +41,7 @@ module Omniship
 
         def has_arrived?
           self.activity.each {|activity|
-            if activity.code == "TODO"
+            if activity.code == "Delivered"
               return true
             end
           }
