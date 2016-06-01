@@ -1,4 +1,4 @@
-module OmniShip
+module Omniship
   module USPS
     module Track
       class Package
@@ -23,7 +23,7 @@ module OmniShip
         # The activity of the package in reverse chronological order. Each
         # element represents a stop on the package's journey.
         #
-        # Returns an array of OmniShip::USPS::Track::Activity objects.
+        # Returns an array of Omniship::USPS::Track::Activity objects.
         def activity
           @root.xpath('TrackSummary').map do |act|
             Activity.new(act)

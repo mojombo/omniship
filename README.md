@@ -1,158 +1,172 @@
-OmniShip
+Omniship
 ========
 
 
 Currently Supported Calls
 -------------------------
 
-* Tracking Url     -> auto detects the provider based on the format of the tracking number
-    works with UPS, USPS, DHL, DHL Global Mail, FedEx, Landmark Global 
-* Track            -> auto detects the provider based on the format of the tracking number
+* [Tracking Url](#tracking-url)
+  * auto detects the provider based on the format of the tracking number
+  * works with UPS, USPS, DHL Global Mail (if Omniship::DHLGM.mailer_id is set and matches), FedEx, Landmark Global, UPS Mail Innovations 
 
-* UPS and UPS Mail Innovations
+* [Track](#track)
+  * auto detects the provider based on the format of the tracking number
+  * works with UPS, USPS, DHL Global Mail (if Omniship::DHLGM.mailer_id is set and matches), FedEx, Landmark Global, UPS Mail Innovations 
+
+* [UPS and UPS Mail Innovations](#ups-and-ups-mail-innovations)
   * Track
 
-* Landmark Global
+* [Landmark Global](#landmark-global)
   * Landmark
     * Track
     * Track with reference
 
-* USPS 
+* [USPS](#usps)
   * Track
   * Return label
 
-* DHL Global Mail
+* [DHL Global Mail](#dhl-global-mail)
     * Track
-Usage
+
+Configuration
 -----
 
-Require the library:
+Add to your gemfile
 
-    require 'rubygems'
-    require 'omniship'
+```ruby
+gem 'omniship', git: 'git://github.com/wantable/omniship.git'
+```
 
 Set authentication details; you only need the details for services you'll be using; tracking url stuff doesn't need any authentications
 
-    OmniShip::UPS.username = 'johndoe'
-    OmniShip::UPS.password = '1234567890'
-    OmniShip::UPS.token = 'QWERTYUIOP'
+```ruby
+Omniship::UPS.username = 'johndoe'
+Omniship::UPS.password = '1234567890'
+Omniship::UPS.token = 'QWERTYUIOP'
 
-    OmniShip::USPS.userid = 'johndoe'
-    OmniShip::USPS.password = '1234567890'
+Omniship::USPS.userid = 'johndoe'
+Omniship::USPS.password = '1234567890'
 
-    OmniShip::Landmark.username = 'johndoe'
-    OmniShip::Landmark.password = '1234567890'
-    OmniShip::Landmark.client_id = '123'
-    OmniShip::Landmark.test_mode = true # this turns Landmark's test mode on
+Omniship::Landmark.username = 'johndoe'
+Omniship::Landmark.password = '1234567890'
+Omniship::Landmark.client_id = '123'
+Omniship::Landmark.test_mode = true # this turns Landmark's test mode on
 
-    OmniShip::DHLGM.username = 'johndoe'
-    OmniShip::DHLGM.password = '1234567890'
-    OmniShip::DHLGM.mailer_id = '1234567890' # this is required to detect the shipper type, since USPS and DHL are otherwise indistinguisiblle
+Omniship::DHLGM.username = 'johndoe'
+Omniship::DHLGM.password = '1234567890'
+Omniship::DHLGM.mailer_id = '1234567890' # this is required to detect the shipper type, since USPS and DHL are otherwise indistinguisiblle
 
-    OmniShip.debug = true # with this enabled all xml request's and responses will be outputed to the log
+Omniship.debug = true # with this enabled all xml request's and responses will be outputed to the log
+```
 
-    You can also do this in a config file
-    config/settings.yaml
+You can also do this in a config file
+config/settings.yaml
 
-    
-    OmniShip:
-      debug: true
-      
-      USPS:
-        userid: johndoe
-        password: 1234567890
-        client_ip: 127.0.0.1
-        source_id: Wantable, Inc. 
+```yml
+Omniship:
+  debug: true
+  
+  USPS:
+    userid: johndoe
+    password: 1234567890
+    client_ip: 127.0.0.1
+    source_id: Wantable, Inc. 
 
-        retailer:
-          name: Wantable 
-          address: 223 N Water St. STE 300
-        permit:
-          number: 1234
-          city: Milwaukee
-          state: WI
-          zip5: 53202
-        pdu:
-          po_box: 223 N Water ST STE 300
-          city: Milwaukee 
-          state: WI 
-          zip5: 53202
+    retailer:
+      name: Wantable 
+      address: 223 N Water St. STE 300
+    permit:
+      number: 1234
+      city: Milwaukee
+      state: WI
+      zip5: 53202
+    pdu:
+      po_box: 223 N Water ST STE 300
+      city: Milwaukee 
+      state: WI 
+      zip5: 53202
 
-      UPS:
-        username: johndoe
-        password: 1234567890
+  UPS:
+    username: johndoe
+    password: 1234567890
 
-      Landmark:
-        username: johndoe
-        password: 1234567890
-        client_id: 123
-        debug: true
-
-
-      DHLGM:
-        username: johndoe
-        password: 1234567890
+  Landmark:
+    username: johndoe
+    password: 1234567890
+    client_id: 123
+    debug: true
 
 
-    and then set it up in an intializer like: 
+  DHLGM:
+    username: johndoe
+    password: 1234567890
+```
 
-        OmniShip.config('config/settings.yml')
+
+and then set it up in an intializer like: 
+
+```ruby 
+Omniship.config('config/settings.yml')
+```
 
 
-UPS
+UPS and UPS Mail Innovations
 ---
 
-Track a package by tracking number:
+Track
 
-    trk = OmniShip::UPS.track('1z3050790327433970')
+```ruby
+trk = Omniship::UPS.track('1z3050790327433970')
+```
 
-The result:
+or if its a mail innovations package
 
-    trk.class
-    # => OmniShip::UPS::TrackResponse
+```ruby
+trk = Omniship::UPS.track('123456790', true)
+trk.class
+# => Omniship::UPS::Track::Response
 
-    trk.shipment.class
-    # => OmniShip::UPS::Track::Shipment
+trk.shipment.class
+# => Omniship::UPS::Track::Shipment
 
-    trk.shipment.scheduled_delivery
-    # => Mon Nov 29 12:00:00 UTC 2010
+trk.shipment.scheduled_delivery
+# => Mon Nov 29 12:00:00 UTC 2010
 
-    trk.shipment.packages.first.has_left?
-    # => true / false
+trk.shipment.packages.first.has_left?
+# => true / false
 
-    trk.shipment.packages.first.has_arrived?
-    # => true / false
+trk.shipment.packages.first.has_arrived?
+# => true / false
 
-    trk.shipment.packages.first.tracking_number
-    # => "1z3050790327433970" 
-
+trk.shipment.packages.first.tracking_number
+# => "123456790" 
+```
 
 USPS
 ---
 
-Track a package by tracking number:
+Track
 
-    trk = OmniShip::USPS.track('9400111201080302430600')
+```ruby
+trk = Omniship::USPS.track('9400111201080302430600')
+trk.class
+# => Omniship::USPS::Track::Response
 
-The result:
+trk.shipment.class
+# => Omniship::USPS::Track::Shipment
 
-    trk.class
-    # => OmniShip::USPS::TrackResponse
+trk.shipment.scheduled_delivery
+# => Mon Nov 29 12:00:00 UTC 2010
 
-    trk.shipment.class
-    # => OmniShip::USPS::Track::Shipment
+trk.shipment.packages.first.has_left?
+# => true / false
 
-    trk.shipment.scheduled_delivery
-    # => Mon Nov 29 12:00:00 UTC 2010
+trk.shipment.packages.first.has_arrived?
+# => true / false
 
-    trk.shipment.packages.first.has_left?
-    # => true / false
-
-    trk.shipment.packages.first.has_arrived?
-    # => true / false
-
-    trk.shipment.packages.first.tracking_number
-    # => "1z3050790327433970" 
+trk.shipment.packages.first.tracking_number
+# => "9400111201080302430600" 
+```
 
 Make a return shipping label
 
@@ -160,103 +174,114 @@ Make a return shipping label
 * You can get a userid and password [here](http://www.usps.com/webtools/) but you need to call them at 1-800-344-7779 and have them activate it for the production server. The api doesn't seem to work with the test server at all; but they'll activate you no questions asked in like a 30 second phone call.
 
 
+Additional config
 
-        customer = {
-            :name => "Casey Juan Lopez", 
-            :address1 => "223 N Water St.", 
-            :address2 => "STE 300", 
-            :city => "Milwaukee",
-            :state => "WI",
-            :zip5 => "53202"
-        }
-        options = {
-            :window => "RIGHTWINDOW", 
-            :service_type => "PRIORITY", 
-            :delivery_confirmation => false, 
-            :insurance_value => nil,  # only applicable if delivery_confirmation = true
-            :weight => "13", # in ounces 
-            :image_type => "TIF", #TIF/PDF 
-            :rma => "asdfghjkl", 
-            :rma_barcode => true,
-        }
+```ruby
+customer = {
+    name: "Casey Juan Lopez", 
+    address1: "223 N Water St.", 
+    address2: "STE 300", 
+    city: "Milwaukee",
+    state: "WI",
+    zip5: "53202"
+}
+options = {
+    window: "RIGHTWINDOW", 
+    service_type: "PRIORITY", 
+    delivery_confirmation: false, 
+    insurance_value: nil,  # only applicable if delivery_confirmation = true
+    weight: "13", # in ounces 
+    image_type: "TIF", #TIF/PDF 
+    rma: "asdfghjkl", 
+    rma_barcode: true,
+}
+```
 
-        label = OmniShip::USPS.return_label(customer, options)
-        label.tracking_number
-        # => "420532029311769932000000144614" 
+```ruby
+label = Omniship::USPS.return_label(customer, options)
+label.tracking_number
+# => "420532029311769932000000144614" 
 
-        label.save("label_file")
-        # creates file label_file.tif
+label.save("label_file")
+# creates file label_file.tif
+```
 
 
 
 Landmark Global
 ---------------
 
-    trk = OmniShip::Landmark.track('LTN64365934N1')
+Track
+```ruby
+trk = Omniship::Landmark.track('LTN64365934N1')
+```
 
-also equivalent to 
+Track with reference
 
-    trk = OmniShip::Landmark.track_with_reference('REFID')
+```ruby
+trk = Omniship::Landmark.track_with_reference('REFID')
+trk.class
+# => Omniship::Landmark::Track::Response
 
-The result:
+trk.shipment.class
+# => Omniship::Landmark::Track::Shipment
 
-    trk.class
-    # => OmniShip::Landmark::TrackResponse
+trk.shipment.scheduled_delivery
+# => Mon Nov 29 12:00:00 UTC 2010
 
-    trk.shipment.class
-    # => OmniShip::Landmark::Track::Shipment
+trk.shipment.packages.first.has_left?
+# => true / false
 
-    trk.shipment.scheduled_delivery
-    # => Mon Nov 29 12:00:00 UTC 2010
+trk.shipment.packages.first.has_arrived?
+# => true / false
 
-    trk.shipment.packages.first.has_left?
-    # => true / false
-    
-    trk.shipment.packages.first.has_arrived?
-    # => true / false
+trk.shipment.packages.first.tracking_number
+# => "LTN62075201N1" 
+```
 
-    trk.shipment.packages.first.tracking_number
-    # => "LTN62075201N1" 
-
-
-DHLGM
+DHL Global Mail
 ---------------
 
-    trk = OmniShip::DHLGM.track('12345')
+Track
 
-The result:
+```ruby
+trk = Omniship::DHLGM.track('12345')
+trk.class
+# => Omniship::DHLGM::Track::Response
 
-    trk.class
-    # => OmniShip::DHLGM::TrackResponse
+trk.shipment.class
+# => Omniship::DHLGM::Track::Shipment
 
-    trk.shipment.class
-    # => OmniShip::DHLGM::Track::Shipment
+trk.shipment.scheduled_delivery - not supported by DHL Global Mail
+# => nil
 
-    trk.shipment.scheduled_delivery - not supported by DHL Global Mail
-    # => nil
+trk.shipment.packages.first.has_left?
+# => true / false
 
-    trk.shipment.packages.first.has_left?
-    # => true / false
-    
-    trk.shipment.packages.first.has_arrived?
-    # => true / false
+trk.shipment.packages.first.has_arrived?
+# => true / false
+```
 
+Track
+-----
 
-You can also track it if you don't know what provider it is (currently supports UPS, USPS, Landmark, and DHL Global Mail[only if mailer_id configured and matches])
+You can also track it if you don't know what provider it is (currently supports UPS, USPS, Landmark, and DHL Global Mail [only if Omniship::DHLGM.mailer_id configured and matches])
 
-    trk = OmniShip.track('LTN64365934N1')
+```ruby
+trk = Omniship.track('LTN64365934N1')
+trk.class
+# => Omniship::Landmark::Track::Response
+```
 
-The result:
+Tracking Url
+------------
 
-    trk.class
-    # => OmniShip::Landmark::TrackResponse
+Build the url to view tracking information from the tracking number (currently supports UPS, UPS Mail Innovations, USPS, DHL, DHL Global Mail [only if Omniship::DHLGM.mailer_id configured and matches], FedEx, Landmark Global)
 
-    ....
+```
+Omniship.tracking_url('1z3050790327433970')
+# => "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=1z3050790327433970"
+```
 
-Build the url to view tracking information from the tracking number (currently supports UPS, USPS, DHL, DHL Global Mail, FedEx, Landmark Global)
-
-    OmniShip.tracking_url('1z3050790327433970')
-    # => "http://wwwapps.ups.com/WebTracking/track?track=yes&trackNums=1z3050790327433970"
-    
 
 

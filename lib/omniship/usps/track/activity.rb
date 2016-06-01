@@ -1,4 +1,4 @@
-module OmniShip
+module Omniship
   module USPS
     module Track
       class Activity
@@ -18,7 +18,7 @@ module OmniShip
 
         # The location of this activity event.
         #
-        # Returns the OmniShip::USPS::Track::ActivityLocation.
+        # Returns the Omniship::USPS::Track::ActivityLocation.
         def location
           ActivityLocation.new(@root)
         end

@@ -4,16 +4,16 @@ require 'omniship/version'
 Gem::Specification.new do |s|
 
   s.name              = 'omniship'
-  s.version           = OmniShip::VERSION
+  s.version           = Omniship::VERSION
   s.date              = '2010-11-27'
   s.rubyforge_project = 'omniship'
 
-  s.summary     = "OmniShip is a unified API for various shipping APIs."
-  s.description = "OmniShip is a unified API for various shipping APIs such as UPS, USPS, FedEx, and DHL."
+  s.summary     = "Omniship is a unified API for various shipping APIs."
+  s.description = "Omniship is a unified API for various shipping APIs such as UPS, USPS, FedEx, and DHL."
 
   s.authors  = ["Tom Preston-Werner", "Casey Juan Lopez", "Kevin Solkowski"]
-  s.email    = 'casey@martigot.com'
-  s.homepage = 'http://github.com/fiestacasey/omniship'
+  s.email    = 'casey@wantable.com'
+  s.homepage = 'http://github.com/wantable/omniship'
 
   s.require_paths = %w[lib]
 
@@ -23,8 +23,8 @@ Gem::Specification.new do |s|
   s.add_dependency('json')
   s.add_dependency('curb')
   s.add_dependency('rest-client')
-
-  s.add_development_dependency('shoulda', [">= 2.11.3", "< 3.0.0"])
+  s.add_dependency('nokogiri')
+  s.add_development_dependency('rspec')
 
   # = MANIFEST =
   s.files =  Dir.glob("{lib}/**/*") + %w(LICENSE README.md)

@@ -1,9 +1,9 @@
-module OmniShip
+module Omniship
   module UPS
     module Track
       class Package
 
-        attr_accessor :root
+         
 
         # Initialize a new Package.
         #
@@ -23,7 +23,7 @@ module OmniShip
         # The activity of the package in reverse chronological order. Each
         # element represents a stop on the package's journey.
         #
-        # Returns an array of OmniShip::UPS::Track::Activity objects.
+        # Returns an array of Omniship::UPS::Track::Activity objects.
         def activity
           @root.xpath('Activity').map do |act|
             Activity.new(act)

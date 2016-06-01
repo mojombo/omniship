@@ -1,8 +1,8 @@
-module OmniShip
+module Omniship
   module UPS
     module Track
       class Activity
-        attr_accessor :root
+         
 
         # Initialize a new Activity.
         #
@@ -15,7 +15,7 @@ module OmniShip
 
         # The location of this activity event.
         #
-        # Returns the OmniShip::UPS::Track::ActivityLocation.
+        # Returns the Omniship::UPS::Track::ActivityLocation.
         def location
           node = @root.xpath('ActivityLocation')
           ActivityLocation.new(node)

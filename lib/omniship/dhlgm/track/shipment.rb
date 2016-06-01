@@ -1,8 +1,8 @@
-module OmniShip
+module Omniship
   module DHLGM
     module Track
       class Shipment
-        attr_accessor :root
+         
 
         # Initialize a new Shipment.
         #
@@ -10,10 +10,6 @@ module OmniShip
         # Returns the newly initialized Shipment.
         def initialize(root)
           @root = root
-        end
-
-        def root
-          @root
         end
 
         # The list of packages in this shipment.

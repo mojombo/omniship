@@ -1,8 +1,8 @@
-module OmniShip
+module Omniship
   module UPS
     module Track
       class Address
-        attr_accessor :root
+         
 
         # Initialize a new Address.
         #

@@ -1,4 +1,4 @@
-module OmniShip
+module Omniship
   module DHLGM
     module Track
       class Activity
@@ -19,7 +19,7 @@ module OmniShip
 
         # The location of this activity event.
         #
-        # Returns the OmniShip::DHLGM::Track::ActivityLocation.
+        # Returns the Omniship::DHLGM::Track::ActivityLocation.
         def location
           ActivityLocation.new(@root)
         end
