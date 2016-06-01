@@ -74,7 +74,7 @@ module Omniship
             puts endpoint
             puts request.to_xml
           end
-          response = RestClient.post endpoint, request.to_xml, :content_type => "text/xml", :accept => "text/xml"
+          response = RestClient.post endpoint, request.to_xml, content_type: "text/xml", accept: "text/xml"
           
           if Omniship.debug
             puts response

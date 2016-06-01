@@ -16,5 +16,5 @@ end
 
 Rake::Task['spec'].enhance ['load_env']
 
-task :test => :spec
-task :default => :spec
+task test: :spec
+task default: :spec

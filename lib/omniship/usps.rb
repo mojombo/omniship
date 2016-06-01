@@ -30,20 +30,20 @@ module Omniship
 
     def self.return_label(customer, options = nil)
       retailer = {
-        :name => retailer_name,
-        :address => retailer_address
+        name: retailer_name,
+        address: retailer_address
       }
       permit = {
-        :number => permit_number,
-        :city => permit_city,
-        :state => permit_state,
-        :zip5 => permit_zip5
+        number: permit_number,
+        city: permit_city,
+        state: permit_state,
+        zip5: permit_zip5
       }
       pdu = {
-        :po_box => pdu_po_box, 
-        :city => pdu_city,
-        :state => pdu_state,
-        :zip5 => pdu_zip5
+        po_box: pdu_po_box, 
+        city: pdu_city,
+        state: pdu_state,
+        zip5: pdu_zip5
       }
       request = ReturnLabelRequest.new(ReturnLabel::Customer.new(customer), ReturnLabel::Retailer.new(retailer), ReturnLabel::Permit.new(permit), ReturnLabel::PDU.new(pdu), options)
       request.get_response
