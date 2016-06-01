@@ -40,7 +40,7 @@ module Omniship
             puts endpoint
             puts request.to_xml
           end
-          response = RestClient.get URI.encode("#{endpoint}#{request.to_xml.gsub("<?xml version=\"1.0\"?>","")}"), :content_type => "text/xml", :accept => "text/xml"
+          response = RestClient.get URI.encode("#{endpoint}#{request.to_xml.gsub("<?xml version=\"1.0\"?>","")}"), content_type: "text/xml", accept: "text/xml"
           
           if Omniship.debug
             puts response

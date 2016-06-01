@@ -32,20 +32,20 @@ module Omniship
           puts request.to_xml
         end
 
-        response = RestClient.get URI.encode(self.class.endpoint+request.to_xml.gsub("<?xml version=\"1.0\"?>","")), :content_type => "text/xml", :accept => "text/xml"
+        response = RestClient.get URI.encode(self.class.endpoint+request.to_xml.gsub("<?xml version=\"1.0\"?>","")), content_type: "text/xml", accept: "text/xml"
         
         if Omniship.debug
           puts response
         end
 
-        ReturnLabelResponse.new(Nokogiri::XML::Document.parse(response), {:image_type => @image_type})
+        ReturnLabelResponse.new(Nokogiri::XML::Document.parse(response), {image_type: @image_type})
       end
 
       private 
 
       def create_document
         builder = Nokogiri::XML::Builder.new do |xml|
-          xml.send(:"EMRSV4.0Request", :USERID=>USPS.userid, :PASSWORD=>USPS.password){
+          xml.send(:"EMRSV4.0Request", USERID: USPS.userid, PASSWORD: USPS.password){
             xml.Option @window
             @customer.to_xml(xml)
             @retailer.to_xml(xml)

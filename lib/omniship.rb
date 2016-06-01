@@ -84,6 +84,12 @@ module Omniship
         DHLGM.password = dhlgm['password']
         DHLGM.mailer_id = dhlgm['mailer_id'].to_s # this could be implied an integer by the yaml parser
       end
+
+      if newgistics = omniship['Newgistics']
+        Newgistics.mailer_id = newgistics['mailer_id']
+        Newgistics.api_key = newgistics['api_key']
+        Newgistics.test = newgistics['test'].to_s
+      end
     end
     nil
   end

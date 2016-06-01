@@ -137,7 +137,7 @@ shipping_confirm_request = "
 </ShipmentConfirmRequest>
 "
 
-response = RestClient.post shipping_confirm_request_url, access_request+shipping_confirm_request,  :content_type => "text/xml", :accept => "text/xml"
+response = RestClient.post shipping_confirm_request_url, access_request+shipping_confirm_request,  content_type: "text/xml", accept: "text/xml"
 puts shipping_confirm_request_url + response
 root = Nokogiri::XML::Document.parse(response)
 digest = root.xpath("ShipmentConfirmResponse/ShipmentDigest/text()").to_s
@@ -161,7 +161,7 @@ shipment_accept_request = "
 "
 request = "request" + access_request+shipment_accept_request
 puts shipment_accept_request_url + request
-response = RestClient.post shipment_accept_request_url, request,  :content_type => "text/xml", :accept => "text/xml"
+response = RestClient.post shipment_accept_request_url, request,  content_type: "text/xml", accept: "text/xml"
 puts "response" + shipment_accept_request_url + response
 
 root = Nokogiri::XML::Document.parse(response)
