@@ -20,6 +20,7 @@ require 'omniship/usps'
 require 'omniship/dhlgm'
 require 'omniship/dhl'
 require 'omniship/fed_ex'
+require 'omniship/newgistics'
 
 
 module Omniship

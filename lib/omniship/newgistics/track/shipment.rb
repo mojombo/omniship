@@ -15,8 +15,10 @@ module Omniship
         #
         # Returns an array of Package objects.
         def packages
-          # newgistics doesn't have multiple packages per shipment but it still needs to follow the same format
-          Package.new(root)
+          puts @root
+          @root["Packages"].map do |p|
+            Package.new(p)
+          end
         end
 
         # The scheduled delivery date. If a specific time of day is available

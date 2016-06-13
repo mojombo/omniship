@@ -17,6 +17,8 @@ UPSMI_VALID_NUMBERS = ["801677101399737254", "801677100190161691", "801677101395
 DHL_VALID_NUMBERS = ['3208547941', '5972839611', '5972803815', '8010954000']
 FED_EX_VALID_NUMBERS = ['262952560543252', '635519318996']
 DHLGM_VALID_NUMBERS = ["9274812345678960036671", "9261212345678960028717", "9261212345678960399046", "9261212345678948635197"]
+NEWGISTICS_VALID_ID = "123456789A"
+NEWGISTICS_INVALID_ID = "987654321A"
 
 # test numbers I made up
 DHL_TEST_MAILER_ID = '123456789'
@@ -45,5 +47,7 @@ RSpec.configure do |config|
                                           # from https://mercury.landmarkglobal.com/clients/KnowledgeBase/index.php?topic_name=Track+API+Request&hash=539fd53b59e3bb12d203f45a912eeaf2
     Omniship::UPS.test = true
     Omniship::USPS.test = true
+    Omniship::Newgistics.test = true
+    #RestClient.log = 'stdout'
   }
 end

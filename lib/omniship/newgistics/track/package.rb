@@ -31,21 +31,11 @@ module Omniship
         end
 
         def has_left?
-          self.activity.each {|activity|
-            if activity.code == "InTransit"
-              return true
-            end
-          }
-          return false
+          ["Received", "InTransit", "Delivered", "Departed", "InUSPSNetwork"].include?(@root["Status"])
         end
 
         def has_arrived?
-          self.activity.each {|activity|
-            if activity.code == "Delivered"
-              return true
-            end
-          }
-          return false
+          @root["Status"] == "Delivered"
         end
 
         def scheduled_delivery_date

@@ -28,7 +28,7 @@ module Omniship
         end
 
         def code
-          @root['Status']
+          @root['CarrierCode']
         end
       end
     end
