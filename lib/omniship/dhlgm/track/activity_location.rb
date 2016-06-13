@@ -1,8 +1,7 @@
 module Omniship
-  module UPS
+  module DHLGM
     module Track
       class ActivityLocation
-         
 
         # Initialize a new ActivityLocation.
         #
@@ -12,14 +11,17 @@ module Omniship
         def initialize(root)
           @root = root
         end
+        def root
+          @root
+        end
 
         # The address of this activity location.
         #
         # Returns the Omniship::UPS::Track::Address.
         def address
-          node = @root.xpath('Address')
-          Address.new(node)
+          Address.new(@root)
         end
+
       end
     end
   end

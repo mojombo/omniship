@@ -1,9 +1,8 @@
-module OmniShip
+module Omniship
   module UPS
     module Track
       class Address
-        # The Handsoap XML element representing the root response node.
-        attr_accessor :root
+         
 
         # Initialize a new Address.
         #
@@ -16,17 +15,17 @@ module OmniShip
 
         # Returns the String city or nil if none was set.
         def city
-          @root.xpath('./ns:City/text()').to_s
+          @root.xpath('City/text()').to_s
         end
 
         # Returns the String state or province code or nil if none was set.
         def state_province_code
-          @root.xpath('./ns:StateProvinceCode/text()').to_s
+          @root.xpath('StateProvinceCode/text()').to_s
         end
 
         # Returns the String country code or nil if none was set.
         def country_code
-          @root.xpath('./ns:CountryCode/text()').to_s
+          @root.xpath('CountryCode/text()').to_s
         end
 
         # This address as a single line comma delimited string.
@@ -38,20 +37,6 @@ module OmniShip
           parts << state_province_code if state_province_code
           parts << country_code if country_code
           parts.join(', ')
-        end
-
-        # Returns a Hash representation of this object.
-        def to_hash
-          {
-            "City" => city,
-            "StateProvinceCode" => state_province_code,
-            "CountryCode" => country_code
-          }
-        end
-
-        # Returns the String details of this object.
-        def inspect
-          "#<OmniShip::UPS::Track::Address #{to_s}>"
         end
       end
     end

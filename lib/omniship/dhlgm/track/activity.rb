@@ -1,8 +1,8 @@
 module Omniship
-  module UPS
+  module DHLGM
     module Track
       class Activity
-         
+
 
         # Initialize a new Activity.
         #
@@ -13,22 +13,28 @@ module Omniship
           @root = root
         end
 
+        def root
+          @root
+        end
+
         # The location of this activity event.
         #
-        # Returns the Omniship::UPS::Track::ActivityLocation.
+        # Returns the Omniship::DHLGM::Track::ActivityLocation.
         def location
-          node = @root.xpath('ActivityLocation')
-          ActivityLocation.new(node)
+          ActivityLocation.new(@root)
         end
 
         def status
-          node = @root.xpath('Status/StatusType/Description').text
+          node = @root.xpath('description/text()').to_s
 
           node
         end
 
-        def code 
-          @root.xpath('Status/StatusType/Code').text
+        def code
+          node = @root.xpath('code/text()').to_s
+
+          node
+
         end
       end
     end

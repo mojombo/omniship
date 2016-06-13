@@ -1,7 +1,13 @@
 module Omniship
   module UPS
     module Track
-      class ActivityLocation
+      class AlternateTracking
+
+        PACKAGE_ID = 'P'
+        MANIFEST_ID = 'S'
+        MMS_NUMBER = 'T'
+        POSTAL_SERVICE_TRACKING_ID = 'Q'
+        
          
 
         # Initialize a new ActivityLocation.
@@ -13,12 +19,13 @@ module Omniship
           @root = root
         end
 
-        # The address of this activity location.
-        #
-        # Returns the Omniship::UPS::Track::Address.
-        def address
-          node = @root.xpath('Address')
-          Address.new(node)
+        def type
+          @root.xpath('Type').text
+        end
+
+
+        def value
+          @root.xpath('Value').text
         end
       end
     end

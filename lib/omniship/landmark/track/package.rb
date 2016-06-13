@@ -1,63 +1,63 @@
 module Omniship
-  module UPS
+  module Landmark
     module Track
       class Package
 
-         
-
         # Initialize a new Package.
         #
-        # root - The root Package XML node.
         #
         # Returns the newly initialized Package.
-        def initialize(root, parent)
+        def initialize(root)
           @root = root
-          @parent = parent
+        end
+
+        def root
+          @root
         end
 
         # Returns the String tracking number.
         def tracking_number
-          @root.xpath('TrackingNumber/text()').to_s
+          @root.xpath("LandmarkTrackingNumber/text()").to_s
         end
 
         # The activity of the package in reverse chronological order. Each
         # element represents a stop on the package's journey.
         #
-        # Returns an array of Omniship::UPS::Track::Activity objects.
+        # Returns an array of Omniship::Landmark::Track::Activity objects.
         def activity
-          @root.xpath('Activity').map do |act|
+          @root.xpath('Events/Event').map do |act|
             Activity.new(act)
           end
         end
 
-        # The scheduled delivery date. If a specific time of day is available
-        # then it will be set, otherwise the time will be set to noon. If no
-        # delivery date is available, the result will be nil.
-        #
-        # Returns the Time of the delivery, or nil if none is available.
-        def scheduled_delivery
-          @parent.scheduled_delivery
-        end
-
-        # The scheduled delivery date as a String in YYYYMMDD format.
-        #
-        # Returns the String delivery date or nil if none is available.
-        def scheduled_delivery_date
-          @parent.scheduled_delivery_date
-        end
-
-        def alternate_tracking
-          @root.xpath('AlternateTrackingInfo').map do |alt|
-            AlternateTracking.new(alt)
-          end
-        end
-
+        # this is actually an indicator that the landmark shipping facility has received the package
         def has_left?
-          activity.any? {|activity| activity.code == "I" }
+          self.activity.each {|activity|
+            if activity.code == "75"
+              return true
+            end
+          }
+          return false
         end
 
         def has_arrived?
-          activity.any? {|activity| activity.code == "D" }
+          self.activity.each {|activity|
+            if activity.code == "500"
+              return true
+            end
+          }
+          return false
+        end
+
+        def scheduled_delivery_date
+         @root.xpath("ExpectedDelivery/text()").to_s
+        end
+
+        def scheduled_delivery
+          if date = scheduled_delivery_date and !date.empty?
+            fmt = "%m/%d/%Y %Z"
+            start_date = DateTime.strptime(date + " CST", fmt)
+          end
         end
 
 
@@ -69,9 +69,7 @@ module Omniship
           parts = []
 
           stops =
-            activity.select do |act|
-              act.location.address.city
-            end.map do |act|
+            activity.map do |act|
               CGI::escape(act.location.address.to_s)
             end.uniq.reverse
 

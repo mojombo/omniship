@@ -1,65 +1,70 @@
 module Omniship
-  module UPS
+  module DHLGM
     module Track
       class Package
 
-         
-
         # Initialize a new Package.
         #
-        # root - The root Package XML node.
         #
         # Returns the newly initialized Package.
-        def initialize(root, parent)
+        def initialize(root)
           @root = root
-          @parent = parent
+        end
+
+        def root
+          @root
         end
 
         # Returns the String tracking number.
         def tracking_number
-          @root.xpath('TrackingNumber/text()').to_s
+          @root.xpath("trackingnumber/text()").to_s
         end
 
         # The activity of the package in reverse chronological order. Each
         # element represents a stop on the package's journey.
         #
-        # Returns an array of Omniship::UPS::Track::Activity objects.
+        # Returns an array of Omniship::DHLGM::Track::Activity objects.
         def activity
-          @root.xpath('Activity').map do |act|
+          @root.xpath('event').map do |act|
             Activity.new(act)
           end
         end
 
+        
         # The scheduled delivery date. If a specific time of day is available
         # then it will be set, otherwise the time will be set to noon. If no
         # delivery date is available, the result will be nil.
         #
         # Returns the Time of the delivery, or nil if none is available.
         def scheduled_delivery
-          @parent.scheduled_delivery
+         # not supported by DHLGM
+         nil
         end
 
-        # The scheduled delivery date as a String in YYYYMMDD format.
         #
         # Returns the String delivery date or nil if none is available.
         def scheduled_delivery_date
-          @parent.scheduled_delivery_date
+         # not supported by DHLGM
+         nil 
         end
 
-        def alternate_tracking
-          @root.xpath('AlternateTrackingInfo').map do |alt|
-            AlternateTracking.new(alt)
-          end
-        end
-
+        # this is actually an indicator that the DHLGM shipping facility has received the package
         def has_left?
-          activity.any? {|activity| activity.code == "I" }
+          activity.any? {|activity| activity.code.to_i >= 100 }
         end
 
+
+
+        # 570 : AVAILABLE FOR PICKUP
+        # 580 : ACCEPT OR PICKUP
+        # 590 : PICKED UP BY AGENT
+        # 600 : DELIVERED
+        # 699 : DELIVERY STATUS NOT UPDATED
         def has_arrived?
-          activity.any? {|activity| activity.code == "D" }
+          activity.any? {|activity| 
+            (activity.code == '699' and has_arrived_at_usps?) or ['570', '580', '590', '600'].include? activity.code
+          }
         end
-
 
         # Generate a URL to a Google map showing the package's activity.
         #
@@ -69,9 +74,7 @@ module Omniship
           parts = []
 
           stops =
-            activity.select do |act|
-              act.location.address.city
-            end.map do |act|
+            activity.map do |act|
               CGI::escape(act.location.address.to_s)
             end.uniq.reverse
 
@@ -92,6 +95,16 @@ module Omniship
           parts << 'sensor=false'
           url += parts.join('&')
           url
+        end
+
+        # 510 : SHIPMENT ACCEPTED BY USPS
+        # 520 : ARRIVAL AT POST OFFICE
+        # 538 : DEPART USPS SORT FACILITY
+        # has been accepted by the post office or has been accepted any of these should be good
+        def has_arrived_at_usps?
+          self.activity.any? do |activity|  
+            activity.code == '510' or activity.code == '520' or activity.code == '538'
+          end
         end
       end
     end
