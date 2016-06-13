@@ -6,7 +6,7 @@ module Omniship
     LABEL = "USPS"
     TRACKING_REGEX = [/\b(91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d|91\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d ?\d\d\d\d)\b/i, 
                       /^E\D{1}\d{9}\D{2}$|^9\d{15,21}$/, 
-                      /^91[0-9]+$/, 
+                      /^(91|92)[0-9]+$/, 
                       /^[A-Za-z]{2}[0-9]+US$/]
     TRACKING_URL = "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1="
     
