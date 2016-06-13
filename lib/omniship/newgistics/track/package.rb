@@ -25,8 +25,12 @@ module Omniship
         #
         # Returns an array of Omniship::Newgistics::Track::Activity objects.
         def activity
-          @root["PackageTrackingEvents"].map do |act|
-            Activity.new(act)
+          if @root["PackageTrackingEvents"]
+            @root["PackageTrackingEvents"].map do |act|
+              Activity.new(act)
+            end
+          else
+            []
           end
         end
 

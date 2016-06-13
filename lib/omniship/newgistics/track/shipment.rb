@@ -15,7 +15,6 @@ module Omniship
         #
         # Returns an array of Package objects.
         def packages
-          puts @root
           @root["Packages"].map do |p|
             Package.new(p)
           end
