@@ -50,13 +50,10 @@ module Omniship
 
         # this is actually an indicator that the DHLGM shipping facility has received the package
         def has_left?
-          self.activity.each {|activity|
-            if activity.code.to_i >= 100
-              return true
-            end
-          }
-          return false
+          activity.any? {|activity| activity.code.to_i >= 100 }
         end
+
+
 
         # 570 : AVAILABLE FOR PICKUP
         # 580 : ACCEPT OR PICKUP
@@ -64,16 +61,9 @@ module Omniship
         # 600 : DELIVERED
         # 699 : DELIVERY STATUS NOT UPDATED
         def has_arrived?
-          self.activity.each {|activity|
-            if activity.code == '699' and self.has_arrived_at_usps?
-              return true
-            else
-              if ['570', '580', '590', '600'].include? activity.code
-                return true
-              end
-            end
+          activity.any? {|activity| 
+            (activity.code == '699' and has_arrived_at_usps?) or ['570', '580', '590', '600'].include? activity.code
           }
-          return false
         end
 
         # Generate a URL to a Google map showing the package's activity.
@@ -113,7 +103,7 @@ module Omniship
         # has been accepted by the post office or has been accepted any of these should be good
         def has_arrived_at_usps?
           self.activity.any? do |activity|  
-            activity.code == '510' || activity.code == '520' or activity.code == '538'
+            activity.code == '510' or activity.code == '520' or activity.code == '538'
           end
         end
       end

@@ -53,12 +53,13 @@ module Omniship
         end
 
         def has_left?
-          self.activity.any?{|a| a.code == "I" }
+          activity.any? {|activity| activity.code == "I" }
         end
 
         def has_arrived?
-          self.activity.any?{|a| a.code == "D" }
+          activity.any? {|activity| activity.code == "D" }
         end
+
 
         # Generate a URL to a Google map showing the package's activity.
         #
