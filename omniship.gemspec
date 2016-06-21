@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency('curb')
   s.add_dependency('rest-client')
   s.add_dependency('nokogiri')
+  s.add_development_dependency('rake')
   s.add_development_dependency('rspec')
 
   # = MANIFEST =
