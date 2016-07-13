@@ -2,8 +2,6 @@ module Omniship
   module UPS
     module Track
       class Shipment
-         
-
         # Initialize a new Shipment.
         #
         #

@@ -26,7 +26,7 @@ module Omniship
         #
         # Returns the Time of the delivery, or nil if none is available.
         def scheduled_delivery
-         packages.first.scheduled_delivery
+          packages.first.scheduled_delivery
         end
 
         #
