@@ -7,11 +7,11 @@ Currently Supported Calls
 
 * [Tracking Url](#tracking-url)
   * auto detects the provider based on the format of the tracking number
-  * works with UPS, USPS, DHL Global Mail (if Omniship::DHLGM.mailer_id is set and matches), FedEx, Landmark Global, UPS Mail Innovations 
+  * works with UPS, USPS, DHL Global Mail (if Omniship::DHLGM.mailer_id is set and matches), FedEx, Landmark Global, UPS Mail Innovations, Newgistics (barcode only)
 
 * [Track](#track)
   * auto detects the provider based on the format of the tracking number
-  * works with UPS, USPS, DHL Global Mail (if Omniship::DHLGM.mailer_id is set and matches), FedEx, Landmark Global, UPS Mail Innovations 
+  * works with UPS, USPS, DHL Global Mail (if Omniship::DHLGM.mailer_id is set and matches), FedEx, Landmark Global, UPS Mail Innovations , Newgistics (barcode only)
 
 * [UPS and UPS Mail Innovations](#ups-and-ups-mail-innovations)
   * Track
@@ -26,6 +26,9 @@ Currently Supported Calls
   * Return label
 
 * [DHL Global Mail](#dhl-global-mail)
+    * Track
+
+* [Newgistics](#newgistics)
     * Track
 
 Configuration
@@ -262,10 +265,33 @@ trk.shipment.packages.first.has_arrived?
 # => true / false
 ```
 
+Newgistics
+---------------
+
+Track
+
+```ruby
+trk = Omniship::Newgistics.track('12345')
+trk.class
+# => Omniship::Newgistics::Track::Response
+
+trk.shipment.class
+# => Omniship::Newgistics::Track::Shipment
+
+trk.shipment.scheduled_delivery - not supported by DHL Global Mail
+# => nil
+
+trk.shipment.packages.first.has_left?
+# => true / false
+
+trk.shipment.packages.first.has_arrived?
+# => true / false
+```
+
 Track
 -----
 
-You can also track it if you don't know what provider it is (currently supports UPS, USPS, Landmark, and DHL Global Mail [only if Omniship::DHLGM.mailer_id configured and matches])
+You can also track it if you don't know what provider it is (currently supports UPS, USPS, Landmark, and DHL Global Mail [only if Omniship::DHLGM.mailer_id configured and matches], Newgistics [using barcode])
 
 ```ruby
 trk = Omniship.track('LTN64365934N1')
@@ -276,7 +302,7 @@ trk.class
 Tracking Url
 ------------
 
-Build the url to view tracking information from the tracking number (currently supports UPS, UPS Mail Innovations, USPS, DHL, DHL Global Mail [only if Omniship::DHLGM.mailer_id configured and matches], FedEx, Landmark Global)
+Build the url to view tracking information from the tracking number (currently supports UPS, UPS Mail Innovations, USPS, DHL, DHL Global Mail [only if Omniship::DHLGM.mailer_id configured and matches], FedEx, Landmark Global, Newgistics [using barcode])
 
 ```
 Omniship.tracking_url('1z3050790327433970')
