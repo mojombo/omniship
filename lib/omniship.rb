@@ -20,10 +20,11 @@ require 'omniship/usps'
 require 'omniship/dhlgm'
 require 'omniship/dhl'
 require 'omniship/fed_ex'
+require 'omniship/newgistics'
 
 
 module Omniship
-  PROVIDERS = [UPSMI, UPS, Landmark, FedEx, DHLGM, DHL, USPS]
+  PROVIDERS = [UPSMI, UPS, Landmark, FedEx, DHLGM, DHL, USPS, Newgistics]
   class << self
     attr_accessor :debug
   end
@@ -83,6 +84,12 @@ module Omniship
         DHLGM.username = dhlgm['username']
         DHLGM.password = dhlgm['password']
         DHLGM.mailer_id = dhlgm['mailer_id'].to_s # this could be implied an integer by the yaml parser
+      end
+
+      if newgistics = omniship['Newgistics']
+        Newgistics.mailer_id = newgistics['mailer_id']
+        Newgistics.api_key = newgistics['api_key']
+        Newgistics.test = newgistics['test'].to_s
       end
     end
     nil

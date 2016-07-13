@@ -1,5 +1,5 @@
 module Omniship
-  module Landmark
+  module Newgistics
     module Track
       class Address
         # Initialize a new Address.
@@ -12,12 +12,9 @@ module Omniship
         end
 
         def location
-          @root.xpath("text()").to_s
+          "#{@root["City"]} #{@root["State"]}, #{@root["PostalCode"]}"
         end
 
-        # This address as a single line comma delimited string.
-        #
-        # Returns the String address.
         def to_s
          location
         end

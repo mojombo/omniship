@@ -38,7 +38,7 @@ module Omniship
           puts response
         end
 
-        ReturnLabelResponse.new(Nokogiri::XML::Document.parse(response), { image_type: @image_type})
+        ReturnLabelResponse.new(Nokogiri::XML::Document.parse(response), image_type: @image_type)
       end
 
       private 
