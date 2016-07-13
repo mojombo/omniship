@@ -32,7 +32,7 @@ module Omniship
         #
         # Returns the String delivery date or nil if none is available.
         def scheduled_delivery_date
-         packages.first.scheduled_delivery_date
+          packages.first.scheduled_delivery_date
         end
 
         #
