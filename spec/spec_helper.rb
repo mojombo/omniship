@@ -48,6 +48,5 @@ RSpec.configure do |config|
     Omniship::UPS.test = true
     Omniship::USPS.test = true
     Omniship::Newgistics.test = true
-    #RestClient.log = 'stdout'
   }
 end
