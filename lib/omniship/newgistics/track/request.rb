@@ -5,7 +5,7 @@ module Omniship
         # https://apiint.newgistics.com/WebAPI/Shipment/help/operations/Tracking
         
         TEST_URL = 'https://apiint.newgistics.com/WebAPI/Shipment/Tracking'
-        LIVE_URL = 'https://api.newgisticsfulfillment.com'
+        LIVE_URL = 'https://api.newgistics.com/WebAPI/Shipment/Tracking'
 
         def self.endpoint
           if Newgistics.test == true 
