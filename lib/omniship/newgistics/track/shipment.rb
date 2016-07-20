@@ -1,7 +1,8 @@
 module Omniship
-  module UPS
+  module Newgistics
     module Track
       class Shipment
+         
         # Initialize a new Shipment.
         #
         #
@@ -14,8 +15,8 @@ module Omniship
         #
         # Returns an array of Package objects.
         def packages
-          @root.xpath('Package').map do |package|
-            Package.new(package, self)
+          @root["Packages"].map do |p|
+            Package.new(p)
           end
         end
 
@@ -25,23 +26,20 @@ module Omniship
         #
         # Returns the Time of the delivery, or nil if none is available.
         def scheduled_delivery
-          if date = scheduled_delivery_date
-            year = date[0..3].to_i
-            month = date[4..5].to_i
-            day = date[6..7].to_i
-            Time.utc(year, month, day, 12, 0, 0) rescue nil
-          end
+          packages.first.scheduled_delivery
         end
 
-        # The scheduled delivery date as a String in YYYYMMDD format.
         #
         # Returns the String delivery date or nil if none is available.
         def scheduled_delivery_date
-          date = @root.xpath('ScheduledDeliveryDate').text
-          
-          date.blank? ? nil : date
+          packages.first.scheduled_delivery_date
         end
 
+        #
+        # There is no delivery time for newgistics
+        def scheduled_delivery_time
+          nil
+        end
       end
     end
   end

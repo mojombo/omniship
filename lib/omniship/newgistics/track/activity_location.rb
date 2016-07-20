@@ -1,5 +1,5 @@
 module Omniship
-  module Landmark
+  module Newgistics
     module Track
       class ActivityLocation
 
@@ -11,7 +11,7 @@ module Omniship
         def initialize(root)
           @root = root
         end
-        
+
         # The address of this activity location.
         #
         # Returns the Omniship::UPS::Track::Address.

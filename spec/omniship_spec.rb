@@ -30,6 +30,10 @@ describe "Omniship" do
       expect(Omniship.shipper_label(tracking)).to eq(Omniship::FedEx::LABEL), tracking
     end
 
+    NEWGISTICS_VALID_BARCODES.each do |barcode|
+      expect(Omniship.shipper_label(barcode)).to eq(Omniship::Newgistics::LABEL), barcode
+    end
+
     not_a_number = "NOT A NUMBER"
     expect { Omniship.shipper_label(not_a_number) }.to raise_error(Omniship::ProviderError)
   end
