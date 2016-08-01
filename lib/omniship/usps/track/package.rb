@@ -43,7 +43,8 @@ module Omniship
               "10", # Processed
               "80", # Picked Up by Shipping Partner
               "81", # Arrived Shipping Partner Facility
-              "82"
+              "82", 
+              "16", # Available for Returns Agent
             ].include?(activity.code) # Departed Shipping Partner Facility
           }
         end
@@ -53,7 +54,7 @@ module Omniship
           self.activity.any? {|activity|
             # deliverred or ready for pickup at post office, or Notice Left 
             ["01", # Delivered*
-              "17" # Picked Up By Agent
+              "17" # Picked Up By Agent, Tendered to Returns Agent
             ].include?(activity.code)
           }
         end
