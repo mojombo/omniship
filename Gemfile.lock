@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    omniship (0.2.5)
+    omniship (0.2.6)
       curb
       json
       nokogiri

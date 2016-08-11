@@ -36,7 +36,8 @@ module Omniship
         # this is actually an indicator that the the package has been scanned by USPS ANYWHERE
         # https://about.usps.com/publications/pub97/pub97_i.htm
         def has_left?
-          self.activity.any? {|activity|
+          has_arrived? or 
+          activity.any? {|activity|
             [
               "SF", # UNDOCUMENTED but seems to be "Acceptance"
               "03", # Accept or Pickup (by carrier)
@@ -52,7 +53,7 @@ module Omniship
 
         def has_arrived?
           # http://about.usps.com/publications/pub97/pub97_i.htm
-          self.activity.any? {|activity|
+          activity.any? {|activity|
             # deliverred or ready for pickup at post office, or Notice Left 
             ["01", # Delivered*
               "17", # Picked Up By Agent, Tendered to Returns Agent
