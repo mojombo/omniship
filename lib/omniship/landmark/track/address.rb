@@ -1,0 +1,27 @@
+module Omniship
+  module Landmark
+    module Track
+      class Address
+        # Initialize a new Address.
+        #
+        # root - The root Package XML node.
+        #
+        # Returns the newly initialized Address.
+        def initialize(root)
+          @root = root
+        end
+
+        def location
+          @root.xpath("text()").to_s
+        end
+
+        # This address as a single line comma delimited string.
+        #
+        # Returns the String address.
+        def to_s
+         location
+        end
+      end
+    end
+  end
+end
