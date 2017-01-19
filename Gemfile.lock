@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    omniship (0.2.7)
+    omniship (0.3.0)
       curb
       json
       nokogiri
@@ -15,7 +15,7 @@ GEM
     curb (0.9.3)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    domain_name (0.5.20160615)
+    domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
