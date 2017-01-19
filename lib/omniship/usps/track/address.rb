@@ -23,7 +23,7 @@ module Omniship
         end
 
         def to_s
-         "#{city}, #{state} #{postal_code} #{country}"
+         "#{city}, #{state} #{postal_code} #{country}".strip
         end
       end
     end

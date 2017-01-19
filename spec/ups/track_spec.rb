@@ -18,5 +18,13 @@ describe "UPS::Track" do
   it 'timstamp parsing' do 
     expect(Omniship::UPS.parse_timestamp("20170117", "211600")).to eq(Time.parse("2017-01-17 21:16"))
   end
+
+  it 'test xml parsing' do 
+    trk = Omniship::UPS::Track::Response.new(Nokogiri::XML::Document.parse(track_ups_response))
+    expect(trk.has_left?).to eq true
+    expect(trk.has_arrived?).to eq true
+    expect(trk.shipment.packages.first.activity.first.address.to_s).to eq("SANTA CLARA, CA 95053 US")
+    expect(trk.shipment.packages.first.activity.first.timestamp).to_not be_nil
+  end
 end
 

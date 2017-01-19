@@ -36,7 +36,7 @@ module Omniship
         end
 
         def address
-          Address.new(@@root.xpath('Location'))
+          Address.new(@root.xpath('Location'))
         end
 
         def status

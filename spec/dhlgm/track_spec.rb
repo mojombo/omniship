@@ -18,8 +18,7 @@ describe "DHLGM::Track" do
     expect(trk.has_left?).to eq true
     expect(trk.has_arrived?).to eq true
     expect(trk.shipment.packages.first.activity.first.address.to_s).to eq("Bronx, NY 10454 US")
-    expect(trk.shipment.packages.first.activity.first.timestamp.to_s).to_not be_nil
-
+    expect(trk.shipment.packages.first.activity.first.timestamp).to_not be_nil
   end
   # I could not find any valid test numbers. Should mock that out.
 end

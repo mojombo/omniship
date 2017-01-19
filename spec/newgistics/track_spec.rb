@@ -32,5 +32,13 @@ describe "Newgistics::Track" do
     time = "\/Date(1484870400000-0600)\/"
     expect(Omniship::Newgistics.parse_timestamp(date, time).utc).to eq(Time.parse("2016-7-22 18:00 CST").utc)
   end
+
+  it 'test xml parsing' do 
+    trk = Omniship::Newgistics::Track::Response.new(JSON.parse(track_newgistics_response))
+    expect(trk.has_left?).to eq true
+    expect(trk.has_arrived?).to eq true
+    expect(trk.shipment.packages.first.activity.first.address.to_s).to eq("Milwaukee, WI 53204")
+    expect(trk.shipment.packages.first.activity.first.timestamp).to_not be_nil
+  end
 end
 

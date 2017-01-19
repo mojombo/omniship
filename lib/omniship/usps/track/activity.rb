@@ -18,6 +18,12 @@ module Omniship
         def code
           @root.xpath('EventCode/text()').to_s
         end
+
+        def timestamp
+          date = @root.xpath('EventDate/text()').to_s
+          time = @root.xpath('EventTime/text()').to_s
+          Omniship::USPS.parse_timestamp(date, time)
+        end
       end
     end
   end

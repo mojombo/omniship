@@ -22,4 +22,12 @@ describe "Landmark::Track" do
   it 'timestamp parsing' do 
     expect(Omniship::Landmark.parse_timestamp("2014-07-07 06:37:27").utc).to eq(Time.parse("2014-07-07 06:37:27 #{Omniship::Landmark::TIMEZONE}").utc)
   end
+
+  it 'test xml parsing' do 
+    trk = Omniship::Landmark::Track::Response.new(Nokogiri::XML::Document.parse(track_landmark_response))
+    expect(trk.has_left?).to eq true
+    expect(trk.has_arrived?).to eq true
+    expect(trk.shipment.packages.first.activity.first.address.to_s).to eq("Romulus, MI")
+    expect(trk.shipment.packages.first.activity.first.timestamp).to_not be_nil
+  end
 end
