@@ -3,7 +3,7 @@ module Omniship
     module Track
       class Error < TrackError
         def initialize(message)
-          @message = message
+          super(message)
         end
       end
     end

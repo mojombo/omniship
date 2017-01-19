@@ -58,5 +58,17 @@ RSpec.configure do |config|
     Omniship::UPS.test = true
     Omniship::USPS.test = true
     Omniship::Newgistics.test = true
+
+    Omniship::USPS.retailer_name = 'retailer'
+    Omniship::USPS.retailer_address = 'retailer_address'
+    Omniship::USPS.permit_number = ENV["USPS_RETURNS_PERMIT_NUMBER"]
+    Omniship::USPS.permit_city = 'milwaukee'
+    Omniship::USPS.permit_state = 'wi'
+    Omniship::USPS.permit_zip5 = '53219'
+    Omniship::USPS.pdu_po_box = 'po box 1234'
+    Omniship::USPS.pdu_city = 'milwaukee'
+    Omniship::USPS.pdu_state = 'wi'
+    Omniship::USPS.pdu_zip5 = '53219'
+
   }
 end
