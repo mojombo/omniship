@@ -4,5 +4,5 @@ rvm:
 cache: bundler
 
 script:
-  - rake spec
+  - bundle exec rake spec
   - bundle exec codeclimate-test-reporter
