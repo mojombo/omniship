@@ -12,16 +12,6 @@ module Omniship
           @zip5 = options[:zip5]
         end
 
-        def from_xml(root)
-          @root = root
-
-          @number = @root.xpath("PermitNumber/text()").to_s
-          @city = @root.xpath("PermitIssuingPOCity/text()").to_s
-          @state = @root.xpath("PermitIssuingPOState/text()").to_s
-          @zip5 = @root.xpath("PermitIssuingPOZip5/text()").to_s
-
-        end
-
         def to_xml(xml)
           xml.PermitNumber @number
           xml.PermitIssuingPOCity @city

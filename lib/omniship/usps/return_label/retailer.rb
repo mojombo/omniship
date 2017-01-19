@@ -10,14 +10,6 @@ module Omniship
           @address = options[:address]
         end
 
-        def from_xml(root)
-          @root = root
-
-          @name = @root.xpath("RetailerName/text()").to_s
-          @address = @root.xpath("RetailerAddress/text()").to_s
-
-        end
-
         def to_xml(xml)
           xml.RetailerName @name
           xml.RetailerAddress @address

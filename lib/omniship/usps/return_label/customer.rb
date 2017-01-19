@@ -15,19 +15,6 @@ module Omniship
           @zip4 = options[:zip4]
         end
 
-        def from_xml(root)
-          @root = root
-
-          @name = @root.xpath("CustomerName/text()").to_s
-          @address2 = @root.xpath("CustomerAddress1/text()").to_s # YES THESE ARE SWITCHED IN THE USPS API - https://www.usps.com/business/web-tools-apis/merchandise-return-service-label-api.pdf
-          @address1 = @root.xpath("CustomerAddress2/text()").to_s
-          @city = @root.xpath("CustomerCity/text()").to_s
-          @state = @root.xpath("CustomerState/text()").to_s
-          @zip5 = @root.xpath("CustomerZip5/text()").to_s
-          @zip4 = @root.xpath("CustomerZip4/text()").to_s
-
-        end
-
         def to_xml(xml)
           xml.CustomerName @name
           xml.CustomerAddress1 @address2 # YES THESE ARE SWITCHED IN THE USPS API
