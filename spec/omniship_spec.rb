@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe "Omniship" do
-  it 'configuration' do 
-    puts Dir.pwd.inspect
-    Omniship.config("spec/sample_config.yml")
-  end
 
   it 'shipper label' do    
     LANDMARK_VALID_NUMBERS.each do |tracking|

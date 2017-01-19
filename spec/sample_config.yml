@@ -2,14 +2,14 @@ Omniship:
   debug: false
   
   UPS:
-    username: 'UPS_USERNAME'
-    password: 'UPS_PASSWORD'
-    token: 'UPS_TOKEN'
+    username: '<%=ENV["UPS_USERNAME"]%>'
+    password: '<%=ENV["UPS_PASSWORD"]%>'
+    token: '<%=ENV["UPS_TOKEN"]%>'
     test: false
 
   USPS:
-    userid: 'USPS_USERID'
-    password: 'USPS_PASSWORD'
+    userid: '<%=ENV["USPS_USERID"]%>'
+    password: '<%=ENV["USPS_PASSWORD"]%>'
     client_ip: 127.0.0.1
     source_id: Wantable, Inc. 
 
@@ -17,7 +17,7 @@ Omniship:
       name: Wantable Inc
       address: 112 E Mineral St
     permit:
-      number: 100
+      number: '<%=ENV["USPS_RETURNS_PERMIT_NUMBER"]%>'
       city: Milwaukee
       state: WI
       zip5: 53204
@@ -28,12 +28,12 @@ Omniship:
       zip5: 53203
 
   Landmark:
-    username: 'LANDMARK_USERNAME'
-    password: 'LANDMARK_PASSWORD'
-    client_id: 100 
+    username: '<%=ENV["LANDMARK_USERNAME"]%>'
+    password: '<%=ENV["LANDMARK_PASSWORD"]%>'
+    client_id: '<%=ENV["LANDMARK_CLIENT_ID"]%>'
     test_mode: false
 
   DHLGM:
-    username: 'DHLGM_USERNAME'
-    password: 'DHLGM_PASSWORD'
-    mailer_id: 'DHLGM_MAILER_ID'
+    username: '<%=ENV["DHLGM_USERNAME"]%>'
+    password: '<%=ENV["DHLGM_PASSWORD"]%>'
+    mailer_id: '<%=ENV["DHLGM_MAILER_ID"]%>'

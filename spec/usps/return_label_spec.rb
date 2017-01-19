@@ -24,6 +24,6 @@ describe "USPS::ReturnLabel" do
     label = Omniship::USPS.return_label(customer, options)
     expect(label.tracking_number).to_not be_nil
 
-    label.save("label.tif")
+    label.save("label")
   end
 end

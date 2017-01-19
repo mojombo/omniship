@@ -50,7 +50,7 @@ RSpec.configure do |config|
       Omniship.config(config_file)
     end
 
-    Omniship.debug = false
+    Omniship.config("spec/sample_config.yml")
 
     Omniship::DHLGM.mailer_id = DHL_TEST_MAILER_ID
     Omniship::Landmark.test_mode = false  # not using test mode because "responses are randomized.  Some requests will succeed and some will fail with different error messages"
@@ -58,17 +58,5 @@ RSpec.configure do |config|
     Omniship::UPS.test = true
     Omniship::USPS.test = true
     Omniship::Newgistics.test = true
-
-    Omniship::USPS.retailer_name = 'retailer'
-    Omniship::USPS.retailer_address = 'retailer_address'
-    Omniship::USPS.permit_number = ENV["USPS_RETURNS_PERMIT_NUMBER"]
-    Omniship::USPS.permit_city = 'milwaukee'
-    Omniship::USPS.permit_state = 'wi'
-    Omniship::USPS.permit_zip5 = '53219'
-    Omniship::USPS.pdu_po_box = 'po box 1234'
-    Omniship::USPS.pdu_city = 'milwaukee'
-    Omniship::USPS.pdu_state = 'wi'
-    Omniship::USPS.pdu_zip5 = '53219'
-
   }
 end

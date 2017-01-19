@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe "USPS::Track" do
-  it 'invalid tracking' do  
+  it 'invalid tracking' do
     expect { Omniship::USPS.track(USPS_INVALID_NUMBER) }.to raise_error(Omniship::USPS::Track::Error)
   end
 
