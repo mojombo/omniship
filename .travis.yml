@@ -2,3 +2,7 @@ language: ruby
 rvm:
   - 2.1.2
 cache: bundler
+
+script:
+  - rake spec
+  - bundle exec codeclimate-test-reporter
