@@ -8,13 +8,6 @@ module Omniship
         MMS_NUMBER = 'T'
         POSTAL_SERVICE_TRACKING_ID = 'Q'
         
-         
-
-        # Initialize a new ActivityLocation.
-        #
-        # root - The root Package XML node.
-        #
-        # Returns the newly initialized ActivityLocation.
         def initialize(root)
           @root = root
         end

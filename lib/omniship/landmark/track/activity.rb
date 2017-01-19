@@ -3,6 +3,7 @@ module Omniship
     module Track
       class Activity
 
+
 =begin Landmark statuses
   
   const SHIPMENT_INFORMATION_RECEIVED = 50;           // Landmark has received order information
@@ -30,38 +31,24 @@ module Omniship
   
 =end
 
-        # Initialize a new Activity.
-        #
-        # root - The root Package XML node.
-        #
-        # Returns the newly initialized Activity.
         def initialize(root)
           @root = root
         end
 
-        def root
-          @root
-        end
-
-        # The location of this activity event.
-        #
-        # Returns the Omniship::Landmark::Track::ActivityLocation.
-        def location
-          node = @root.xpath('Location')
-          ActivityLocation.new(node)
+        def address
+          Address.new(@@root.xpath('Location'))
         end
 
         def status
-          node = @root.xpath('Status/text()').to_s
-
-          node
+          @root.xpath('Status/text()').to_s
         end
 
         def code
-          node = @root.xpath('EventCode/text()').to_s
+          @root.xpath('EventCode/text()').to_s
+        end
 
-          node
-
+        def timestamp
+          Omniship::Landmark.parse_timestamp(@root.xpath('DateTime/text()').to_s)
         end
       end
     end

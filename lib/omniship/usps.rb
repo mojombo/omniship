@@ -9,7 +9,8 @@ module Omniship
                       /^(91|92)[0-9]+$/, 
                       /^[A-Za-z]{2}[0-9]+US$/]
     TRACKING_URL = "https://tools.usps.com/go/TrackConfirmAction_input?qtc_tLabels1="
-    
+    TIMESTAMP_FORMAT = "%B %d, %Y %I:%M %p"
+
     class << self
       attr_accessor :userid
       attr_accessor :password
@@ -59,6 +60,15 @@ module Omniship
 
     def self.tracking_url(number)
       TRACKING_URL + number
+    end
+
+    protected
+    
+    # <EventTime>7:09 am</EventTime>
+    # <EventDate>January 17, 2017</EventDate>
+    def self.parse_timestamp(date, time)
+      return if date.nil?
+      Time.strptime("#{date} #{time}", TIMESTAMP_FORMAT)
     end
   end
 end

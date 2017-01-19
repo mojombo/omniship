@@ -3,38 +3,26 @@ module Omniship
     module Track
       class Activity
 
-
-        # Initialize a new Activity.
-        #
-        # root - The root Package XML node.
-        #
-        # Returns the newly initialized Activity.
         def initialize(root)
           @root = root
         end
 
-        def root
-          @root
-        end
-
-        # The location of this activity event.
-        #
-        # Returns the Omniship::DHLGM::Track::ActivityLocation.
-        def location
-          ActivityLocation.new(@root)
+        def address
+          Address.new(@root)
         end
 
         def status
-          node = @root.xpath('description/text()').to_s
-
-          node
+          @root.xpath('description/text()').to_s
         end
 
         def code
-          node = @root.xpath('code/text()').to_s
+          @root.xpath('code/text()').to_s
+        end
 
-          node
-
+        def timestamp
+          date = @root.xpath('date/text()').to_s
+          time = @root.xpath('time/text()').to_s
+          Omniship::DHLGM.parse_timestamp(date, time)
         end
       end
     end

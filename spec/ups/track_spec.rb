@@ -14,5 +14,9 @@ describe "UPS::Track" do
     expect(trk.has_arrived?).to be false
     expect(trk.has_left?).to be true
   end
+
+  it 'timstamp parsing' do 
+    expect(Omniship::UPS.parse_timestamp("20170117", "211600")).to eq(Time.parse("2017-01-17 21:16"))
+  end
 end
 

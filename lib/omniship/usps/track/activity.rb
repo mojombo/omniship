@@ -3,37 +3,20 @@ module Omniship
     module Track
       class Activity
 
-        # Initialize a new Activity.
-        #
-        # root - The root Package XML node.
-        #
-        # Returns the newly initialized Activity.
         def initialize(root)
           @root = root
         end
 
-        def root
-          @root
-        end
-
-        # The location of this activity event.
-        #
-        # Returns the Omniship::USPS::Track::ActivityLocation.
-        def location
-          ActivityLocation.new(@root)
+        def address
+          Address.new(@root)
         end
 
         def status
-          node = @root.xpath('Event/text()').to_s
-
-          node
+          @root.xpath('Event/text()').to_s
         end
 
         def code
-          node = @root.xpath('EventCode/text()').to_s
-
-          node
-
+          @root.xpath('EventCode/text()').to_s
         end
       end
     end

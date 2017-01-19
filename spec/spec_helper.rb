@@ -3,8 +3,7 @@ require 'bundler/setup'
 Bundler.setup
 
 require 'omniship'
-
-require File.join(File.dirname(__FILE__), *%w[.. lib omniship])
+require 'mock_responses'
 
 # these are production numbers from real shipments
 # they are not varying enough to consider this a 100% test but they are a start at least
@@ -34,6 +33,9 @@ UPSMI_TEST_NUMBER = 'cgish000116630'
 
 
 RSpec.configure do |config|
+
+  config.include MockResponses
+
   config.before(:each) {
     config_file = File.join(File.dirname(__FILE__), *%w[config.yml])
 

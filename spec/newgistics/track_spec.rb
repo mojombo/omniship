@@ -21,11 +21,16 @@ describe "Newgistics::Track" do
       package.activity.each do |activity|
         expect(activity.status).to_not be_nil
         expect(activity.code).to_not be_nil
-        expect(activity.location).to_not be_nil
-        expect(activity.location.address).to_not be_nil
-        expect(activity.location.address.location).to_not be_nil
+        expect(activity.timestamp).to_not be_nil
+        expect(activity.address).to_not be_nil
       end
     end
+  end
+
+  it 'timestamp parsing' do 
+    date = "\/Date(1469163600000-0500)\/" 
+    time = "\/Date(1484870400000-0600)\/"
+    expect(Omniship::Newgistics.parse_timestamp(date, time).utc).to eq(Time.parse("2016-7-22 18:00 CST").utc)
   end
 end
 

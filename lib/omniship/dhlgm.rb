@@ -5,6 +5,7 @@ module Omniship
     LABEL = "DHL Global Mail"
     TRACKING_LENGTH = 22
     TRACKING_URL = "http://webtrack.dhlglobalmail.com/?trackingnumber="
+    TIMESTAMP_FORMAT = "%m/%d/%Y %I:%M %P %Z"
 
     class << self
       attr_accessor :username
@@ -23,6 +24,15 @@ module Omniship
 
     def self.tracking_url(number)
       TRACKING_URL + number
+    end
+
+    protected 
+
+    # <date>1/18/2017</date>
+    # <time>6:12 PM EST</time>
+    def self.parse_timestamp(date, time)
+      return if date.nil?
+      Time.strptime("#{date} #{time}", TIMESTAMP_FORMAT)
     end
   end
 end

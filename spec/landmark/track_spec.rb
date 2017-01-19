@@ -15,5 +15,11 @@ describe "Landmark::Track" do
   it 'valid tracking by reference' do 
     trk = Omniship::Landmark.track_with_reference(LANDMARK_VALID_REFERENCE)
     expect(trk.has_arrived?).to be true
+
+    expect(trk.shipment.packages.last.activity.last.timestamp).to_not be_nil
+  end
+
+  it 'timestamp parsing' do 
+    expect(Omniship::Landmark.parse_timestamp("2014-07-07 06:37:27").utc).to eq(Time.parse("2014-07-07 06:37:27 #{Omniship::Landmark::TIMEZONE}").utc)
   end
 end
