@@ -1,10 +1,7 @@
 module Omniship
   module Newgistics
     module Track
-      class Address
-        def initialize(root)
-          @root = root
-        end
+      class Address < Omniship::Base
 
         def city
           @root["City"]

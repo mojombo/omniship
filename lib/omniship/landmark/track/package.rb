@@ -1,13 +1,10 @@
 module Omniship
   module Landmark
     module Track
-      class Package
+      class Package < Omniship::Base
+        
         ARRIVAL_CODES = ["500"]
         DEPARTURE_CODES = ["75"]
-
-        def initialize(root)
-          @root = root
-        end
 
         def tracking_number
           @root.xpath("LandmarkTrackingNumber/text()").to_s

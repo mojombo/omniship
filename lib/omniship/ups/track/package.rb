@@ -1,13 +1,9 @@
 module Omniship
   module UPS
     module Track
-      class Package
+      class Package < Omniship::Base
         DEPARTURE_CODE = "I"
         ARRIVAL_CODE = "D"
-         
-        def initialize(root)
-          @root = root
-        end
 
         def tracking_number
           @root.xpath('TrackingNumber/text()').to_s

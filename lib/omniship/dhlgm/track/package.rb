@@ -1,11 +1,7 @@
 module Omniship
   module DHLGM
     module Track
-      class Package
-
-        def initialize(root)
-          @root = root
-        end
+      class Package < Omniship::Base
 
         # Returns the String tracking number.
         def tracking_number

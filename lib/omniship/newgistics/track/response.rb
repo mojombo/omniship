@@ -1,11 +1,7 @@
 module Omniship
   module Newgistics
     module Track
-      class Response
-
-        def initialize(root)
-          @root = root
-        end
+      class Response < Omniship::Base
 
         def shipment
           Shipment.new(@root)

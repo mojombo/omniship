@@ -1,12 +1,8 @@
 module Omniship
   module Newgistics
     module Track
-      class Activity
-
-        def initialize(root)
-          @root = root
-        end
-
+      class Activity < Omniship::Base
+        
         def address
           Address.new(@root)
         end

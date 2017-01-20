@@ -1,11 +1,8 @@
 module Omniship
   module Landmark
     module Track
-      class Shipment
+      class Shipment < Omniship::Base
         
-        def initialize(root)
-          @root = root
-        end
         def packages
           @root.xpath("TrackResponse/Result/Packages/Package").map do |package|
             Package.new(package)

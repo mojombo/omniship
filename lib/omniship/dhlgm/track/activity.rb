@@ -1,11 +1,7 @@
 module Omniship
   module DHLGM
     module Track
-      class Activity
-
-        def initialize(root)
-          @root = root
-        end
+      class Activity < Omniship::Base
 
         def address
           Address.new(@root)

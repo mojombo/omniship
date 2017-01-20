@@ -1,11 +1,8 @@
 module Omniship
   module Landmark
     module Track
-      class Address
-        def initialize(root)
-          @root = root
-        end
-
+      class Address < Omniship::Base
+        
         def city
           nil # not supported
         end

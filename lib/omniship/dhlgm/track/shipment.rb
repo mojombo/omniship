@@ -1,12 +1,8 @@
 module Omniship
   module DHLGM
     module Track
-      class Shipment
-         
-        def initialize(root)
-          @root = root
-        end
-
+      class Shipment < Omniship::Base
+        
         def packages
           [Package.new(@root)] # DHLGM only supports one package per shipment
         end

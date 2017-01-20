@@ -1,11 +1,7 @@
 module Omniship
   module Newgistics
     module Track
-      class Shipment
-         
-        def initialize(root)
-          @root = root
-        end
+      class Shipment < Omniship::Base
 
         def packages
           @root["Packages"].map do |p|

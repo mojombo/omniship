@@ -1,7 +1,7 @@
 module Omniship
   module Landmark
     module Track
-      class Activity
+      class Activity < Omniship::Base
 
 
 =begin Landmark statuses
@@ -30,10 +30,6 @@ module Omniship
   const DELIVERY_REFUSED = 900;
   
 =end
-
-        def initialize(root)
-          @root = root
-        end
 
         def address
           Address.new(@root.xpath('Location'))

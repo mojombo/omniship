@@ -1,10 +1,7 @@
 module Omniship
   module DHLGM
     module Track
-      class Address
-        def initialize(root)
-          @root = root
-        end
+      class Address < Omniship::Base
         
         def city
           @root.xpath("city/text()").to_s

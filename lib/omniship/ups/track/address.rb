@@ -1,11 +1,7 @@
 module Omniship
   module UPS
     module Track
-      class Address
-
-        def initialize(root)
-          @root = root
-        end
+      class Address < Omniship::Base
 
         def city
           @root.xpath('City/text()').to_s

@@ -1,13 +1,9 @@
 module Omniship
   module Newgistics
     module Track
-      class Package
+      class Package < Omniship::Base
         ARRIVAL_STATUSES = ["Delivered"]
         DEPARTURE_STATUSES = ["Received", "InTransit", "Departed", "InUSPSNetwork"] + ARRIVAL_STATUSES
-
-        def initialize(root)
-          @root = root
-        end
 
         def tracking_number
           @root["TrackingNumber"]

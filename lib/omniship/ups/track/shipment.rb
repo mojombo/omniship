@@ -1,10 +1,7 @@
 module Omniship
   module UPS
     module Track
-      class Shipment
-        def initialize(root)
-          @root = root
-        end
+      class Shipment < Omniship::Base
 
         def packages
           @root.xpath('Package').map do |package|

@@ -1,11 +1,7 @@
 module Omniship
   module USPS
     module Track
-      class Package
-
-        def initialize(root)
-          @root = root
-        end
+      class Package < Omniship::Base
 
         def tracking_number
           @root.attribute("ID").to_s
