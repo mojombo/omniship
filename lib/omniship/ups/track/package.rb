@@ -20,9 +20,8 @@ module Omniship
         end
 
         def alternate_tracking
-          @root.xpath('AlternateTrackingInfo').map do |alt|
-            AlternateTracking.new(alt)
-          end
+          path = @root.xpath('AlternateTrackingInfo')
+          AlternateTracking.new(path) if path
         end
 
         def has_left?

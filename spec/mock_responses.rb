@@ -150,6 +150,16 @@ module MockResponses
     </track>"
   end
 
+  def track_dhlgm_not_found_response
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <track>
+      <error>
+        <code>400</code>
+        <description>No results for your tracking number.</description>
+      </error>
+    </track>"
+  end
+
   def track_landmark_response
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
     <TrackResponse>
@@ -249,6 +259,22 @@ module MockResponses
          </Package>
         </Packages>
        </Result>
+    </TrackResponse>"
+  end
+
+  def track_landmark_not_found_response
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <TrackResponse>
+      <Errors>
+        <Error>
+          <ErrorCode>Lookup</ErrorCode>
+          <ErrorMessage>Could not find shipment with  tracking number # 9402116901279224348471blah in our system.&amp;lt;br&amp;gt;&amp;lt;br&amp;gt;&amp;lt;span style=\"font-weight: normal; font-size: 14px\"&amp;gt;You can track this shipment on the bpost tracking site &amp;lt;ul class='navlist'&amp;gt;&amp;lt;li&amp;gt;&amp;lt;a href='http://www.bpost2.be/bpostinternational/track_trace/find.php?search=s&amp;lng=en&amp;trackcode=9402116901279224348471blah' target='_blank' style='font-size:14px;'&amp;gt;Track with bpost&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt;&amp;lt;/span&amp;gt;</ErrorMessage>
+        </Error>
+      </Errors>
+      <Result>
+        <Success>false</Success>
+        <ResultMessage>See Errors element for error details</ResultMessage>
+      </Result>
     </TrackResponse>"
   end
 
@@ -362,6 +388,43 @@ module MockResponses
          "UnitOfMeasure":"pounds",
          "Weight":3.5260
         }
+       ]
+    }'
+  end
+
+  def track_newgistics_not_found_response
+    '{
+       "Packages":[
+          {
+             "ActualEstimatedDeliveryDate":null,
+             "CarrierCode":null,
+             "CarrierCodeDescription":null,
+             "CarrierName":"",
+             "CarrierService":"",
+             "CarrierServiceCode":null,
+             "CarrierServiceCodeDescription":null,
+             "ErrorMessage":"No tracking data available for 9402116901279224348471blah.",
+             "EstimatedDeliveryDate":null,
+             "EstimatedDeliveryText":null,
+             "FinalCarrier":null,
+             "MaxEstimatedDeliveryDate":null,
+             "MerchantName":null,
+             "MinEstimatedDeliveryDate":null,
+             "PackageTrackingEvents":null,
+             "ReferenceNumber":null,
+             "Service":"UNKNOWN",
+             "ShipToAddressLine1":null,
+             "ShipToAddressLine2":null,
+             "ShipToCity":null,
+             "ShipToName":null,
+             "ShipToPostalCode":null,
+             "ShipToState":null,
+             "Signer":null,
+             "Status":"NotFound",
+             "TrackingNumber":"9402116901279224348471blah",
+             "UnitOfMeasure":null,
+             "Weight":null
+          }
        ]
     }'
   end
@@ -538,6 +601,20 @@ module MockResponses
           <AuthorizedAgent>false</AuthorizedAgent>
           <EventCode>MA</EventCode>
         </TrackDetail>
+      </TrackInfo>
+    </TrackResponse>"
+  end
+
+  def track_usps_not_found_response
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <TrackResponse>
+      <TrackInfo ID=\"1234567890\">
+        <Error>
+          <Number>-2147219302</Number>
+          <Description>The Postal Service could not locate the tracking information for your request. Please verify your tracking number and try again later.</Description>
+          <HelpFile />
+          <HelpContext />
+        </Error>
       </TrackInfo>
     </TrackResponse>"
   end
@@ -888,6 +965,394 @@ module MockResponses
           </ReferenceNumber>
         </Package>
       </Shipment>
+    </TrackResponse>"
+  end
+
+  def track_ups_mi_response
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <TrackResponse>
+      <Response>
+        <TransactionReference>
+          <CustomerContext>ad037137-1281-4e73-9260-0b681485657a</CustomerContext>
+          <XpciVersion>1.0</XpciVersion>
+        </TransactionReference>
+        <ResponseStatusCode>1</ResponseStatusCode>
+        <ResponseStatusDescription>Success</ResponseStatusDescription>
+      </Response>
+      <Shipment>
+        <InquiryNumber>
+          <Code>03</Code>
+          <Description>Mail Innovations Tracking Number</Description>
+          <Value>801677101298096996</Value>
+        </InquiryNumber>
+        <ShipmentType>
+          <Code>03</Code>
+          <Description>Mail Innovations</Description>
+        </ShipmentType>
+        <Shipper>
+          <Address>
+            <City>Milwauke</City>
+            <StateProvinceCode>WI</StateProvinceCode>
+            <PostalCode>53204</PostalCode>
+            <CountryCode>US</CountryCode>
+          </Address>
+        </Shipper>
+        <ShipTo>
+          <Address>
+            <City>DUNWOODY</City>
+            <StateProvinceCode>GA</StateProvinceCode>
+            <PostalCode>30338</PostalCode>
+            <CountryCode>US</CountryCode>
+          </Address>
+        </ShipTo>
+        <ShipmentWeight>
+          <UnitOfMeasurement>
+            <Code>LBS</Code>
+          </UnitOfMeasurement>
+          <Weight>0.5050</Weight>
+        </ShipmentWeight>
+        <Service>
+          <Code>702</Code>
+          <Description>UPS Mail Innovations Expedited</Description>
+        </Service>
+        <ReferenceNumber>
+          <Code>96</Code>
+          <Value>W025284315C226</Value>
+        </ReferenceNumber>
+        <PickupDate>20170112</PickupDate>
+        <DeliveryDateTime>
+          <Type>
+            <Code>01</Code>
+            <Description>Delivery</Description>
+          </Type>
+          <Date>20170116</Date>
+          <Time>1314</Time>
+        </DeliveryDateTime>
+        <Package>
+          <TrackingNumber>801677101298096996</TrackingNumber>
+          <Activity>
+            <ActivityLocation>
+              <Address>
+                <City>Atlanta</City>
+                <StateProvinceCode>GA</StateProvinceCode>
+                <PostalCode>30338</PostalCode>
+                <CountryCode>US</CountryCode>
+              </Address>
+              <TransportFacility>
+                <Type>IC</Type>
+              </TransportFacility>
+            </ActivityLocation>
+            <Status>
+              <StatusType>
+                <Code>D</Code>
+                <Description>Package delivered by post office</Description>
+              </StatusType>
+              <StatusCode>
+                <Code>D</Code>
+              </StatusCode>
+            </Status>
+            <Date>20170116</Date>
+            <Time>1314</Time>
+          </Activity>
+          <Activity>
+            <ActivityLocation>
+              <Address>
+                <City>Atlanta</City>
+                <StateProvinceCode>GA</StateProvinceCode>
+                <PostalCode>30338</PostalCode>
+                <CountryCode>US</CountryCode>
+              </Address>
+              <TransportFacility>
+                <Type>VT</Type>
+                <Code>GATLA</Code>
+              </TransportFacility>
+            </ActivityLocation>
+            <Status>
+              <StatusType>
+                <Code>I</Code>
+                <Description>Package transferred to post office</Description>
+              </StatusType>
+              <StatusCode>
+                <Code>I</Code>
+              </StatusCode>
+            </Status>
+            <Date>20170114</Date>
+            <Time>1511</Time>
+          </Activity>
+          <Activity>
+            <ActivityLocation>
+              <Address>
+                <City>Morrow</City>
+                <StateProvinceCode>GA</StateProvinceCode>
+                <PostalCode>30260</PostalCode>
+                <CountryCode>US</CountryCode>
+              </Address>
+              <TransportFacility>
+                <Type>VT</Type>
+                <Code>GATLA</Code>
+              </TransportFacility>
+            </ActivityLocation>
+            <Status>
+              <StatusType>
+                <Code>I</Code>
+                <Description>Package departed UPS Mail Innovations facility enroute to USPS for induction</Description>
+              </StatusType>
+              <StatusCode>
+                <Code>I</Code>
+              </StatusCode>
+            </Status>
+            <Date>20170114</Date>
+            <Time>1022</Time>
+          </Activity>
+          <Activity>
+            <ActivityLocation>
+              <Address>
+                <City>Morrow</City>
+                <StateProvinceCode>GA</StateProvinceCode>
+                <PostalCode>30260</PostalCode>
+                <CountryCode>US</CountryCode>
+              </Address>
+              <TransportFacility>
+                <Type>VT</Type>
+                <Code>GATLA</Code>
+              </TransportFacility>
+            </ActivityLocation>
+            <Status>
+              <StatusType>
+                <Code>I</Code>
+                <Description>Postage Paid/Ready for destination post office entry</Description>
+              </StatusType>
+              <StatusCode>
+                <Code>I</Code>
+              </StatusCode>
+            </Status>
+            <Date>20170114</Date>
+            <Time>1018</Time>
+          </Activity>
+          <Activity>
+            <ActivityLocation>
+              <Address>
+                <City>Atlanta</City>
+                <StateProvinceCode>GA</StateProvinceCode>
+                <PostalCode>30338</PostalCode>
+                <CountryCode>US</CountryCode>
+              </Address>
+              <TransportFacility>
+                <Type>IC</Type>
+              </TransportFacility>
+            </ActivityLocation>
+            <Status>
+              <StatusType>
+                <Code>I</Code>
+                <Description>Electronic Shipment Information Received for Package by Post Office</Description>
+              </StatusType>
+              <StatusCode>
+                <Code>I</Code>
+              </StatusCode>
+            </Status>
+            <Date>20170114</Date>
+            <Time>0947</Time>
+          </Activity>
+          <Activity>
+            <ActivityLocation>
+              <Address>
+                <City>Morrow</City>
+                <StateProvinceCode>GA</StateProvinceCode>
+                <PostalCode>30260</PostalCode>
+                <CountryCode>US</CountryCode>
+              </Address>
+              <TransportFacility>
+                <Type>VT</Type>
+                <Code>GATLA</Code>
+              </TransportFacility>
+            </ActivityLocation>
+            <Status>
+              <StatusType>
+                <Code>I</Code>
+                <Description>Package received for sort by destination UPS Mail Innovations facility</Description>
+              </StatusType>
+              <StatusCode>
+                <Code>I</Code>
+              </StatusCode>
+            </Status>
+            <Date>20170114</Date>
+            <Time>0650</Time>
+          </Activity>
+          <Activity>
+            <ActivityLocation>
+              <Address>
+                <City>Bensenville</City>
+                <StateProvinceCode>IL</StateProvinceCode>
+                <PostalCode>60106</PostalCode>
+                <CountryCode>US</CountryCode>
+              </Address>
+              <TransportFacility>
+                <Type>VT</Type>
+                <Code>ILCST</Code>
+              </TransportFacility>
+            </ActivityLocation>
+            <Status>
+              <StatusType>
+                <Code>I</Code>
+                <Description>Package transferred to destination UPS Mail Innovations facility</Description>
+              </StatusType>
+              <StatusCode>
+                <Code>I</Code>
+              </StatusCode>
+            </Status>
+            <Date>20170113</Date>
+            <Time>0721</Time>
+          </Activity>
+          <Activity>
+            <ActivityLocation>
+              <Address>
+                <City>Bensenville</City>
+                <StateProvinceCode>IL</StateProvinceCode>
+                <PostalCode>60106</PostalCode>
+                <CountryCode>US</CountryCode>
+              </Address>
+              <TransportFacility>
+                <Type>VT</Type>
+                <Code>ILCST</Code>
+              </TransportFacility>
+            </ActivityLocation>
+            <Status>
+              <StatusType>
+                <Code>I</Code>
+                <Description>Package processed by UPS Mail Innovations origin facility</Description>
+              </StatusType>
+              <StatusCode>
+                <Code>I</Code>
+              </StatusCode>
+            </Status>
+            <Date>20170113</Date>
+            <Time>0043</Time>
+          </Activity>
+          <Activity>
+            <ActivityLocation>
+              <Address>
+                <City>Bensenville</City>
+                <StateProvinceCode>IL</StateProvinceCode>
+                <PostalCode>60106</PostalCode>
+                <CountryCode>US</CountryCode>
+              </Address>
+              <TransportFacility>
+                <Type>VT</Type>
+                <Code>ILCST</Code>
+              </TransportFacility>
+            </ActivityLocation>
+            <Status>
+              <StatusType>
+                <Code>I</Code>
+                <Description>Package received for processing by UPS Mail Innovations</Description>
+              </StatusType>
+              <StatusCode>
+                <Code>I</Code>
+              </StatusCode>
+            </Status>
+            <Date>20170113</Date>
+            <Time>0005</Time>
+          </Activity>
+          <Activity>
+            <ActivityLocation>
+              <Address>
+                <City>Milwauke</City>
+                <StateProvinceCode>WI</StateProvinceCode>
+                <PostalCode>53204</PostalCode>
+                <CountryCode>US</CountryCode>
+              </Address>
+              <TransportFacility>
+                <Type>VT</Type>
+                <Code>ILCST</Code>
+              </TransportFacility>
+            </ActivityLocation>
+            <Status>
+              <StatusType>
+                <Code>P</Code>
+                <Description>Shipment tendered to UPS Mail Innovations</Description>
+              </StatusType>
+              <StatusCode>
+                <Code>P</Code>
+              </StatusCode>
+            </Status>
+            <Date>20170112</Date>
+            <Time>2353</Time>
+          </Activity>
+          <Activity>
+            <ActivityLocation>
+              <Address>
+                <CountryCode>US</CountryCode>
+              </Address>
+              <TransportFacility>
+                <Type>VT</Type>
+              </TransportFacility>
+            </ActivityLocation>
+            <Status>
+              <StatusType>
+                <Code>M</Code>
+                <Description>Shipment information received by UPS Mail Innovations</Description>
+              </StatusType>
+              <StatusCode>
+                <Code>M</Code>
+              </StatusCode>
+            </Status>
+            <Date>20170112</Date>
+            <Time>1553</Time>
+          </Activity>
+          <PackageWeight>
+            <UnitOfMeasurement>
+              <Code>LBS</Code>
+            </UnitOfMeasurement>
+            <Weight>0.5050</Weight>
+          </PackageWeight>
+          <ReferenceNumber>
+            <Code>96</Code>
+            <Value>W025284315C226</Value>
+          </ReferenceNumber>
+          <AlternateTrackingInfo>
+            <Type>Q</Type>
+            <Value>92748999964209543475518096</Value>
+          </AlternateTrackingInfo>
+        </Package>
+      </Shipment>
+    </TrackResponse>"
+  end
+
+  def track_ups_mi_not_found_response
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <TrackResponse>
+      <Response>
+        <TransactionReference>
+          <CustomerContext>4951bd50-6af6-4d92-abb4-c5025de11d42</CustomerContext>
+          <XpciVersion>1.0</XpciVersion>
+        </TransactionReference>
+        <ResponseStatusCode>0</ResponseStatusCode>
+        <ResponseStatusDescription>Failure</ResponseStatusDescription>
+        <Error>
+          <ErrorSeverity>Hard</ErrorSeverity>
+          <ErrorCode>155002</ErrorCode>
+          <ErrorDescription>Mail Innovations Tracking Information not found.</ErrorDescription>
+        </Error>
+      </Response>
+    </TrackResponse>"
+  end
+
+  def track_ups_not_found_response
+    "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    <TrackResponse>
+      <Response>
+        <TransactionReference>
+          <CustomerContext>52c13489-7a9f-4cb1-b0b8-951274a4fc6c</CustomerContext>
+          <XpciVersion>1.0</XpciVersion>
+        </TransactionReference>
+        <ResponseStatusCode>0</ResponseStatusCode>
+        <ResponseStatusDescription>Failure</ResponseStatusDescription>
+        <Error>
+          <ErrorSeverity>Hard</ErrorSeverity>
+          <ErrorCode>150022</ErrorCode>
+          <ErrorDescription>Invalid tracking number</ErrorDescription>
+        </Error>
+      </Response>
     </TrackResponse>"
   end
 end

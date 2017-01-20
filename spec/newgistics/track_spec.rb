@@ -38,12 +38,19 @@ describe "Newgistics::Track" do
     trk = Omniship::Newgistics::Track::Response.new(JSON.parse(track_newgistics_response))
     expect(trk.has_left?).to eq true
     expect(trk.has_arrived?).to eq true
+    package = trk.shipment.packages.first
+    expect(package.tracking_number).to_not be_nil
     expect(trk.shipment.scheduled_delivery).to be_nil
-    activity = trk.shipment.packages.first.activity.first
+    activity = package.activity.first
     expect(activity.code).to_not be_nil
     expect(activity.status).to_not be_nil
     expect(activity.address.to_s).to eq("Milwaukee, WI 53204")
     expect(activity.timestamp).to_not be_nil
+  end
+
+  it 'test xml parsing not found' do 
+    error = Omniship::Newgistics::Track::Error.new(JSON.parse(track_newgistics_not_found_response)["Packages"].first)
+    expect(error.code).to eq(Omniship::TrackError::NOT_FOUND)
   end
 end
 

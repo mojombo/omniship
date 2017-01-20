@@ -310,4 +310,9 @@ Omniship.tracking_url('1z3050790327433970')
 ```
 
 
-
+TODO
+------
+- Convert tests to use [webmock](https://github.com/bblimke/webmock) instead of calling the api's and using MockResponses.
+- Fix time zone issue with Newgistics.parse_timestamp
+- Add zip to time zone conversion for UPS and USPS timestamps
+- Bulk tracking? Newgistics at least supports it.

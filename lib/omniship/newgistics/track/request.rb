@@ -17,18 +17,15 @@ module Omniship
 
         def self.track(tracking_number, qualifier)
           request = create_document(tracking_number, qualifier)
-          begin 
-            response = get_response(request)
-            parsed_response = JSON.parse(response)
-            package = parsed_response["Packages"].find{|p| p["TrackingNumber"] == tracking_number }
-
-            return Response.new(parsed_response) unless error = package["ErrorMessage"] and error.length > 0
-          rescue  => e 
-            puts e.response.inspect if Omniship.debug
-            error = "No tracking found."
+          response = get_response(request)
+          parsed_response = JSON.parse(response)
+          package = parsed_response["Packages"].find{|p| p["TrackingNumber"] == tracking_number }
+          
+          if error = package["ErrorMessage"] and error.length > 0
+            raise Error.new(package)
+          else
+            return Response.new(parsed_response) 
           end
-
-          raise Error.new(error)
         end
 
         private

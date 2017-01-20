@@ -26,8 +26,6 @@ module Omniship
       TRACKING_URL + number
     end
 
-    protected 
-
     # <Date>20170117</Date>
     # <Time>055500</Time>
     # Time zone here is local time

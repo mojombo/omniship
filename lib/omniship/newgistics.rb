@@ -34,14 +34,14 @@ module Omniship
     def self.parse_timestamp(date, time=nil)
       return if date.nil? or date.empty?
       # parse epoch from "\/Date(1469163600000-0500)\/" and "\/Date(1484870400000-0600)\/"
-      d, epoch_date, date_tz_offset = DATE_REGEX.match(date).to_a.map(&:to_i)
+      _d, epoch_date, date_tz_offset = DATE_REGEX.match(date).to_a.map(&:to_i)
       epoch_date = epoch_date.to_i / 1000.0
       date_tz_offset = date_tz_offset / 100
 
       date = Time.at(epoch_date)
 
       if !time.nil?
-        d, epoch_time, time_tz_offset = DATE_REGEX.match(time).to_a.map(&:to_i)
+        _d, epoch_time, time_tz_offset = DATE_REGEX.match(time).to_a.map(&:to_i)
         epoch_time = epoch_time.to_i / 1000.0
         time_tz_offset = time_tz_offset / 100
 
