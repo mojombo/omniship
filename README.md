@@ -1,9 +1,12 @@
 Omniship
 ========
 
+[![Build Status](https://travis-ci.org/wantable/omniship.svg?branch=master)](https://travis-ci.org/wantable/omniship)
+[![Code Climate](https://codeclimate.com/repos/5881236a8b64000091000b40/badges/53f71c22a96463d82ed8/gpa.svg)](https://codeclimate.com/repos/5881236a8b64000091000b40/feed)
+[![Test Coverage](https://codeclimate.com/repos/5881236a8b64000091000b40/badges/53f71c22a96463d82ed8/coverage.svg)](https://codeclimate.com/repos/5881236a8b64000091000b40/coverage)
 
-Currently Supported Calls
--------------------------
+Currently Supported Functionality
+---------------------------------
 
 * [Tracking Url](#tracking-url)
   * auto detects the provider based on the format of the tracking number
