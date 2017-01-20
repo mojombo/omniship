@@ -8,7 +8,7 @@ PATH
       rest-client
 
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     codeclimate-test-reporter (1.0.5)
       simplecov
