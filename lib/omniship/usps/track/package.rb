@@ -50,7 +50,7 @@ module Omniship
         end
 
         def scheduled_delivery
-          Omniship::USPS.parse_timestamp(@root.xpath("ExpectedDeliveryDate/text()").to_s)
+          Omniship::USPS.parse_timestamp(@root.xpath("PredictedDeliveryDate/text()").to_s)
         end
       end
     end

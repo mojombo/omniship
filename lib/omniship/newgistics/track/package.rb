@@ -31,8 +31,6 @@ module Omniship
           ARRIVAL_STATUSES.include?(@root["Status"])
         end
 
-        private 
-
         def scheduled_delivery
           Omniship::Newgistics.parse_timestamp(@root["EstimatedDeliveryDate"])
         end

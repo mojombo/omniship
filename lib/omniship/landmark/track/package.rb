@@ -32,8 +32,6 @@ module Omniship
           end
         end
 
-        private
-
         def scheduled_delivery
           Omniship::Landmark.parse_timestamp(@root.xpath('ExpectedDelivery/text()').to_s)
         end

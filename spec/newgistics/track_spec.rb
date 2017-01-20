@@ -8,6 +8,7 @@ describe "Newgistics::Track" do
   # newgistics test data is essentially random so we can't test for shipped/arrived packages. But we can test that things are formatted at least 
 
   it 'valid shipment' do 
+    skip "I no longer have valid test api credentials"
     trk = Omniship::Newgistics.track(NEWGISTICS_VALID_ID)
 
     expect(trk.shipment).to_not be_nil
@@ -37,8 +38,12 @@ describe "Newgistics::Track" do
     trk = Omniship::Newgistics::Track::Response.new(JSON.parse(track_newgistics_response))
     expect(trk.has_left?).to eq true
     expect(trk.has_arrived?).to eq true
-    expect(trk.shipment.packages.first.activity.first.address.to_s).to eq("Milwaukee, WI 53204")
-    expect(trk.shipment.packages.first.activity.first.timestamp).to_not be_nil
+    expect(trk.shipment.scheduled_delivery).to be_nil
+    activity = trk.shipment.packages.first.activity.first
+    expect(activity.code).to_not be_nil
+    expect(activity.status).to_not be_nil
+    expect(activity.address.to_s).to eq("Milwaukee, WI 53204")
+    expect(activity.timestamp).to_not be_nil
   end
 end
 

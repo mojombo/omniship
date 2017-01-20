@@ -36,7 +36,7 @@ module Omniship
 
     # <DateTime>2014-07-07 06:37:27</DateTime>
     def self.parse_timestamp(text)
-      return if text.nil?
+      return if text.nil? or text.length == 0
       Time.strptime("#{text} #{TIMEZONE}", TIMESTAMP_FORMAT)
     end
   end
