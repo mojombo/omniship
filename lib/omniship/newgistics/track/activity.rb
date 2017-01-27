@@ -1,26 +1,10 @@
 module Omniship
   module Newgistics
     module Track
-      class Activity
-
-        # Initialize a new Activity.
-        #
-        # root - The root Package XML node.
-        #
-        # Returns the newly initialized Activity.
-        def initialize(root)
-          @root = root
-        end
-
-        def root
-          @root
-        end
-
-        # The location of this activity event.
-        #
-        # Returns the Omniship::Newgistics::Track::ActivityLocation.
-        def location
-          ActivityLocation.new(@root)
+      class Activity < Omniship::Base
+        
+        def address
+          Address.new(@root)
         end
 
         def status
@@ -29,6 +13,12 @@ module Omniship
 
         def code
           @root['CarrierCode']
+        end
+
+        #  "Date":"\/Date(1469163600000-0500)\/",
+        #  "Time":"\/Date(1484870400000-0600)\/",
+        def timestamp
+          Omniship::Newgistics.parse_timestamp(@root['Date'], @root['Time'])
         end
       end
     end

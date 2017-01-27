@@ -9,9 +9,7 @@ require 'bundler/setup'
 Bundler.setup
 
 require 'omniship'
-
-require File.join(File.dirname(__FILE__), *%w[.. lib omniship])
-
+require 'mock_responses'
 
 # these are production numbers from real shipments
 # they are not varying enough to consider this a 100% test but they are a start at least
@@ -41,15 +39,18 @@ UPSMI_TEST_NUMBER = 'cgish000116630'
 
 
 RSpec.configure do |config|
+
+  config.include MockResponses
+
   config.before(:each) {
     config_file = File.join(File.dirname(__FILE__), *%w[config.yml])
 
     if File.exist?(config_file)
       Omniship.config(config_file)
+    else
+      Omniship.config("spec/sample_config.yml")
     end
-
-    Omniship.debug = false
-
+    
     Omniship::DHLGM.mailer_id = DHL_TEST_MAILER_ID
     Omniship::Landmark.test_mode = false  # not using test mode because "responses are randomized.  Some requests will succeed and some will fail with different error messages"
                                           # from https://mercury.landmarkglobal.com/clients/KnowledgeBase/index.php?topic_name=Track+API+Request&hash=539fd53b59e3bb12d203f45a912eeaf2

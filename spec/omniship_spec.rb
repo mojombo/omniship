@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe "Omniship" do
+
   it 'shipper label' do    
     LANDMARK_VALID_NUMBERS.each do |tracking|
       expect(Omniship.shipper_label(tracking)).to eq(Omniship::Landmark::LABEL), tracking

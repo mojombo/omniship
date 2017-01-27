@@ -1,25 +1,26 @@
 module Omniship
   module Landmark
     module Track
-      class Address
-        # Initialize a new Address.
-        #
-        # root - The root Package XML node.
-        #
-        # Returns the newly initialized Address.
-        def initialize(root)
-          @root = root
+      class Address < Omniship::Base
+        
+        def city
+          nil # not supported
         end
 
-        def location
-          @root.xpath("text()").to_s
+        def state
+          nil # not supported
         end
 
-        # This address as a single line comma delimited string.
-        #
-        # Returns the String address.
+        def country
+          nil # not supported
+        end
+
+        def postal_code
+          nil # not supported
+        end
+
         def to_s
-         location
+         @root.xpath("text()").to_s
         end
       end
     end

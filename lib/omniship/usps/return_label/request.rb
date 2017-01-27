@@ -45,7 +45,7 @@ module Omniship
 
       def create_document
         builder = Nokogiri::XML::Builder.new do |xml|
-          xml.send(:"EMRSV4.0Request", USERID: USPS.userid, PASSWORD: USPS.password){
+          xml.send(:"EMRSV4.0Request", USERID: USPS.userid||ENV["USPS_USERID"], PASSWORD: USPS.password||ENV["USPS_PASSWORD"]){
             xml.Option @window
             @customer.to_xml(xml)
             @retailer.to_xml(xml)

@@ -1,11 +1,8 @@
 module Omniship
   module DHLGM
     module Track
-      class Response
-        def initialize(root)
-          @root = root
-        end
-
+      class Response < Omniship::Base
+        
         def shipment
           Track::Shipment.new(@root.xpath("track/shipment"))
         end

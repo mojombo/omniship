@@ -1,29 +1,12 @@
 module Omniship
   module USPS
     module Track
-      class Package
+      class Package < Omniship::Base
 
-        # Initialize a new Package.
-        #
-        #
-        # Returns the newly initialized Package.
-        def initialize(root)
-          @root = root
-        end
-
-        def root
-          @root
-        end
-
-        # Returns the String tracking number.
         def tracking_number
           @root.attribute("ID").to_s
         end
 
-        # The activity of the package in reverse chronological order. Each
-        # element represents a stop on the package's journey.
-        #
-        # Returns an array of Omniship::USPS::Track::Activity objects.
         def activity
           @root.xpath('TrackSummary').map do |act|
             Activity.new(act)
@@ -62,47 +45,8 @@ module Omniship
           }
         end
 
-        def scheduled_delivery_date
-         @root.xpath("ExpectedDeliveryDate/text()").to_s
-        end
-
         def scheduled_delivery
-          if date = scheduled_delivery_date and !date.empty?
-            fmt = "%b %d, %Y %Z"
-            start_date = DateTime.strptime(date + " CST", fmt)
-          end
-        end
-
-
-        # Generate a URL to a Google map showing the package's activity.
-        #
-        # Returns the String URL.
-        def activity_map_url
-          url = "http://maps.google.com/maps/api/staticmap?"
-          parts = []
-
-          stops =
-            activity.map do |act|
-              CGI::escape(act.location.address.to_s)
-            end.uniq.reverse
-
-          path_parts = []
-          path_parts << "path=color:0x0000ff"
-          path_parts << "weight:5"
-          stops.each { |addy| path_parts << addy }
-          parts << path_parts.join('|')
-
-          origin = stops.shift
-          last = stops.pop
-
-          parts << "markers=color:red|size:mid|#{origin}" if origin
-          parts << "markers=color:green|#{last}"
-
-          parts << 'size=512x512'
-          parts << 'maptype=roadmap'
-          parts << 'sensor=false'
-          url += parts.join('&')
-          url
+          Omniship::USPS.parse_timestamp(@root.xpath("PredictedDeliveryDate/text()").to_s)
         end
       end
     end

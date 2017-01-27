@@ -1,0 +1,39 @@
+Omniship:
+  debug: false
+  
+  UPS:
+    username: '<%=ENV["UPS_USERNAME"]%>'
+    password: '<%=ENV["UPS_PASSWORD"]%>'
+    token: '<%=ENV["UPS_TOKEN"]%>'
+    test: false
+
+  USPS:
+    userid: '<%=ENV["USPS_USERID"]%>'
+    password: '<%=ENV["USPS_PASSWORD"]%>'
+    client_ip: 127.0.0.1
+    source_id: Wantable, Inc. 
+
+    retailer:
+      name: Wantable Inc
+      address: 112 E Mineral St
+    permit:
+      number: '<%=ENV["USPS_RETURNS_PERMIT_NUMBER"]%>'
+      city: Milwaukee
+      state: WI
+      zip5: 53204
+    pdu:
+      po_box: PO Box 514033
+      city: Milwaukee 
+      state: WI 
+      zip5: 53203
+
+  Landmark:
+    username: '<%=ENV["LANDMARK_USERNAME"]%>'
+    password: '<%=ENV["LANDMARK_PASSWORD"]%>'
+    client_id: '<%=ENV["LANDMARK_CLIENT_ID"]%>'
+    test_mode: false
+
+  DHLGM:
+    username: '<%=ENV["DHLGM_USERNAME"]%>'
+    password: '<%=ENV["DHLGM_PASSWORD"]%>'
+    mailer_id: '<%=ENV["DHLGM_MAILER_ID"]%>'

@@ -1,5 +1,4 @@
 require 'omniship/newgistics/track/activity'
-require 'omniship/newgistics/track/activity_location'
 require 'omniship/newgistics/track/address'
 require 'omniship/newgistics/track/package'
 require 'omniship/newgistics/track/shipment'

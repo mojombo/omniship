@@ -1,22 +1,26 @@
 module Omniship
   module Newgistics
     module Track
-      class Address
-        # Initialize a new Address.
-        #
-        # root - The root Package XML node.
-        #
-        # Returns the newly initialized Address.
-        def initialize(root)
-          @root = root
+      class Address < Omniship::Base
+
+        def city
+          @root["City"]
         end
 
-        def location
-          "#{@root["City"]} #{@root["State"]}, #{@root["PostalCode"]}"
+        def state
+          @root["State"]
+        end
+
+        def country
+          nil # not supported
+        end
+
+        def postal_code
+          @root["PostalCode"]
         end
 
         def to_s
-         location
+         "#{city}, #{state} #{postal_code}"
         end
       end
     end

@@ -12,6 +12,7 @@ require 'rest-client'
 
 # Internal
 require 'omniship/version'
+require 'omniship/base'
 require 'omniship/errors'
 require 'omniship/ups'
 require 'omniship/upsmi'

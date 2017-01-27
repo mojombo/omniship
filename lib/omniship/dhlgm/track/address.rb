@@ -1,28 +1,26 @@
 module Omniship
   module DHLGM
     module Track
-      class Address
-        # Initialize a new Address.
-        #
-        # root - The root Package XML node.
-        #
-        # Returns the newly initialized Address.
-        def initialize(root)
-          @root = root
-        end
-        def root
-          @root
+      class Address < Omniship::Base
+        
+        def city
+          @root.xpath("city/text()").to_s
         end
 
-        def location
-          @root.xpath("postalcode/text()").to_s
+        def state
+          @root.xpath('state/text()').to_s
         end
 
-        # This address as a single line comma delimited string.
-        #
-        # Returns the String address.
+        def country
+          @root.xpath('country/text()').to_s
+        end
+
+        def postal_code
+          @root.xpath('postalcode/text()').to_s
+        end
+
         def to_s
-         location
+          "#{city}, #{state} #{postal_code} #{country}"
         end
       end
     end

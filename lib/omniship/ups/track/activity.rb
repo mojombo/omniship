@@ -1,34 +1,24 @@
 module Omniship
   module UPS
     module Track
-      class Activity
-         
+      class Activity < Omniship::Base
 
-        # Initialize a new Activity.
-        #
-        # root - The root Package XML node.
-        #
-        # Returns the newly initialized Activity.
-        def initialize(root)
-          @root = root
-        end
-
-        # The location of this activity event.
-        #
-        # Returns the Omniship::UPS::Track::ActivityLocation.
-        def location
-          node = @root.xpath('ActivityLocation')
-          ActivityLocation.new(node)
+        def address
+          Address.new(@root.xpath('ActivityLocation').xpath('Address'))
         end
 
         def status
-          node = @root.xpath('Status/StatusType/Description').text
-
-          node
+          @root.xpath('Status/StatusType/Description').text
         end
 
         def code 
           @root.xpath('Status/StatusType/Code').text
+        end
+
+        def timestamp
+          date = @root.xpath('Date/text()').to_s
+          time = @root.xpath('Time/text()').to_s
+          Omniship::UPS.parse_timestamp(date, time)
         end
       end
     end
