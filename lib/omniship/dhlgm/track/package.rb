@@ -25,8 +25,8 @@ module Omniship
         # 600 : DELIVERED
         # 699 : DELIVERY STATUS NOT UPDATED
         def has_arrived?
-          activity.any? {|activity| 
-            (activity.code == '699' and has_arrived_at_usps?) or ['570', '580', '590', '600'].include? activity.code
+          activity.any? {|activity|
+            ['570', '580', '590', '600'].include? activity.code
           }
         end
 
@@ -35,7 +35,7 @@ module Omniship
         # 538 : DEPART USPS SORT FACILITY
         # has been accepted by the post office or has been accepted any of these should be good
         def has_arrived_at_usps?
-          self.activity.any? do |activity|  
+          self.activity.any? do |activity|
             activity.code == '510' or activity.code == '520' or activity.code == '538'
           end
         end
