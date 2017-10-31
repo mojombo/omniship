@@ -1,37 +1,24 @@
-module OmniShip
+module Omniship
   module UPS
     module Track
-      class Activity
-        # The Handsoap XML element representing the root response node.
-        attr_accessor :root
+      class Activity < Omniship::Base
 
-        # Initialize a new Activity.
-        #
-        # root - The root Package XML node.
-        #
-        # Returns the newly initialized Activity.
-        def initialize(root)
-          @root = root
+        def address
+          Address.new(@root.xpath('ActivityLocation').xpath('Address'))
         end
 
-        # The location of this activity event.
-        #
-        # Returns the OmniShip::UPS::Track::ActivityLocation.
-        def location
-          node = @root.xpath('./ns:ActivityLocation')
-          ActivityLocation.new(node)
+        def status
+          @root.xpath('Status/StatusType/Description').text
         end
 
-        # Returns a Hash representation of this object.
-        def to_hash
-          {
-            "Location" => location.to_hash
-          }
+        def code 
+          @root.xpath('Status/StatusType/Code').text
         end
 
-        # Returns the String details of this object.
-        def inspect
-          "#<OmniShip::UPS::Track::Activity location=#{location.address}>"
+        def timestamp
+          date = @root.xpath('Date/text()').to_s
+          time = @root.xpath('Time/text()').to_s
+          Omniship::UPS.parse_timestamp(date, time)
         end
       end
     end
