@@ -5,7 +5,7 @@ module Omniship
   module Landmark
     LABEL = "Landmark"
     TRACKING_REGEX = /\b(LTN\d+N\d+)\b/i
-    TRACKING_URL = "https://mercury.landmarkglobal.com/tracking/track.php?trck="
+    TRACKING_URL = "https://track.landmarkglobal.com/?trck="
     TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S %Z"
     TIMEZONE = "CST"
 

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    omniship (0.3.1)
+    omniship (0.3.2)
       curb
       json
       nokogiri
@@ -23,10 +23,10 @@ GEM
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mini_portile2 (2.1.0)
+    mini_portile2 (2.3.0)
     netrc (0.11.0)
-    nokogiri (1.7.0.1)
-      mini_portile2 (~> 2.1.0)
+    nokogiri (1.8.2)
+      mini_portile2 (~> 2.3.0)
     rake (11.2.2)
     rest-client (2.0.0)
       http-cookie (>= 1.0.2, < 2.0)
