@@ -1,0 +1,7 @@
+require 'omniship/newgistics/track/activity'
+require 'omniship/newgistics/track/address'
+require 'omniship/newgistics/track/package'
+require 'omniship/newgistics/track/shipment'
+require 'omniship/newgistics/track/error'
+require 'omniship/newgistics/track/request'
+require 'omniship/newgistics/track/response'

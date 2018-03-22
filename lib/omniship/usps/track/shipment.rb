@@ -1,16 +1,16 @@
 module Omniship
-  module UPS
+  module USPS
     module Track
       class Shipment < Omniship::Base
-
+        
         def packages
-          @root.xpath('Package').map do |package|
+          @root.xpath("TrackResponse/TrackInfo").map do |package|
             Package.new(package)
           end
         end
 
         def scheduled_delivery
-          Omniship::UPS.parse_timestamp(@root.xpath('ScheduledDeliveryDate').text)
+         packages.first.scheduled_delivery
         end
       end
     end
